@@ -60,23 +60,18 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto;
     align-items: center;
     gap: 0;
-    position: relative;
   }
 
-  /* ---- Title ---- */
   .diagram-title {
     grid-column: 1 / -1;
     text-align: center;
     font-size: 18px;
     font-weight: 800;
     margin-bottom: 20px;
-    letter-spacing: 0.5px;
   }
 
-  /* ---- Columns ---- */
   .causes-col, .effects-col {
     display: flex;
     flex-direction: column;
@@ -85,37 +80,28 @@
 
   .center-col {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0 8px;
-    position: relative;
   }
 
-  /* ---- Cause / Effect Blocks ---- */
+  /* ---- Block rows ---- */
   .block-row {
     display: flex;
     align-items: center;
     gap: 0;
   }
-  .causes-col .block-row {
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-  .effects-col .block-row {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
+  .causes-col .block-row { justify-content: flex-end; }
+  .effects-col .block-row { justify-content: flex-start; }
 
-  /* Chevron shapes via SVG backgrounds */
   .block {
-    position: relative;
     width: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
+  /* ---- Chevron shapes ---- */
   .chevron {
     width: 180px;
     height: 64px;
@@ -130,24 +116,9 @@
     width: 100%;
     height: 100%;
   }
-  .chevron input, .chevron .label-text {
+  .chevron-label {
     position: relative;
     z-index: 1;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-    background: transparent;
-    border: none;
-    outline: none;
-    text-align: center;
-    width: 130px;
-  }
-  .chevron input::placeholder {
-    color: #777;
-    font-weight: 500;
-  }
-  .chevron .label-text {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -155,36 +126,23 @@
     color: #555;
   }
 
-  /* Influence scale */
+  /* ---- Influence scale ---- */
   .influence {
-    display: flex;
-    align-items: center;
-    gap: 0;
     margin-top: 4px;
     width: 180px;
     position: relative;
     height: 22px;
   }
   .influence-track {
-    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 1px;
     background: #999;
-    position: relative;
   }
-  .influence-track::before,
-  .influence-track::after {
-    content: '';
+  .influence-tick {
     position: absolute;
-    top: -3px;
-    width: 1px;
-    height: 7px;
-    background: #999;
-  }
-  .influence-track::before { left: 0; }
-  .influence-track::after { right: 0; }
-  .influence-mid {
-    position: absolute;
-    left: 50%;
     top: -3px;
     width: 1px;
     height: 7px;
@@ -199,23 +157,18 @@
     font-size: 8px;
     font-weight: 500;
     color: #888;
-    letter-spacing: 0.3px;
   }
-  /* Clickable influence marker */
-  .influence-marker {
-    position: absolute;
-    top: -6px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--arrow-color);
-    border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    cursor: grab;
-    z-index: 2;
-    transition: left 0.15s ease;
+
+  /* ---- Dotted line for writing ---- */
+  .write-line {
+    width: 150px;
+    border: none;
+    border-bottom: 1.5px dotted #aaa;
+    height: 1px;
+    margin-top: 2px;
+    position: relative;
+    z-index: 1;
   }
-  .influence-marker:active { cursor: grabbing; }
 
   /* ---- Arrow connectors ---- */
   .arrow-connector {
@@ -224,10 +177,6 @@
     justify-content: center;
     width: 50px;
     flex-shrink: 0;
-  }
-  .arrow-connector svg {
-    width: 50px;
-    height: 20px;
   }
 
   /* ---- Center circle ---- */
@@ -238,28 +187,18 @@
     border: 2px solid var(--center-border);
     background: #fff;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 16px;
+    gap: 2px;
   }
-  .center-circle textarea {
-    font-family: var(--sans);
-    font-size: 13px;
+  .center-label {
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text);
-    background: transparent;
-    border: none;
-    outline: none;
-    text-align: center;
-    resize: none;
-    width: 110px;
-    height: 60px;
+    color: #555;
     line-height: 1.4;
-  }
-  .center-circle textarea::placeholder {
-    color: #999;
-    font-weight: 500;
   }
 
   /* ---- Name/Date line ---- */
@@ -278,47 +217,28 @@
     font-weight: 600;
     color: #555;
   }
-  .meta-field input {
-    font-family: var(--sans);
-    font-size: 12px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
+  .meta-blank {
+    display: inline-block;
     width: 160px;
-    padding: 2px 4px;
-    color: var(--text);
+    border-bottom: 1px solid #ccc;
+    height: 1px;
+    vertical-align: baseline;
+    position: relative;
+    top: -2px;
   }
+  .meta-blank.wide { width: 200px; }
 
   /* ---- Print ---- */
   @media print {
     body { padding: 0.3in; }
     .screen-only { display: none; }
-    .print-btn { display: none; }
-    .influence-marker { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-    .chevron svg { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-    input, textarea { border-bottom-color: #ccc !important; }
+    svg { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .chevron svg polygon { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   }
 
   @page {
     margin: 0.4in;
     size: landscape;
-  }
-
-  /* ---- Responsive ---- */
-  @media (max-width: 700px) {
-    .diagram {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      gap: 20px;
-    }
-    .causes-col, .effects-col {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .center-col { order: -1; }
-    .block-row { justify-content: center !important; }
-    .arrow-connector { display: none; }
   }
 </style>
 </head>
@@ -326,28 +246,29 @@
 
 <div class="screen-only">
   <h1>Cause-Effect Diagram</h1>
-  <p>Fill in the diagram, drag the influence markers, then print or save as PDF</p>
+  <p>Blank graphic organizer &mdash; print or save as PDF</p>
   <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
 </div>
 
 <div class="diagram">
   <div class="diagram-title">Cause-Effect Diagram</div>
 
-  <!-- CAUSES COLUMN -->
+  <!-- CAUSES -->
   <div class="causes-col">
     <div class="block-row">
       <div class="block">
-        <div class="chevron cause-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="0,0 150,0 180,32 150,64 0,64" fill="#d5dde0" stroke="#b0bec5" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Cause 1</div>
-          <input type="text" placeholder="Type cause..." style="margin-top:8px;">
+          <span class="chevron-label">Cause 1</span>
         </div>
-        <div class="influence" data-id="c1">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
       <div class="arrow-connector">
@@ -357,17 +278,18 @@
 
     <div class="block-row">
       <div class="block">
-        <div class="chevron cause-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="0,0 150,0 180,32 150,64 0,64" fill="#d5dde0" stroke="#b0bec5" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Cause 2</div>
-          <input type="text" placeholder="Type cause..." style="margin-top:8px;">
+          <span class="chevron-label">Cause 2</span>
         </div>
-        <div class="influence" data-id="c2">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
       <div class="arrow-connector">
@@ -377,17 +299,18 @@
 
     <div class="block-row">
       <div class="block">
-        <div class="chevron cause-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="0,0 150,0 180,32 150,64 0,64" fill="#d5dde0" stroke="#b0bec5" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Cause 3</div>
-          <input type="text" placeholder="Type cause..." style="margin-top:8px;">
+          <span class="chevron-label">Cause 3</span>
         </div>
-        <div class="influence" data-id="c3">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
       <div class="arrow-connector">
@@ -399,28 +322,31 @@
   <!-- CENTER -->
   <div class="center-col">
     <div class="center-circle">
-      <textarea placeholder="Event,&#10;Condition,&#10;Person"></textarea>
+      <span class="center-label">Event,</span>
+      <span class="center-label">Condition,</span>
+      <span class="center-label">Person</span>
     </div>
   </div>
 
-  <!-- EFFECTS COLUMN -->
+  <!-- EFFECTS -->
   <div class="effects-col">
     <div class="block-row">
       <div class="arrow-connector">
         <svg viewBox="0 0 50 20"><line x1="0" y1="10" x2="42" y2="10" stroke="#666" stroke-width="1.5"/><polygon points="42,5 50,10 42,15" fill="#666"/></svg>
       </div>
       <div class="block">
-        <div class="chevron effect-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="30,0 180,0 180,64 30,64 0,32" fill="#b8d4d8" stroke="#8fb8bf" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Effect 1</div>
-          <input type="text" placeholder="Type effect..." style="margin-top:8px;">
+          <span class="chevron-label">Effect 1</span>
         </div>
-        <div class="influence" data-id="e1">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
     </div>
@@ -430,17 +356,18 @@
         <svg viewBox="0 0 50 20"><line x1="0" y1="10" x2="42" y2="10" stroke="#666" stroke-width="1.5"/><polygon points="42,5 50,10 42,15" fill="#666"/></svg>
       </div>
       <div class="block">
-        <div class="chevron effect-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="30,0 180,0 180,64 30,64 0,32" fill="#b8d4d8" stroke="#8fb8bf" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Effect 2</div>
-          <input type="text" placeholder="Type effect..." style="margin-top:8px;">
+          <span class="chevron-label">Effect 2</span>
         </div>
-        <div class="influence" data-id="e2">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
     </div>
@@ -450,17 +377,18 @@
         <svg viewBox="0 0 50 20"><line x1="0" y1="10" x2="42" y2="10" stroke="#666" stroke-width="1.5"/><polygon points="42,5 50,10 42,15" fill="#666"/></svg>
       </div>
       <div class="block">
-        <div class="chevron effect-chevron">
+        <div class="chevron">
           <svg viewBox="0 0 180 64" preserveAspectRatio="none">
             <polygon points="30,0 180,0 180,64 30,64 0,32" fill="#b8d4d8" stroke="#8fb8bf" stroke-width="1.5"/>
           </svg>
-          <div class="label-text" style="position:absolute;top:4px;font-size:9px;z-index:1;">Effect 3</div>
-          <input type="text" placeholder="Type effect..." style="margin-top:8px;">
+          <span class="chevron-label">Effect 3</span>
         </div>
-        <div class="influence" data-id="e3">
-          <div class="influence-track"><div class="influence-mid"></div></div>
+        <div class="influence">
+          <div class="influence-track"></div>
+          <div class="influence-tick" style="left:0"></div>
+          <div class="influence-tick" style="left:50%"></div>
+          <div class="influence-tick" style="right:0"></div>
           <div class="influence-labels"><span>Weak</span><span>Influence</span><span>Strong</span></div>
-          <div class="influence-marker" style="left:calc(50% - 6px);"></div>
         </div>
       </div>
     </div>
@@ -468,52 +396,11 @@
 
   <!-- Name / Date -->
   <div class="meta-line">
-    <div class="meta-field">Name: <input type="text"></div>
-    <div class="meta-field">Date: <input type="text"></div>
-    <div class="meta-field">Topic: <input type="text" style="width:200px;"></div>
+    <div class="meta-field">Name: <span class="meta-blank"></span></div>
+    <div class="meta-field">Date: <span class="meta-blank"></span></div>
+    <div class="meta-field">Topic: <span class="meta-blank wide"></span></div>
   </div>
 </div>
-
-<script>
-// Draggable influence markers
-document.querySelectorAll('.influence').forEach(inf => {
-  const marker = inf.querySelector('.influence-marker');
-  const track = inf.querySelector('.influence-track');
-  let dragging = false;
-
-  function setPosition(clientX) {
-    const rect = inf.getBoundingClientRect();
-    let pct = (clientX - rect.left) / rect.width;
-    pct = Math.max(0, Math.min(1, pct));
-    marker.style.left = `calc(${pct * 100}% - 6px)`;
-  }
-
-  marker.addEventListener('mousedown', (e) => {
-    dragging = true;
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove', (e) => {
-    if (dragging) setPosition(e.clientX);
-  });
-  document.addEventListener('mouseup', () => { dragging = false; });
-
-  // Touch support
-  marker.addEventListener('touchstart', (e) => {
-    dragging = true;
-    e.preventDefault();
-  }, { passive: false });
-  document.addEventListener('touchmove', (e) => {
-    if (dragging) setPosition(e.touches[0].clientX);
-  }, { passive: true });
-  document.addEventListener('touchend', () => { dragging = false; });
-
-  // Click on track to set position
-  inf.addEventListener('click', (e) => {
-    if (e.target === marker) return;
-    setPosition(e.clientX);
-  });
-});
-</script>
 
 </body>
 </html>
