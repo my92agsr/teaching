@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philosophy of Teaching — Matthew Walker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2e44;
+    --navy-deep: #0f1d2e;
+    --teal: #2a7f8e;
+    --teal-light: #3a9fae;
+    --gold: #c9943e;
+    --gold-warm: #d4a843;
+    --cream: #faf6ef;
+    --cream-warm: #f5efe4;
+    --sand: #e8dfd2;
+    --text: #2c2c2c;
+    --text-light: #5a5a5a;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', Georgia, serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.75;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy-deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(42,127,142,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 60%, rgba(201,148,62,0.1) 0%, transparent 50%);
+    animation: drift 20s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(2%, -1%) rotate(1deg); }
+    66% { transform: translate(-1%, 2%) rotate(-0.5deg); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Source Sans 3', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    color: var(--gold-warm);
+    margin-bottom: 2rem;
+    font-weight: 600;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    color: var(--white);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero h1 em {
+    color: var(--gold-warm);
+    font-style: italic;
+  }
+
+  .hero-subtitle {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold-warm);
+    margin: 2.5rem auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.25);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Source Sans 3', sans-serif;
+    animation: fadeUp 1s ease 1.5s forwards, pulse 3s ease-in-out 2.5s infinite;
+    opacity: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ===== NAVIGATION ===== */
+  .toc {
+    background: var(--navy-deep);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .toc a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .toc a:hover {
+    color: var(--gold-warm);
+    background: rgba(201,148,62,0.08);
+  }
+
+  /* ===== EPIGRAPH ===== */
+  .epigraph-section {
+    background: var(--cream-warm);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .epigraph {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .epigraph blockquote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .epigraph blockquote::before {
+    content: '\201C';
+    font-size: 5rem;
+    color: var(--gold-warm);
+    position: absolute;
+    top: -2rem;
+    left: -0.5rem;
+    font-family: 'Playfair Display', serif;
+    opacity: 0.4;
+  }
+
+  .epigraph cite {
+    font-family: 'Source Sans 3', sans-serif;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    letter-spacing: 1px;
+  }
+
+  /* ===== CONTENT SECTIONS ===== */
+  .content-section {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .content-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+
+  .section-label {
+    font-family: 'Source Sans 3', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .content-section p {
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  .content-section p:last-child { margin-bottom: 0; }
+
+  .section-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold-warm);
+    margin: 0 0 2rem 0;
+  }
+
+  /* ===== PULL QUOTE ===== */
+  .pull-quote {
+    border-left: 3px solid var(--gold-warm);
+    padding: 1.5rem 0 1.5rem 2rem;
+    margin: 2.5rem 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 0 !important;
+  }
+
+  /* ===== FRAMEWORK BAND ===== */
+  .framework-band {
+    background: var(--navy-deep);
+    padding: 5rem 2rem;
+    color: var(--white);
+  }
+
+  .framework-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .framework-band h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .framework-subtitle {
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.95rem;
+    margin-bottom: 3rem;
+  }
+
+  .framework-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .framework-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .framework-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(201,148,62,0.3);
+    transform: translateY(-2px);
+  }
+
+  .card-role {
+    font-family: 'Source Sans 3', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.7rem;
+    color: var(--gold-warm);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .card-body {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  .card-theorists {
+    margin-top: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--teal-light);
+    letter-spacing: 0.5px;
+  }
+
+  .framework-statement {
+    background: rgba(201,148,62,0.08);
+    border: 1px solid rgba(201,148,62,0.2);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+  }
+
+  .framework-statement p {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--gold-warm);
+    line-height: 1.6;
+  }
+
+  /* ===== ACCENT BAND ===== */
+  .accent-band {
+    background: var(--teal);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .accent-band blockquote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    color: var(--white);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto 1rem;
+    line-height: 1.5;
+  }
+
+  .accent-band cite {
+    font-family: 'Source Sans 3', sans-serif;
+    color: rgba(255,255,255,0.6);
+    font-style: normal;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  /* ===== REFERENCES ===== */
+  .references-section {
+    background: var(--cream-warm);
+    padding: 4rem 2rem;
+  }
+
+  .references-inner {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+
+  .references-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 2rem;
+  }
+
+  .ref-entry {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.9rem;
+    padding-left: 2rem;
+    text-indent: -2rem;
+    line-height: 1.6;
+  }
+
+  .ref-entry em { font-style: italic; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .toc { gap: 0; }
+    .toc a { font-size: 0.68rem; padding: 0.4rem 0.6rem; }
+    .content-section { padding: 3rem 1.5rem; }
+    .pull-quote { padding-left: 1.25rem; }
+    .framework-band { padding: 3rem 1.5rem; }
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Philosophy of Teaching</div>
+    <h1>Meaning-Making as the<br>Purpose of <em>Education</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">
+      A framework for scaffolded interaction, translanguaging, and liberation in the multilingual classroom.
+    </p>
+    <div class="hero-meta">
+      <span>Matthew Walker</span>
+      <span>George Mason University</span>
+      <span>CEHD</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore ↓</div>
+</section>
+
+<!-- ===== NAV ===== -->
+<nav class="toc">
+  <a href="#introduction">Introduction</a>
+  <a href="#interaction">Interaction</a>
+  <a href="#scaffolding">Scaffolding</a>
+  <a href="#translanguaging">Translanguaging</a>
+  <a href="#identity">Identity</a>
+  <a href="#framework">Framework</a>
+  <a href="#growth">Growth</a>
+  <a href="#references">References</a>
+</nav>
+
+<!-- ===== EPIGRAPH ===== -->
+<section class="epigraph-section">
+  <div class="epigraph fade-in">
+    <blockquote>Dialogue cannot exist&hellip; in the absence of a profound love for the world and its people.</blockquote>
+    <cite>&mdash; Paulo Freire, <em>Pedagogy of the Oppressed</em>, 2018, p. 88</cite>
+  </div>
+</section>
+
+<!-- ===== I. INTRODUCTION ===== -->
+<section class="content-section fade-in" id="introduction">
+  <span class="section-label">I. Introduction</span>
+  <h2>The Radical Act of Making Meaning Together</h2>
+  <div class="section-divider"></div>
+
+  <p>To Freire, dialogue as a practice disrupts bias and serves as a bridge between people of different backgrounds, languages, ethnicities, and cultures. I posit that, if practiced in the classrooms of our nation&rsquo;s 131,000 schools, dialogue can pave the way toward a more just and equitable society. But dialogue is more than conversation&mdash;it is the doorway through which collaborative meaning-making enters the classroom.</p>
+
+  <p>My philosophy of teaching rests on a single conviction: <strong>all classroom activity exists in service of meaning-making.</strong> Meaning-making is inherently collaborative, inherently linguistic, and inherently political. When we center it as the purpose of education, every tool a learner possesses&mdash;every language, every lived experience, every cultural resource&mdash;becomes not just permitted but <em>essential</em>.</p>
+
+  <p>Paulo Freire teaches us that the banking model of education suppresses meaning-making, while dialogue unleashes it. bell hooks evolves this vision through what she calls <em>engaged pedagogy</em>&mdash;insisting that the classroom must be a place of excitement, and that the teacher must also be a vulnerable participant, not a detached facilitator. The teacher&rsquo;s own growth, self-actualization, and willingness to be changed by the classroom is part of what makes meaning-making possible.</p>
+
+  <p>Freire gives us the <em>why</em>&mdash;liberation. hooks gives us the <em>relational conditions</em>&mdash;engaged pedagogy, community, mutual vulnerability. Now Vygotsky, Walqui, Zwiers, Gibbons, and translanguaging pedagogy give us the <em>how</em>.</p>
+</section>
+
+<!-- ===== HOOKS QUOTE ===== -->
+<section class="accent-band">
+  <blockquote class="fade-in">&ldquo;The classroom remains the most radical space of possibility in the academy.&rdquo;</blockquote>
+  <cite>&mdash; bell hooks, <em>Teaching to Transgress</em>, 1994</cite>
+</section>
+
+<!-- ===== II. INTERACTION ===== -->
+<section class="content-section fade-in" id="interaction">
+  <span class="section-label">II. The Engine</span>
+  <h2>Interaction as the Fifth Domain</h2>
+  <div class="section-divider"></div>
+
+  <p>In the 21st-century classroom, dialogue is not only essential but the foundation of all effective learning experiences. Too often in schools, students are not challenged because they are assigned tasks to be completed individually, matched to their current level of cognitive development. However, as Vygotsky argues, learning must challenge students to perform cognitive functions beyond their level of development (Walqui, 2006). It is in this zone beyond the individual&rsquo;s capability where all meaningful learning takes place&mdash;and students get there through <em>interaction</em>.</p>
+
+  <p>What I once called &ldquo;collaboration&rdquo; is more precisely understood through Jeff Zwiers&rsquo; concept of <strong>interaction</strong> as the fifth domain of language, alongside reading, writing, listening, and speaking. Collaboration is a classroom strategy. Interaction is a <strong>linguistic competency</strong>&mdash;something students develop, practice, and carry with them. It is where meaning gets built in real time, idea by idea, utterance by utterance.</p>
+
+  <p>Zwiers&rsquo; building blocks of interaction&mdash;clarifying, supporting ideas with evidence, building on and challenging one another&rsquo;s thinking, and evaluating&mdash;are the micro-moves of meaning-making. Through peer-to-peer conversations about content and skills, students achieve higher levels of meaning-making than they could on their own (Walqui, 2006).</p>
+
+  <div class="pull-quote">
+    <p>Interaction isn&rsquo;t just cognitive and linguistic&mdash;it&rsquo;s relational and political. Who gets to interact? Whose ideas get built upon? Whose language counts? These are power questions.</p>
+  </div>
+
+  <p>hooks&rsquo; engaged pedagogy demands that the classroom be a space where students and teachers co-create knowledge. Interaction is the mechanism through which that co-creation happens. Without genuine interaction, hooks would say, you simply have a more polite version of the banking model&mdash;students &ldquo;participating&rdquo; but not truly making meaning with one another.</p>
+
+  <p>Throughout the course of each week, my students have numerous peer-to-peer conversations, group discussions, and class-wide reviews of what we have learned together. Warm-ups are primary sources distributed on physical paper for students to analyze together and solve an exciting problem. Did President Tyler die of poison? Let&rsquo;s analyze and find out! Collaborative activities, such as the USS Maine Murder Mystery, teach students content that would ordinarily be completed through direct instruction. Instead, students must weigh evidence, take positions, and build arguments <em>together</em>. Knowledge is co-constructed as we decide together what we have learned and what matters to us.</p>
+</section>
+
+<!-- ===== III. SCAFFOLDING ===== -->
+<section class="content-section fade-in" id="scaffolding">
+  <span class="section-label">III. The Medium</span>
+  <h2>Scaffolding as Structured Space</h2>
+  <div class="section-divider"></div>
+
+  <p>Walqui&rsquo;s scaffolding isn&rsquo;t just &ldquo;helping&rdquo;&mdash;it is the <strong>structured medium</strong> through which interaction occurs in the Zone of Proximal Development. There is a limit on what an individual can achieve alone, but learning can exceed this limit when a student works with one or more other students and teachers (Walqui, 2006). The ZPD is the theoretical space where learning happens. Scaffolding is the structure that makes the stretch possible&mdash;the container. Interaction is what <em>fills</em> that container with meaning-making.</p>
+
+  <p>Without scaffolding, the ZPD is just an abstraction. Without interaction, the scaffold is just a worksheet.</p>
+
+  <p>To aid student learning, I provide scaffolds to all learners that benefit not only culturally and linguistically diverse students but all early adolescents. These include graphic organizers, sentence starters, structured talk routines such as QSSSA and Think-Pair-Share, Zwiers&rsquo; Argument Balance Scale and Idea-Building Visuals, and writing structure scaffolds. With the right scaffolds and effective interaction, students with limited English proficiency can achieve or exceed the learning levels of their monolingual peers.</p>
+
+  <p>My unit design follows a three-part structure rooted in Walqui&rsquo;s framework: <strong>Preparing Learners</strong>, <strong>Interacting with Concept or Text</strong>, and <strong>Extending Understanding</strong>. The warm-ups activate prior knowledge, preparing the ZPD. The collaborative activities create structured interaction spaces, stretching the ZPD. And the co-constructed graphic organizers extend meaning beyond what any student could reach alone. The goal is what I call a <strong>&ldquo;scaffolded hand-off&rdquo;</strong>&mdash;where students eventually lead their own meaning-making.</p>
+
+  <div class="pull-quote">
+    <p>hooks would remind us that the scaffold must never become a cage. Engaged pedagogy requires flexibility&mdash;the scaffold exists to empower students, not to control them.</p>
+  </div>
+
+  <p>This is hooks&rsquo; vision of education as the practice of freedom: students don&rsquo;t just receive knowledge through scaffolds&mdash;they learn to build their own.</p>
+</section>
+
+<!-- ===== IV. TRANSLANGUAGING ===== -->
+<section class="content-section fade-in" id="translanguaging">
+  <span class="section-label">IV. The Fuel</span>
+  <h2>Translanguaging &amp; the Full Repertoire</h2>
+  <div class="section-divider"></div>
+
+  <p>If interaction is the engine and scaffolding is the medium, then <strong>translanguaging is the fuel</strong> that allows the engine to run at full capacity for multilingual learners.</p>
+
+  <p>Translanguaging&mdash;using words or phrases from a native language while engaging in a new language&mdash;is not a concession or a crutch. It is the deployment of a learner&rsquo;s full semiotic repertoire in service of meaning-making (Yilmaz, 2019; Lee, 2021). When meaning-making is the purpose of all classroom activity, the question isn&rsquo;t &ldquo;are they speaking English?&rdquo;&mdash;it&rsquo;s &ldquo;are they making meaning?&rdquo; If the answer is yes, then the linguistic tools they used to get there are not just acceptable but <em>celebrated</em>.</p>
+
+  <p>Academically, translanguaging increases the learning capability of a student by giving them more words to express ideas and develop new concepts. Students practicing their first language also improve their L1 proficiency, which leads to a greater capacity for transfer into English language proficiency (Baker &amp; Wright, 2021). Research has made clear that bolstering a student&rsquo;s L1 leads to stronger English language proficiency over time (Palmer &amp; Mart&iacute;nez, 2016). And translanguaging <strong>supercharges interaction</strong> by removing the artificial ceiling of English-only participation.</p>
+
+  <div class="pull-quote">
+    <p>A classroom that says &ldquo;English only&rdquo; is a classroom that asks students to leave part of themselves at the door. That&rsquo;s not engaged pedagogy&mdash;that&rsquo;s erasure.</p>
+  </div>
+
+  <p>hooks insists that education must affirm the <strong>wholeness</strong> of each student&mdash;their culture, their language, their lived experience, their pain, their joy. When a student uses their home language in a scaffolded interaction, they&rsquo;re not just making meaning&mdash;they&rsquo;re saying <em>I belong here, and what I bring matters</em>. hooks would call translanguaging a practice of freedom: students using their full selves to make meaning, refusing to be diminished. That is what hooks calls <strong>teaching to transgress</strong>&mdash;crossing the boundaries that traditional education has erected between &ldquo;legitimate&rdquo; and &ldquo;illegitimate&rdquo; knowledge, language, and ways of being.</p>
+</section>
+
+<!-- ===== V. IDENTITY ===== -->
+<section class="content-section fade-in" id="identity">
+  <span class="section-label">V. The Foundation</span>
+  <h2>Identity as a Conduit for Confident Meaning-Making</h2>
+  <div class="section-divider"></div>
+
+  <p>My teaching philosophy centers around a timeless truth: as human beings, every student I encounter is deserving of my time, my respect, my enthusiasm, and a smile. This is the inverse of the listless cultural idiom, &ldquo;respect is earned.&rdquo; As students learn that respect can be given to their peers before it is earned, they learn to trust one another and take pride in the classroom community they help create. This leads to a classroom where dignity is constantly bestowed upon one another, and learners can gain the confidence needed to dialogue and take risks in their academic journey.</p>
+
+  <p>The first ingredient in this successful, identity-based classroom atmosphere is myself, as I strive to build relationships with each of my students. I will often take a few minutes at the beginning of class to just talk with my students and catch up. hooks insists that learning only happens in <strong>community</strong>&mdash;not just &ldquo;groups&rdquo; but genuine communities of care where everyone&rsquo;s voice matters and everyone&rsquo;s presence is acknowledged.</p>
+
+  <p>To create a truly inclusive, student-centered classroom, I must recognize the cultural assumptions that I bring to work with me every day. In the United States, there is a strong bias that favors a monolingual perspective of language. It is all too easy for a member of this society, including a teacher like me, to subconsciously view a bilingual speaker as different or incapable when compared to their monolingual peers (Baker &amp; Wright, 2021). To create an inclusive environment, I must recognize each student as unique and, with proper scaffolding and interaction, capable of incredible achievement.</p>
+
+  <p>Maintaining a student-centered focus means utilizing all aspects of a child&rsquo;s life to bring new meaning to language and academic content&mdash;including a student&rsquo;s cultural and ethnic background. I incorporate funds of knowledge (Moll et al., 1992) and funds of identity (Esteban-Guitart &amp; Moll, 2014) into classroom instruction through cultural artifacts, songs, art, family relationships, and comprehensive student surveys. Learning is offered in multiple mediums through multiliteracies&mdash;diverse ways of presenting course materials so that students deepen their understanding through videos, graphic organizers, and interactive activities (Rajendram, 2021).</p>
+
+  <p>Language in a history course should sound like historians working. My students practice using words like &ldquo;evidence&rdquo; when they make claims verbally and use content-based words like &ldquo;consumer credit&rdquo; to describe troubles leading to the Great Depression. In this way, students develop a discourse that can be used not only in Social Studies classes but also wherever social science concepts are discussed in public and private life. Much of this language must be used student-to-student, as communicating with peers is a unique discourse that cannot be replicated in student-to-teacher talk (Gibbons, 2015).</p>
+
+  <p>As students take risks through scaffolded interaction, bestow one another with dignity and respect, and gain confidence through translanguaging and authentic relationships, learning enters quite a new place in my classroom.</p>
+</section>
+
+<!-- ===== FRAMEWORK BAND ===== -->
+<section class="framework-band" id="framework">
+  <div class="framework-inner">
+    <span class="section-label" style="color:var(--gold-warm); text-align:center; display:block;">VI. The Integrated Framework</span>
+    <h2>Pulling It All Together</h2>
+    <p class="framework-subtitle">How the pieces connect into a coherent vision of education as the practice of freedom.</p>
+
+    <div class="framework-grid">
+      <div class="framework-card fade-in">
+        <div class="card-role">The Purpose</div>
+        <div class="card-title">Meaning-Making</div>
+        <p class="card-body">All classroom activity exists in service of meaning-making. It is inherently collaborative, linguistic, and political.</p>
+        <div class="card-theorists">Freire &middot; hooks</div>
+      </div>
+      <div class="framework-card fade-in">
+        <div class="card-role">The Engine</div>
+        <div class="card-title">Interaction</div>
+        <p class="card-body">The fifth domain of language. Where meaning gets built in real time&mdash;idea by idea, utterance by utterance.</p>
+        <div class="card-theorists">Zwiers &middot; Gibbons</div>
+      </div>
+      <div class="framework-card fade-in">
+        <div class="card-role">The Medium</div>
+        <div class="card-title">Scaffolding</div>
+        <p class="card-body">The structured space that makes the stretch of the ZPD possible. Without it, interaction has nowhere to live.</p>
+        <div class="card-theorists">Walqui &middot; Vygotsky</div>
+      </div>
+      <div class="framework-card fade-in">
+        <div class="card-role">The Fuel</div>
+        <div class="card-title">Translanguaging</div>
+        <p class="card-body">The full semiotic repertoire deployed in service of meaning-making. Anything goes in the name of understanding.</p>
+        <div class="card-theorists">Yilmaz &middot; Lee &middot; Baker &amp; Wright</div>
+      </div>
+      <div class="framework-card fade-in">
+        <div class="card-role">The Foundation</div>
+        <div class="card-title">Identity Affirmation</div>
+        <p class="card-body">Funds of knowledge, funds of identity, and a dignity-first culture create the safety for risk-taking.</p>
+        <div class="card-theorists">hooks &middot; Moll &middot; Esteban-Guitart</div>
+      </div>
+      <div class="framework-card fade-in">
+        <div class="card-role">The Conditions</div>
+        <div class="card-title">Engaged Pedagogy</div>
+        <p class="card-body">Genuine community of care where every voice matters, every presence is acknowledged, and the teacher is changed too.</p>
+        <div class="card-theorists">hooks &middot; Freire</div>
+      </div>
+    </div>
+
+    <div class="framework-statement fade-in">
+      <p>In a classroom committed to meaning-making as the practice of freedom, every linguistic, cultural, and experiential resource a learner possesses is a legitimate tool for knowledge construction within scaffolded interaction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VII. MY OWN LEARNING ===== -->
+<section class="content-section fade-in" id="growth">
+  <span class="section-label">VII. My Own Learning</span>
+  <h2>Remaining a Reflective, Lifelong Learner</h2>
+  <div class="section-divider"></div>
+
+  <p>It is vital that I continue my own learning as a professional. With culturally and linguistically diverse learners and an ever-changing population, I cannot just teach the way I was taught or even the ways I have taught in the past. I plan to stay current with the latest research regarding education and improve my understanding of diverse teaching strategies. I seek to be reflective in my practice and ask administrators and colleagues for feedback on what can be better in my classroom.</p>
+
+  <p>Looking forward, I am drawn to design-based research that would allow me to systematically study the relationship between scaffolded interaction structures and meaning-making outcomes for multilingual learners. The case for bilingual programs is the logical extension of this framework&mdash;if translanguaging is the fuel, then bilingual education is building a bigger engine. I hope to lead professional developments, partner with ESOL teachers, and continue advocating for policies that honor the linguistic assets our students bring.</p>
+
+  <p>hooks leaves us with a challenge that I carry into my classroom every day: <em>Are we willing to be changed by our students? Are we willing to let meaning-making be genuinely co-constructed, even when it takes us somewhere unexpected?</em></p>
+
+  <div class="pull-quote">
+    <p>In my experience, teaching is an exercise in self-humility and self-learning. I hope to remain a reflective, lifelong learner and educator.</p>
+  </div>
+</section>
+
+<!-- ===== REFERENCES ===== -->
+<section class="references-section" id="references">
+  <div class="references-inner fade-in">
+    <h2>References</h2>
+    <p class="ref-entry">Baker, C., &amp; Wright, W. E. (2021). <em>Foundations of bilingual education and bilingualism</em>. Multilingual Matters.</p>
+    <p class="ref-entry">Esteban-Guitart, M., &amp; Moll, L. C. (2014). Funds of identity: A new concept based on the funds of knowledge approach. <em>Culture &amp; Psychology, 20</em>(1), 31&ndash;48.</p>
+    <p class="ref-entry">Freire, P. (2018). <em>Pedagogy of the oppressed: 50th anniversary edition</em>. Bloomsbury Academic.</p>
+    <p class="ref-entry">Gibbons, P. (2015). <em>Scaffolding language, scaffolding learning: Teaching English language learners in the mainstream classroom</em>. Heinemann.</p>
+    <p class="ref-entry">hooks, b. (1994). <em>Teaching to transgress: Education as the practice of freedom</em>. Routledge.</p>
+    <p class="ref-entry">Kim, S., &amp; Plotka, R. (2016). Myths and facts regarding second language acquisition in early childhood. <em>Dimensions of Early Childhood, 44</em>(1), 18&ndash;24.</p>
+    <p class="ref-entry">Lee, E. (2021). Translingualism in the teaching of English: Theoretical considerations and pedagogical implications. In P. Vinogradova &amp; J. K. Shin (Eds.), <em>Contemporary foundations for teaching English as an additional language</em> (pp. 121&ndash;130). Routledge.</p>
+    <p class="ref-entry">Llosa, L. (2023, March). <em>Supporting multilingual learners in the science classrooms</em>. ACESTEM Saturday Session.</p>
+    <p class="ref-entry">Moll, L. C., Amanti, C., Neff, D., &amp; Gonzalez, N. (1992). Funds of knowledge for teaching: Using a qualitative approach to connect homes and classrooms. <em>Theory Into Practice, 31</em>(2), 132&ndash;141.</p>
+    <p class="ref-entry">Palmer, D. K., &amp; Mart&iacute;nez, R. A. (2016). Developing biliteracy: What do teachers really need to know about language? <em>Language Arts, 93</em>(5), 379&ndash;385.</p>
+    <p class="ref-entry">Rajendram, S. (2021). A pedagogy of multiliteracies and its role in English language education. In P. Vinogradova &amp; J. K. Shin (Eds.), <em>Contemporary foundations for teaching English as an additional language</em> (pp. 151&ndash;159). Routledge.</p>
+    <p class="ref-entry">Razfar, A., &amp; Rumenapp, J. C. (2014). <em>Applying linguistics in the classroom: A sociocultural approach</em>. Routledge.</p>
+    <p class="ref-entry">Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism, 9</em>(2), 159&ndash;180.</p>
+    <p class="ref-entry">Yilmaz, T. (2019). Translanguaging as a pedagogy for equity of language minoritized students. <em>International Journal of Multilingualism, 18</em>(3), 435&ndash;454.</p>
+    <p class="ref-entry">Zwiers, J. (2014). <em>Building academic language: Meeting Common Core Standards across disciplines</em>. Jossey-Bass.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  Matthew Walker &nbsp;&middot;&nbsp; George Mason University &nbsp;&middot;&nbsp; College of Education and Human Development
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
