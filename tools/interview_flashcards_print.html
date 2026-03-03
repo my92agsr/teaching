@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep Flashcards — Print Version</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: #f4f5f9;
+    color: #1a1a2e;
+    padding: 40px 20px;
+  }
+
+  /* ---- Screen-only header ---- */
+  .screen-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .screen-header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .screen-header p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+  }
+  .print-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 28px;
+    background: #1a1a2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .print-btn:hover { transform: scale(1.03); }
+  .print-btn:active { transform: scale(0.97); }
+
+  /* ---- Card Grid ---- */
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: #fff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: #999;
+    min-width: 20px;
+  }
+  .card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .card-question {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.4;
+  }
+
+  .card-body {
+    padding: 14px 20px 18px;
+    font-size: 12px;
+    line-height: 1.65;
+    color: #333;
+  }
+
+  .card-body .section-head {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    display: block;
+    margin: 12px 0 4px 0;
+    color: #999;
+    font-weight: 400;
+  }
+  .card-body .section-head:first-child {
+    margin-top: 0;
+  }
+  .card-body strong {
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .card-body ul {
+    margin: 3px 0 3px 16px;
+    padding: 0;
+  }
+  .card-body li {
+    margin-bottom: 2px;
+  }
+
+  /* ---- Page breaks: 3 cards per page ---- */
+  .card:nth-child(3n) {
+    margin-bottom: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  /* ---- Print styles ---- */
+  @media print {
+    body {
+      background: #fff;
+      padding: 0;
+      font-size: 11px;
+    }
+    .screen-header { display: none; }
+    .page { max-width: 100%; }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      box-shadow: none;
+    }
+    .card-header {
+      padding: 10px 16px 8px;
+    }
+    .card-question {
+      font-size: 13px;
+    }
+    .card-body {
+      padding: 10px 16px 14px;
+      font-size: 10.5px;
+      line-height: 1.55;
+    }
+    .card-body .section-head {
+      font-size: 7.5px;
+      margin: 9px 0 3px 0;
+    }
+    .card-body ul {
+      margin: 2px 0 2px 14px;
+    }
+    .card-body li {
+      margin-bottom: 1px;
+    }
+
+    .card:nth-child(3n) {
+      break-after: page;
+      page-break-after: always;
+    }
+  }
+
+  @page {
+    margin: 0.5in 0.6in;
+    size: letter;
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-header">
+  <h1>Interview Prep Flashcards</h1>
+  <p>19 cards &mdash; meaning-making framework with Zwiers 2024 language. Print this page or save as PDF.</p>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="page" id="page"></div>
+
+<script>
+const cards = [
+  {
+    num: 1, question: "Tell me about your teaching philosophy.",
+    color: "#B85C38",
+    body: `<span class="section-head">Lead With</span>
+<strong>Meaning-making is the purpose of education.</strong> Not memorization, not compliance, not what Zwiers calls <strong>accumulation-based learning.</strong>
+
+<span class="section-head">Framework</span>
+<ul>
+<li>Classroom built on the <strong>Idea-Building Approach</strong></li>
+<li>Interaction = <strong>5th domain</strong> of language use (R/W/L/S + Interaction)</li>
+<li><strong>Pedagogical Justice</strong> &mdash; every student's right to idea-rich learning</li>
+</ul>
+
+<span class="section-head">Relational Foundation</span>
+<ul>
+<li><strong>hooks:</strong> teacher as vulnerable participant, not detached facilitator</li>
+<li><strong>Ubuntu:</strong> a person becomes a person through other people</li>
+<li><strong>5 areas of personal growth:</strong> self-perception, perseverance, social skills, character, multilingual identity</li>
+</ul>
+
+<span class="section-head">Architecture</span>
+<ul>
+<li><strong>Walqui:</strong> amplify, don't simplify</li>
+<li><strong>10 Elements:</strong> engaging purposes, Big-Idea Statements, information gaps, building blocks</li>
+<li>All <strong>4 WIDA domains</strong> activated through interaction</li>
+</ul>
+
+<span class="section-head">Evidence</span>
+<strong>26 of 29 students</strong> demonstrated understanding after a single lesson built this way.`
+  },
+  {
+    num: 2, question: "How do you differentiate instruction?",
+    color: "#5B4FCF",
+    body: `<span class="section-head">Lead With</span>
+Every student should be <strong>making meaning</strong>, not just those with the language to do it easily.
+
+<span class="section-head">Built-In Differentiation</span>
+<ul>
+<li><strong>Information gaps</strong> &mdash; each student brings different building blocks</li>
+<li>Every other turn = tailored <strong>oral input</strong>; every other turn = pushed <strong>oral output</strong></li>
+<li><strong>Stronger &amp; Clearer Each Time:</strong> differentiation through iteration, not ability grouping</li>
+</ul>
+
+<span class="section-head">Content Access</span>
+<ul>
+<li><strong>Walqui:</strong> amplify, don't simplify</li>
+<li><strong>Building blocks:</strong> school (texts, data) + personal (experiences, values)</li>
+<li><strong>Type A lesson</strong> (Prepping, Gathering, Processing) &mdash; same Big-Idea Statement, different entry points</li>
+<li>QSSSA across all <strong>4 WIDA domains</strong>; frames sparingly &mdash; <strong>scaffold &ne; cage</strong></li>
+</ul>
+
+<span class="section-head">Translanguaging</span>
+Same-L1 peers together, L1 graphic organizers. <strong>Clarity of ideas over correctness of language.</strong>`
+  },
+  {
+    num: 3, question: "How do you support English learners?",
+    color: "#D4770C",
+    body: `<span class="section-head">Lead With</span>
+<strong>Meaning from day one</strong> &mdash; don't wait until English "catches up." <strong>"Don't teach language to teach language &mdash; teach something interesting and support the language for doing so."</strong>
+
+<span class="section-head">Structure</span>
+<ul>
+<li><strong>Idea-Building Approach:</strong> engaging purposes, Big-Idea Statements, building blocks</li>
+<li><strong>5 conversation skills</strong> (two-way): build, pose, clarify, support, evaluate</li>
+<li>Hand gestures, idea-building cards, <strong>observer-coaches</strong></li>
+<li><strong>Walqui:</strong> amplify, don't simplify &mdash; all <strong>4 WIDA domains</strong> through interaction</li>
+</ul>
+
+<span class="section-head">Translanguaging</span>
+<ul>
+<li>Full linguistic repertoire: L1, L2, everything</li>
+<li><strong>Multilingual identity</strong> = one of 5 areas of personal growth</li>
+<li>Palmer &amp; Mart&iacute;nez: L1 bolsters L2; Baker &amp; Wright: one interconnected system</li>
+</ul>
+
+<span class="section-head">Evidence</span>
+World Cup debate: <strong>WIDA Level 1&ndash;2, 8 L1s</strong>, debating in English because the motivation was authentic.`
+  },
+  {
+    num: 4, question: "How do you build relationships with students?",
+    color: "#2D6A4F",
+    body: `<span class="section-head">Lead With</span>
+Relationships are the <strong>foundation of meaning-making.</strong> <strong>Belonging gap</strong> = one of 7 equity gaps &mdash; close it first.
+
+<span class="section-head">How You Show Up</span>
+<ul>
+<li>Every student deserving of time, respect, enthusiasm, a smile &mdash; <strong>before they've earned anything</strong></li>
+<li><strong>hooks:</strong> vulnerable participant, not detached facilitator</li>
+</ul>
+
+<span class="section-head">Philosophical Grounding</span>
+<ul>
+<li><strong>Ubuntu:</strong> a person becomes a person through other people</li>
+<li><strong>5 areas of personal growth:</strong> self-perception, perseverance, social skills, character, multilingual identity</li>
+<li>5th mindset: <strong>"I belong in this academic setting"</strong></li>
+<li>Strategic pairing &mdash; keep pairs together for weeks</li>
+</ul>
+
+<span class="section-head">Evidence</span>
+<strong>Miguel:</strong> Funds of Knowledge + personal building blocks (soccer) &rarr; Messi vs Ronaldo &rarr; <strong>WIDA Level 5 argumentation</strong> his assessments never revealed.`
+  },
+  {
+    num: 5, question: "How do you assess student learning?",
+    color: "#D4770C",
+    body: `<span class="section-head">Lead With</span>
+<strong>Assessment FOR learning, not OF learning.</strong> Measure meaning-making, not recall.
+
+<span class="section-head">Primary Tools</span>
+<ul>
+<li><strong>Write-Converse-Write:</strong> pre &rarr; conversation &rarr; post. Isolates impact of interaction.</li>
+<li><strong>Observer-coaches</strong> with silent coaching cards &mdash; peer assessment + metacognition</li>
+<li><strong>Idea-based non-test assessments</strong></li>
+<li><strong>QSSSA:</strong> daily checks across all 4 WIDA domains</li>
+</ul>
+
+<span class="section-head">Translanguaging in Assessment</span>
+<ul>
+<li>Full repertoire = more accurate picture (Ascenzi-Moreno)</li>
+<li>English-only = <strong>authentic assessment gap</strong> (1 of 7 equity gaps)</li>
+<li>Fist of Five: correct stems but low confidence &rarr; <strong>build self-efficacy too</strong></li>
+</ul>
+
+<span class="section-head">Key Line</span>
+<strong>"Assessment should serve meaning-making, not replace it."</strong>`
+  },
+  {
+    num: 6, question: "How do you handle classroom management?",
+    color: "#B85C38",
+    body: `<span class="section-head">Lead With</span>
+When students are genuinely making meaning, there's very little to <strong>"manage."</strong>
+
+<span class="section-head">Pedagogical Justice</span>
+First dimension: <strong>agency and voice.</strong> Students posing buildable ideas = they own the learning.
+
+<span class="section-head">5 Conversation Mindsets = Behavioral Architecture</span>
+<ul>
+<li>"We learn best by <strong>building up ideas</strong>" &rarr; purpose</li>
+<li>"I <strong>respect, value, and learn</strong> from others" &rarr; norms</li>
+<li>"Conversations are opportunities to <strong>shape and own</strong> what I learn" &rarr; agency</li>
+<li>"I <strong>belong</strong> in this academic setting" &rarr; safety</li>
+</ul>
+
+<span class="section-head">10 Elements Do the Work</span>
+Information gaps = need to talk. Big-Idea Statements = direction. Building blocks = material. <strong>Structure enables freedom.</strong>
+
+<span class="section-head">When Issues Arise</span>
+<strong>"I don't escalate &mdash; I reconnect."</strong> Engagement gap: students trained to be passive by accumulation-based instruction. Antidote = more meaningful interaction.`
+  },
+  {
+    num: 7, question: "Describe a successful lesson.",
+    color: "#1976A8",
+    body: `<span class="section-head">TikTok Ban Unit &mdash; Type A Lesson</span>
+
+<span class="section-head">Prepping</span>
+<ul>
+<li><strong>Big-Idea Statement:</strong> "Should the U.S. government ban TikTok?"</li>
+<li>Engaging purpose + genuine <strong>information gap</strong></li>
+<li>QSSSA bellringer: "amending" &rarr; personal building blocks + academic vocab from minute one</li>
+</ul>
+
+<span class="section-head">Gathering &amp; Processing</span>
+<ul>
+<li>Collaborative argumentation: <strong>"park" opinions, build ALL sides first</strong></li>
+<li><strong>School building blocks</strong> (sources) + <strong>personal building blocks</strong></li>
+<li>Walqui: amplify, don't simplify &mdash; Level 1&ndash;2 simplified, Level 4&ndash;5 independent</li>
+<li><strong>Translanguaging:</strong> Spanish + Amharic processing &rarr; richer English argumentation</li>
+</ul>
+
+<span class="section-head">Extending</span>
+<strong>Write-Converse-Write:</strong> 26 of 29 demonstrated understanding. Newcomers using "federal jurisdiction" and "executive authority." Every WIDA domain activated naturally.`
+  },
+  {
+    num: 8, question: "How do you work with families?",
+    color: "#7B2D8E",
+    body: `<span class="section-head">Lead With</span>
+Families are <strong>essential partners.</strong> <strong>Relationship gap</strong> (1 of 7) runs deepest between schools and families.
+
+<span class="section-head">Key Concepts</span>
+<ul>
+<li>Moll's <strong>Funds of Knowledge:</strong> families carry rich personal building blocks</li>
+<li>5th mindset ("I belong") must <strong>extend to parents and caregivers</strong></li>
+</ul>
+
+<span class="section-head">Three Structures</span>
+<ul>
+<li><strong>Parent liaisons</strong> staffed by experienced immigrant parents</li>
+<li><strong>Town hall nights</strong> for EL families</li>
+<li><strong>Funds of Knowledge training</strong> for ALL teachers</li>
+</ul>
+
+<span class="section-head">Your Practice</span>
+Discussion prompts in any language &rarr; family knowledge enters class as <strong>personal building blocks.</strong>
+
+<span class="section-head">Evidence</span>
+Aiza (Indian-American Muslim mother): <strong>"At the end of the day, it's about being a good human being."</strong>`
+  },
+  {
+    num: 9, question: "What's your approach to vocabulary instruction?",
+    color: "#D4770C",
+    body: `<span class="section-head">Lead With</span>
+Vocabulary develops through <strong>meaning-making, not memorization.</strong> <strong>"Don't teach language to teach language."</strong> Clarity of ideas over correctness of language.
+
+<span class="section-head">How It Works</span>
+<ul>
+<li>Words stick because they're used to <strong>build ideas</strong>, not because they're on a list</li>
+<li>"Federal jurisdiction" learned during TikTok debate because students <strong>needed it</strong></li>
+</ul>
+
+<span class="section-head">Tools</span>
+<ul>
+<li><strong>QSSSA stems:</strong> embed vocab across all 4 WIDA domains</li>
+<li>Frames sparingly &mdash; <strong>remove ASAP, scaffold &ne; cage</strong></li>
+<li>Word walls, anchor charts, multiple meanings (CATA: "execute")</li>
+</ul>
+
+<span class="section-head">Translanguaging</span>
+<strong>Cognates</strong> (constituci&oacute;n &rarr; Constitution), L1 processing, bilingual glossaries. Baker &amp; Wright: one interconnected system. <strong>Gibbons:</strong> peer discourse develops vocab in ways teacher talk cannot.`
+  },
+  {
+    num: 10, question: "Where do you see education heading?",
+    color: "#7B2D8E",
+    body: `<span class="section-head">Lead With</span>
+Paradigm shift: <strong>accumulation-based learning &rarr; Idea-Building Approach.</strong>
+
+<span class="section-head">Pedagogical Justice &mdash; 6 Dimensions</span>
+Agency/voice, engaging challenges, meaningful interactions, idea-building, assessment for learning, critical/creative thinking. Requires <strong>pedagogical vigilance.</strong>
+
+<span class="section-head">Structural Extension</span>
+<ul>
+<li><strong>Bilingual education:</strong> ESL pull-out = 11th percentile; two-way bilingual = <strong>70th by graduation</strong></li>
+<li><strong>7 equity gaps:</strong> agency, belonging, engagement, relationship, authentic assessment, creativity, identity</li>
+</ul>
+
+<span class="section-head">Key Lines</span>
+<ul>
+<li><strong>"Not a quick fix with a few easy steps or a scripted curriculum."</strong></li>
+<li>hooks: <strong>"Are we willing to be changed by our students?"</strong></li>
+</ul>`
+  },
+  {
+    num: 11, question: "What theoretical frameworks inform your practice?",
+    color: "#B85C38",
+    body: `<span class="section-head">Organizing Principle</span>
+<strong>Meaning-making = purpose. Interaction = engine.</strong>
+
+<span class="section-head">The Why</span>
+<strong>Freire:</strong> accumulation-based learning critique. <strong>hooks:</strong> vulnerable participant, community of care, affirm wholeness.
+
+<span class="section-head">The How (Primary Authority: Zwiers)</span>
+<ul>
+<li><strong>Interaction = 5th domain</strong> (the missing piece)</li>
+<li><strong>Idea-Building Approach:</strong> 10 elements</li>
+<li><strong>5 conversation skills</strong> (two-way): build, pose, clarify, support, evaluate</li>
+<li><strong>Pedagogical Justice + Ubuntu</strong></li>
+</ul>
+
+<span class="section-head">The Architecture</span>
+<strong>Walqui</strong> (scaffolding) &rarr; <strong>Vygotsky</strong> (ZPD) &rarr; <strong>Gibbons</strong> (peer discourse) &rarr; <strong>Baker &amp; Wright, Yilmaz</strong> (translanguaging)
+
+<span class="section-head">Key Line</span>
+<strong>"Every piece serves meaning-making, and interaction is the engine that connects them all."</strong>`
+  },
+  {
+    num: 12, question: "How do you promote equity in the classroom?",
+    color: "#7B2D8E",
+    body: `<span class="section-head">Lead With</span>
+Equity begins with <strong>who gets to make meaning.</strong>
+
+<span class="section-head">Pedagogical Justice</span>
+<strong>6 dimensions</strong> + <strong>7 equity gaps</strong> (agency, belonging, engagement, relationship, authentic assessment, creativity, identity). Accumulation-based learning <strong>silences</strong> CLD students.
+
+<span class="section-head">Interaction as Corrective</span>
+Newcomer's question sharpens fluent speaker's argument. Level 2's L1 evidence strengthens the group. <strong>Hierarchy dissolves.</strong>
+
+<span class="section-head">Linguistic Equity</span>
+hooks: "English only" = erasure. <strong>Multilingual identity</strong> = growth area. CATA: "3rd-grade" text at 8th level, <strong>omitted Three-Fifths Clause.</strong>
+
+<span class="section-head">Systemic</span>
+Bilingual ed: <strong>11th &rarr; 70th percentile.</strong> <strong>Pedagogical vigilance:</strong> building or blocking rights? hooks: <strong>"Are we willing to be changed by our students?"</strong>`
+  },
+  {
+    num: 13, question: "Summarize your experience teaching Social Studies and why you want to join this team.",
+    color: "#1976A8",
+    body: `<span class="section-head">Experience</span>
+<ul>
+<li>History, government, civics = <strong>living ideas to build</strong>, not information to accumulate</li>
+<li>Full units using <strong>Idea-Building Approach</strong>: TikTok Ban, First Amendment, constitutional compromises</li>
+<li><strong>26 of 29</strong> understanding; newcomers using "federal jurisdiction"</li>
+</ul>
+
+<span class="section-head">Why This Team</span>
+<ul>
+<li>Social Studies = inherently debatable = natural <strong>information gaps</strong></li>
+<li>Collaborative argumentation: <strong>"park" opinions, build ALL sides</strong></li>
+<li>Critical &amp; creative thinking = <strong>dimension of Pedagogical Justice</strong></li>
+</ul>
+
+<span class="section-head">What You Bring</span>
+<strong>ESOL practicum certificate</strong> + graduate career. Scaffold primary sources for Level 1 and Level 5 in same lesson. <strong>Amplify access, don't simplify content.</strong>`
+  },
+  {
+    num: 14, question: "Describe your experience with standards-based grading.",
+    color: "#1976A8",
+    body: `<span class="section-head">Lead With</span>
+SBG asks the same question you ask: <strong>what do students actually understand?</strong> Assessment FOR learning, not OF learning.
+
+<span class="section-head">Alignment</span>
+Shift from accumulation (<strong>how many points?</strong>) to meaning-making (<strong>can you demonstrate understanding?</strong>)
+
+<span class="section-head">Your Tools</span>
+<ul>
+<li><strong>Write-Converse-Write:</strong> maps directly to standards &mdash; growth on specific skills</li>
+<li><strong>QSSSA:</strong> daily data across 4 domains &mdash; each tracked separately</li>
+<li><strong>Observer-coaches:</strong> peer assessment alongside your observations</li>
+</ul>
+
+<span class="section-head">Why SBG Matters for ELs</span>
+Language development isn't linear &mdash; <strong>growth counts.</strong> Translanguaging + SBG = measure content understanding <strong>separately from English proficiency.</strong>
+
+<span class="section-head">Key Line</span>
+<strong>"Assessment should measure meaning-making, not compliance."</strong>`
+  },
+  {
+    num: 15, question: "How might we reimagine assessment to value growth, creativity, and critical thinking?",
+    color: "#1976A8",
+    body: `<span class="section-head">Lead With</span>
+<strong>"Did you store the information correctly?"</strong> vs <strong>"Did you build a deeper understanding?"</strong>
+
+<span class="section-head">The Shift</span>
+<ul>
+<li>Assessment OF &rarr; assessment <strong>FOR</strong> learning</li>
+<li>Multiple-choice &rarr; <strong>idea-based non-test assessments</strong></li>
+<li>TikTok Ban: assessment = build arguments, evaluate claims, articulate a position</li>
+</ul>
+
+<span class="section-head">Valuing Growth</span>
+<ul>
+<li><strong>Write-Converse-Write:</strong> before/after &mdash; <strong>growth IS the assessment</strong></li>
+<li>SBG: where students ARE, not points accumulated</li>
+<li>Creativity emerges from engaging purposes + <strong>genuine information gaps</strong></li>
+</ul>
+
+<span class="section-head">Equity Piece</span>
+Translanguaging: assess <strong>thinking, not English proficiency.</strong> <strong>Authentic assessment gap</strong> (1 of 7). Every student leaves knowing <strong>they are a thinker whose ideas matter.</strong>`
+  },
+  {
+    num: 16, question: "Describe your experience with Restorative Practices.",
+    color: "#2D6A4F",
+    body: `<span class="section-head">Shared Root</span>
+<strong>Ubuntu</strong> = philosophical root of both RP and your framework. Harm is relational &rarr; repair must be relational. <strong>hooks:</strong> community of care. Belonging comes first.
+
+<span class="section-head">RP Embedded in Instruction</span>
+<ul>
+<li><strong>5 conversation mindsets = community agreements</strong></li>
+<li>Daily conversations build <strong>empathy and perspective-taking</strong></li>
+<li>Same skills RP circles require: clarifying, supporting, building</li>
+<li><strong>Social skills + character traits</strong> = areas of personal growth</li>
+</ul>
+
+<span class="section-head">When Conflict Arises</span>
+<ul>
+<li><strong>"I don't escalate &mdash; I reconnect."</strong></li>
+<li>What happened? What were you thinking? Who was affected? What needs to happen?</li>
+<li><strong>Belonging gap:</strong> students who act out were told they don't belong</li>
+<li><strong>"A classroom built on ubuntu doesn't discard people; it restores them."</strong></li>
+</ul>`
+  },
+  {
+    num: 17, question: "Describe your communication methods with families for two-way communication.",
+    color: "#2D6A4F",
+    body: `<span class="section-head">Lead With</span>
+Families are <strong>meaning-making partners</strong>, not audiences for announcements.
+
+<span class="section-head">Channels</span>
+<strong>Weekly updates</strong> (English + home languages), <strong>phone/text intro</strong> (first 2 weeks), <strong>open-door conferences</strong> (families' schedules).
+
+<span class="section-head">Two-Way</span>
+<ul>
+<li><strong>Discussion prompts in any language</strong> &rarr; family knowledge = personal building blocks</li>
+<li>"What does your family think?" transforms compliance to <strong>partnership</strong></li>
+<li><strong>Fist of Five results</strong> shared: not just scores, but how students feel</li>
+</ul>
+
+<span class="section-head">Structural Advocacy</span>
+<strong>Parent liaisons</strong>, town halls for EL families, real translation. <strong>Relationship gap</strong> (1 of 7 equity gaps).
+
+<span class="section-head">Test Every Communication</span>
+Does it invite a response? Honor what families know? <strong>Build trust?</strong>`
+  },
+  {
+    num: 18, question: "What is your approach to scaffolding?",
+    color: "#5B4FCF",
+    body: `<span class="section-head">Lead With</span>
+<strong>Walqui: amplify, don't simplify.</strong> More scaffolding, more interaction, more entry points. Don't simplify the text &mdash; amplify access to it.
+
+<span class="section-head">Building Blocks + Information Gaps</span>
+Graphic organizer, a partner who creates a natural <strong>information gap</strong>, sentence stems that <strong>scaffold without becoming cages</strong>, translanguaging space. Vygotsky &rarr; Walqui &rarr; Zwiers.
+
+<span class="section-head">Type A &amp; Type B Lessons</span>
+<ul>
+<li><strong>Type A</strong> (Prepping, Gathering, Processing): scaffold into independent idea-building</li>
+<li><strong>Type B</strong> (Modeling, Practicing, Workshopping): scaffold specific skills</li>
+<li>Both: <strong>high support &rarr; deliberate fade</strong></li>
+</ul>
+
+<span class="section-head">Scaffolds Must Come Down</span>
+Frames sparingly, <strong>remove ASAP.</strong> Permanent scaffold = replacing growth. QSSSA: stem gives entry, <strong>thinking fills the blank.</strong> Translanguaging IS a scaffold. <strong>"Bridge to meaning-making, not a crutch."</strong>`
+  },
+  {
+    num: 19, question: "Is there any additional information you'd like to share?",
+    color: "#B85C38",
+    body: `<span class="section-head">Core Conviction</span>
+Education exists to help students <strong>make meaning.</strong> <strong>Idea-Building Approach</strong> = operational architecture. <strong>Pedagogical Justice</strong> = moral urgency. Agency, voice, meaningful interactions = <strong>non-negotiables.</strong>
+
+<span class="section-head">What Sets You Apart</span>
+<ul>
+<li>Not just Zwiers' structures &mdash; you know <strong>why they work</strong></li>
+<li>Freire + hooks &rarr; Walqui + Vygotsky &rarr; Baker &amp; Wright + Yilmaz</li>
+<li>Level 1 and Level 5 making meaning in the <strong>same conversation</strong></li>
+<li><strong>17 graduate papers</strong> taught you to think this way</li>
+</ul>
+
+<span class="section-head">Close With</span>
+<ul>
+<li>hooks: <strong>"willing to be changed by our students"</strong></li>
+<li>Zwiers: <strong>pedagogical vigilance</strong></li>
+<li><strong>"I call it the work I want to spend my career doing. Thank you for your time."</strong></li>
+</ul>`
+  }
+];
+
+// Render cards
+const page = document.getElementById('page');
+page.innerHTML = cards.map(c => `
+  <div class="card">
+    <div class="card-header">
+      <span class="card-num">${c.num}</span>
+      <span class="card-dot" style="background:${c.color}"></span>
+      <span class="card-question">${c.question}</span>
+    </div>
+    <div class="card-body">${c.body}</div>
+  </div>
+`).join('');
+</script>
+
+</body>
+</html>
