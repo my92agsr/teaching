@@ -1,22 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matt Walker | Teaching Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
 <style>
-body{font-family:system-ui,sans-serif;max-width:600px;margin:80px auto;padding:0 20px;color:#333}
-h1{font-size:24px}
-a{color:#C4880D;text-decoration:none}
-a:hover{text-decoration:underline}
-li{margin-bottom:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px}
+.container{max-width:800px;margin:0 auto}
+.header{text-align:center;margin-bottom:40px}
+.header .label{font-size:10px;font-weight:800;letter-spacing:2.5px;color:#C4880D;text-transform:uppercase;margin-bottom:6px}
+.header h1{font-size:28px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
+.header p{font-size:14px;color:#888;max-width:500px;margin:0 auto;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+a.card{display:block;text-decoration:none;color:inherit;background:#fff;border-radius:14px;border:1px solid #e8e8e8;overflow:hidden;transition:all 0.25s ease;position:relative}
+a.card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08);border-color:#ddd}
+.card-preview{height:180px;overflow:hidden;position:relative;border-bottom:1px solid #eee}
+.card-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:top left;pointer-events:none;border:none}
+.card-preview .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(255,255,255,0.9));z-index:1}
+.card-body{padding:16px 20px}
+.card-body .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:8px}
+.card-body h2{font-size:17px;font-weight:800;color:#1a1a2e;margin-bottom:4px}
+.card-body p{font-size:12px;color:#888;line-height:1.5}
+.card-body .arrow{position:absolute;bottom:16px;right:20px;font-size:18px;color:#ccc;transition:all 0.2s}
+a.card:hover .arrow{color:#C4880D;transform:translateX(3px)}
+.footer{text-align:center;margin-top:40px;font-size:11px;color:#ccc}
 </style>
 </head>
 <body>
-<h1>Teaching Tools</h1>
-<ul>
-<li><a href="/tools/wida-toolkit.html">WIDA x Zwiers Teaching Toolkit</a> - Framework, conversation skills and protocols</li>
-<li><a href="/tools/WIDA_x_Zwiers_5x4_Framework_1.html">5x4 Domain x KLU Matrix</a> - Interactive framework explorer</li>
-<li><a href="/tools/zwiers_key_ideas.html">Zwiers Key Ideas</a></li>
-</ul>
+<div class="container">
+  <div class="header">
+    <p class="label">mattwalker.education</p>
+    <h1>Teaching Tools</h1>
+    <p>Interactive frameworks and resources for academic language development in ESOL classrooms</p>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="/tools/wida-toolkit.html">
+      <div class="card-preview">
+        <iframe src="/tools/wida-toolkit.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#C4880D18;color:#C4880D">Toolkit</span>
+        <h2>WIDA &times; Zwiers Teaching Toolkit</h2>
+        <p>Full 5&times;4 framework with conversation skills, graphic organizers, and structured protocols for academic dialogue</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a class="card" href="/tools/WIDA_x_Zwiers_5x4_Framework_1.html">
+      <div class="card-preview">
+        <iframe src="/tools/WIDA_x_Zwiers_5x4_Framework_1.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#5B8DBE18;color:#5B8DBE">Framework</span>
+        <h2>5&times;4 Domain &times; KLU Matrix</h2>
+        <p>Interactive explorer for 20 Domain &times; KLU intersections with classroom scenarios, tasks, and stems</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a class="card" href="/tools/zwiers_key_ideas.html">
+      <div class="card-preview">
+        <iframe src="/tools/zwiers_key_ideas.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#6A9B4F18;color:#6A9B4F">Reference</span>
+        <h2>Zwiers Key Ideas</h2>
+        <p>Core concepts from Jeff Zwiers' academic conversations research</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+  </div>
+
+  <p class="footer">WIDA ELD Standards (2020) &times; Zwiers' Academic Conversations &times; Constructive Conversation Skills</p>
+</div>
 </body>
 </html>
