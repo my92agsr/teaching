@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESOL Interview Prep — Scaffolding Flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+Pro:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #111e36;
+    --text-primary: #e4ecf7;
+    --text-muted: #7a9cc6;
+    --text-dim: rgba(255,255,255,0.2);
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Source Sans Pro', -apple-system, sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, var(--bg-deep) 0%, #152240 50%, var(--bg-deep) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    font-family: var(--sans);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 30%, rgba(43,100,168,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 85% 70%, rgba(30,70,130,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---- Header ---- */
+  .header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .header-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .header-subtitle {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  /* ---- Progress ---- */
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+  }
+  .dot.active {
+    width: 30px;
+    box-shadow: 0 0 14px var(--card-color, #2b64a8);
+  }
+  .dot:hover:not(.active) {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ---- Card Label ---- */
+  .card-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    transition: color 0.4s ease;
+  }
+
+  /* ---- Flashcard ---- */
+  .card-container {
+    width: 100%;
+    min-height: 370px;
+    perspective: 1200px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .card-inner {
+    width: 100%;
+    min-height: 370px;
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .card-inner.flipped {
+    transform: rotateY(180deg);
+  }
+  .card-inner.slide-out-left {
+    animation: slideOutLeft 0.28s ease-in forwards;
+  }
+  .card-inner.slide-out-right {
+    animation: slideOutRight 0.28s ease-in forwards;
+  }
+  .card-inner.slide-in {
+    animation: slideIn 0.32s ease-out forwards;
+  }
+
+  @keyframes slideOutLeft {
+    to { opacity: 0; transform: translateX(-60px) scale(0.95); }
+  }
+  @keyframes slideOutRight {
+    to { opacity: 0; transform: translateX(60px) scale(0.95); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(0) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    min-height: 370px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 18px;
+    padding: 40px 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-front {
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 24px 64px rgba(0,0,0,0.45),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .card-back {
+    transform: rotateY(180deg);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow:
+      0 24px 64px rgba(0,0,0,0.45),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 32px 30px;
+    overflow-y: auto;
+    max-height: 440px;
+  }
+
+  .card-icon {
+    font-size: 42px;
+    margin-bottom: 20px;
+    filter: saturate(0.85);
+  }
+  .card-front-text {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: center;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+  .card-back-text {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    color: #c8d8ec;
+    line-height: 1.75;
+    white-space: pre-line;
+    width: 100%;
+  }
+  .card-back-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .flip-hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1.5px;
+    margin-top: 22px;
+  }
+
+  /* ---- Navigation ---- */
+  .nav-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+    align-items: center;
+  }
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    font-family: var(--sans);
+  }
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-primary);
+    transform: scale(1.05);
+  }
+  .nav-btn:active {
+    transform: scale(0.95);
+  }
+
+  .keyboard-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 480px) {
+    .header-title { font-size: 20px; }
+    .card-face { padding: 28px 22px; min-height: 330px; }
+    .card-container { min-height: 330px; }
+    .card-inner { min-height: 330px; }
+    .card-front-text { font-size: 17px; }
+    .card-back-text { font-size: 13.5px; }
+    .card-back { padding: 26px 22px; max-height: 400px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-tag">Interview Prep Flashcards</div>
+    <div class="header-title">"How Do You Approach Scaffolding?"</div>
+    <div class="header-subtitle">7 cards · tap to flip · arrows to navigate</div>
+  </div>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="card-label" id="cardLabel"></div>
+
+  <div class="card-container" id="cardContainer" onclick="flipCard()">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front" id="cardFront"></div>
+      <div class="card-face card-back" id="cardBack"></div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="navigate('prev')" aria-label="Previous card">←</button>
+    <button class="nav-btn" onclick="navigate('next')" aria-label="Next card">→</button>
+  </div>
+
+  <div class="keyboard-hint">← → arrow keys · spacebar to flip</div>
+</div>
+
+<script>
+const cards = [
+  {
+    id: 1, label: "OPENING",
+    front: "How do you open your\nscaffolding answer?",
+    back: `Lead with <strong>Walqui's big idea</strong>: scaffolding is both STRUCTURE (what you plan) and PROCESS (how you respond in the moment). Most teachers only do the first half — you do both.\n\nThen say: "I think about scaffolding through <strong>Walqui's three-tier framework</strong>..." and walk them through each tier using your own classroom examples.`,
+    color: "#1B4F72", icon: "🎯"
+  },
+  {
+    id: 2, label: "TIER 1 — MACRO DESIGN",
+    front: "Tier 1: Macro-Level Design\n\nWhat is it & what's your example?",
+    back: `The <strong>architecture of the UNIT itself</strong> is scaffolding.\n\n"When I designed my WWI DBQs, I sequenced lessons so students built background knowledge progressively — <strong>photographs and maps before primary source text, collaborative discussion before independent writing.</strong>"\n\n"The unit structure itself is the first layer of scaffolding."`,
+    color: "#2E86C1", icon: "🏗️"
+  },
+  {
+    id: 3, label: "TIER 2 — ACTIVITY SCAFFOLDS",
+    front: "Tier 2: Activity-Level Scaffolds\n\nWhat is it & what's your example?",
+    back: `Within each lesson, differentiate by proficiency using <strong>WIDA Can-Do Descriptors</strong>:\n\n• <strong>WIDA 1–2</strong> → Annotated sources, visual glossaries, sentence frames\n• <strong>WIDA 3–4</strong> → Sentence starters, partially annotated texts\n• <strong>WIDA 5+</strong> → Original sources, open-ended prompts\n\n"Same essential question, same intellectual rigor — <strong>different entry points.</strong>"`,
+    color: "#2874A6", icon: "🔧"
+  },
+  {
+    id: 4, label: "TIER 3 — CONTINGENT SUPPORT",
+    front: "Tier 3: Moment-to-Moment\nContingent Support\n\nWhat is it & what's your example?",
+    back: `<strong>"This is where the magic happens."</strong>\n\nDuring Zwiers-style constructive conversations, you circulate & listen:\n\n• Student can't fortify their claim → prompt for evidence\n• Two students stuck negotiating → reframe the question\n\nThis responsive, real-time adjustment is what Walqui calls <strong>contingent scaffolding</strong> — only possible if you're <strong>listening, not lecturing.</strong>`,
+    color: "#21618C", icon: "⚡"
+  },
+  {
+    id: 5, label: "THE LANDING",
+    front: "How do you close the answer?",
+    back: `Land on <strong>AUTONOMY</strong> — Walqui's 5th QTEL principle.\n\n"Scaffolding is <strong>temporary by design</strong>. The whole point is to work myself out of a job."\n\n"The sentence frames a newcomer needs in September should be unnecessary by March — and if they're not, <strong>I need to examine my instruction, not the student.</strong>"`,
+    color: "#1A5276", icon: "🎬"
+  },
+  {
+    id: 6, label: "THE POWER MOVE",
+    front: "What's the secret sauce move?",
+    back: `<strong>Pull out your DBQ materials!</strong>\n\n"Actually, I brought an example — can I show you?"\n\nWalk them through how the <strong>SAME primary source document</strong> is scaffolded at three proficiency levels.\n\nA physical artifact moves you from "person who talks about teaching" to <strong>"person who DOES the teaching."</strong>`,
+    color: "#154360", icon: "🃏"
+  },
+  {
+    id: 7, label: "DELIVERY TIPS",
+    front: "Pro tips to remember\non interview day",
+    back: `• Name-drop Walqui & Zwiers <strong>once each, max.</strong> More sounds rehearsed. Once sounds like how you think.\n\n• <strong>Don't rush</strong> — this answer deserves 90 sec to 2 min. The three-tier structure gives natural pacing.\n\n• <strong>Breathe between tiers.</strong> Let each one land.\n\n• End every example with <strong>STUDENT IMPACT.</strong>\n\n• Bring a clean folder with work samples + one index card with trigger words tucked inside.`,
+    color: "#0E3A56", icon: "💡"
+  }
+];
+
+let currentIndex = 0;
+let flipped = false;
+let animating = false;
+
+function renderCard() {
+  const card = cards[currentIndex];
+
+  // Update progress dots
+  const progressEl = document.getElementById('progress');
+  progressEl.innerHTML = cards.map((c, i) => {
+    const isActive = i === currentIndex;
+    return `<button class="dot ${isActive ? 'active' : ''}" 
+      style="background: ${isActive ? c.color : 'rgba(255,255,255,0.1)'}; --card-color: ${c.color};"
+      onclick="jumpTo(${i})" aria-label="Card ${i + 1}: ${c.label}"></button>`;
+  }).join('');
+
+  // Update label
+  const labelEl = document.getElementById('cardLabel');
+  labelEl.textContent = `${card.label} — Card ${currentIndex + 1} of ${cards.length}`;
+  labelEl.style.color = card.color;
+
+  // Update card faces
+  const frontEl = document.getElementById('cardFront');
+  frontEl.style.background = `linear-gradient(150deg, ${card.color}18, ${card.color}08)`;
+  frontEl.style.borderColor = `${card.color}35`;
+  frontEl.innerHTML = `
+    <div class="card-icon">${card.icon}</div>
+    <div class="card-front-text">${card.front}</div>
+    <div class="flip-hint">tap to flip →</div>
+  `;
+
+  const backEl = document.getElementById('cardBack');
+  backEl.style.background = `linear-gradient(150deg, ${card.color}28, ${card.color}12)`;
+  backEl.style.borderColor = `${card.color}50`;
+  backEl.innerHTML = `
+    <div class="card-back-text">${card.back}</div>
+    <div class="flip-hint" style="align-self: center;">tap to flip back</div>
+  `;
+
+  // Reset flip
+  const innerEl = document.getElementById('cardInner');
+  innerEl.classList.remove('flipped');
+  flipped = false;
+}
+
+function flipCard() {
+  if (animating) return;
+  const innerEl = document.getElementById('cardInner');
+  flipped = !flipped;
+  innerEl.classList.toggle('flipped', flipped);
+}
+
+function navigate(dir) {
+  if (animating) return;
+  animating = true;
+
+  const innerEl = document.getElementById('cardInner');
+  const slideClass = dir === 'next' ? 'slide-out-left' : 'slide-out-right';
+
+  innerEl.classList.remove('flipped');
+  flipped = false;
+  innerEl.classList.add(slideClass);
+
+  setTimeout(() => {
+    innerEl.classList.remove(slideClass);
+    currentIndex = dir === 'next'
+      ? (currentIndex + 1) % cards.length
+      : (currentIndex - 1 + cards.length) % cards.length;
+    renderCard();
+    innerEl.classList.add('slide-in');
+
+    setTimeout(() => {
+      innerEl.classList.remove('slide-in');
+      animating = false;
+    }, 320);
+  }, 280);
+}
+
+function jumpTo(index) {
+  if (animating || index === currentIndex) return;
+  animating = true;
+  const innerEl = document.getElementById('cardInner');
+  const dir = index > currentIndex ? 'slide-out-left' : 'slide-out-right';
+  
+  innerEl.classList.remove('flipped');
+  flipped = false;
+  innerEl.classList.add(dir);
+
+  setTimeout(() => {
+    innerEl.classList.remove(dir);
+    currentIndex = index;
+    renderCard();
+    innerEl.classList.add('slide-in');
+    setTimeout(() => {
+      innerEl.classList.remove('slide-in');
+      animating = false;
+    }, 320);
+  }, 280);
+}
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') navigate('next');
+  else if (e.key === 'ArrowLeft') navigate('prev');
+  else if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+// Touch swipe support
+let touchStartX = 0;
+let touchEndX = 0;
+const container = document.getElementById('cardContainer');
+
+container.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+container.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 60) {
+    e.preventDefault();
+    if (diff > 0) navigate('next');
+    else navigate('prev');
+  }
+});
+
+// Init
+renderCard();
+</script>
+
+<script src="/auth.js"></script>
+</body>
+</html>
