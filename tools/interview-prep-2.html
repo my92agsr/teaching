@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secondary Interview Questions — Meaning-Making Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --warm-white: #faf6f0;
+    --cream: #f2ebe0;
+    --sand: #e6ddd0;
+    --terracotta: #c45d3e;
+    --deep-teal: #2a6b6b;
+    --muted-gold: #b8963e;
+    --forest: #3a6b4a;
+    --soft-purple: #8b6fa0;
+    --blue-ink: #3a5a7c;
+    --text: #2c2c2c;
+    --text-light: #5a5a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', Georgia, serif;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.75;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #1a1612 0%, #2a2018 50%, #1a1612 100%);
+    text-align: center;
+    padding: 3.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(42,107,107,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 60%, rgba(184,150,62,0.08) 0%, transparent 50%);
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.72rem;
+    color: var(--muted-gold);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .hero-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted-gold);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(184,150,62,0.3);
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .hero-link:hover { border-color: var(--muted-gold); }
+
+  .content { max-width: 800px; margin: 0 auto; padding: 2rem 2rem 3rem; }
+
+  .qa-card {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--sand);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .qa-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+
+  .qa-question {
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .qa-question:hover { background: rgba(0,0,0,0.01); }
+
+  .qa-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--deep-teal);
+    min-width: 24px;
+    flex-shrink: 0;
+  }
+
+  .qa-q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .qa-toggle {
+    font-size: 0.85rem;
+    color: #bbb;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .qa-card.open .qa-toggle { transform: rotate(90deg); }
+
+  .qa-answer {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    padding-left: 3rem;
+  }
+
+  .qa-card.open .qa-answer { display: block; }
+
+  .qa-answer p {
+    margin-bottom: 1rem;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .qa-answer p:last-child { margin-bottom: 0; }
+
+  .qa-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+
+  .section-break {
+    text-align: center;
+    padding: 2rem 0 1rem;
+  }
+
+  .section-break h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .section-break hr {
+    border: none;
+    border-top: 1px solid var(--sand);
+    margin-top: 0.75rem;
+  }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  footer a { color: var(--muted-gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .content { padding: 1.5rem; }
+    .qa-question { padding: 1rem 1.25rem; }
+    .qa-answer { padding: 0 1.25rem 1.25rem; padding-left: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Interview Prep &middot; Part 2</div>
+    <h1>Secondary Interview Questions</h1>
+    <p class="hero-subtitle">34 additional questions answered through the meaning-making framework.</p>
+    <a class="hero-link" href="/tools/interview-prep.html">&larr; Back to Primary Questions</a>
+  </div>
+</div>
+
+<div class="content">
+
+<div class="section-break"><h2>Philosophy &amp; Approach</h2><hr></div>
+
+<!-- Q1 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">01</span>
+    <span class="qa-q-text">How will you put the student at the center of your lessons?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Meaning-Making &middot; Agency</span>
+    <p>Putting the student at the center starts with a fundamental shift in purpose: the classroom exists for meaning-making, not content delivery. That means students aren't receiving knowledge from me — they're constructing it with each other. Every lesson I design begins with a question worth caring about, not a standard to be covered. When students are investigating whether President Tyler was poisoned or debating whether immigration policy reflects American values, they are at the center because their thinking, their evidence, and their conclusions drive the learning.</p>
+    <p>Structurally, I center students through Zwiers' Idea-Building Approach. Students interact using building blocks — clarifying, supporting with evidence, building on peers' ideas, evaluating. These are student moves, not teacher moves. I provide the scaffolding and the structure, but the intellectual work belongs to them. I also center students by honoring what they bring: funds of knowledge, funds of identity, home languages. When a student uses their L1 to brainstorm before drafting in English, that's not a detour from learning — that's a student using their full self to make meaning. hooks reminds us that engaged pedagogy requires the classroom to be a place where every student's presence is acknowledged and every voice matters. That's what student-centered actually means.</p>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">02</span>
+    <span class="qa-q-text">How will you approach diversity in the classroom?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Identity &middot; Translanguaging &middot; Equity</span>
+    <p>Diversity is not a challenge to manage — it's the greatest asset in the room. Every language a student speaks, every cultural perspective they carry, every lived experience they bring is a tool for meaning-making. My approach is grounded in Moll's funds of knowledge and Esteban-Guitart's funds of identity: I learn about my students' backgrounds through cultural artifacts, family interviews, and comprehensive surveys, and I weave those into instruction. A student who has navigated two countries and three school systems has analytical skills that a monolingual student cannot access.</p>
+    <p>Practically, I approach diversity through translanguaging — allowing and celebrating the use of home languages as legitimate tools for learning. Baker and Wright's research confirms what I see daily: bolstering L1 strengthens English proficiency over time. I approach diversity through multiple entry points to rigorous tasks — not different tasks for different students, but strategic scaffolds that give every student access to the same high-level thinking. And I approach diversity by examining my own biases. In a society with a strong monolingual bias, I must constantly check whether I'm unconsciously positioning bilingual students as deficient rather than capable. Zwiers calls this pedagogical vigilance — the ongoing discipline of asking whether my structures are building or blocking access.</p>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">03</span>
+    <span class="qa-q-text">Name three reasons you are the best candidate, or three adjectives that best describe you.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Personal</span>
+    <p><strong>Integrated.</strong> I don't just know Zwiers' conversation structures — I know why they work, because I've studied the theoretical foundations from Freire and hooks on the purpose of education, from Walqui and Vygotsky on scaffolding, from Baker and Wright on bilingualism. I can design a lesson where a WIDA Level 1 student and a Level 5 student are making meaning in the same conversation because I understand the framework deeply enough to adapt it in real time. Seventeen graduate papers taught me to think this way.</p>
+    <p><strong>Relational.</strong> I believe that learning only happens in genuine community — not just groups, but spaces of care where dignity is bestowed before it's earned. I build relationships with every student because hooks taught me that the teacher must be a vulnerable participant, not a detached facilitator. When I take a few minutes at the beginning of class to just talk with my students, that's not wasted instructional time — it's the foundation that makes meaning-making possible.</p>
+    <p><strong>Reflective.</strong> hooks asks whether we're willing to be changed by our students. I am. I actively seek feedback, I study my own practice, and I've changed my approach when the evidence showed me a better way. I once called what I do "collaboration" until I read Zwiers and realized that interaction is a far more precise and powerful concept. That willingness to revise my thinking — not just my lessons — is what makes me grow.</p>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">04</span>
+    <span class="qa-q-text">What will you bring from your background and experience to teaching?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Personal &middot; Framework</span>
+    <p>I bring a coherent framework grounded in 17 graduate research papers and tested in real classrooms. Most teachers have strategies. I have a philosophy with operational architecture: meaning-making as the purpose, interaction as the engine, scaffolding as the medium, translanguaging as the fuel, and identity as the foundation. Zwiers' Pedagogical Justice framework gives that philosophy its moral urgency and its assessment structure. I don't just know what to do — I know why it works, and I can adapt when it doesn't.</p>
+    <p>I also bring Social Studies content expertise and a deep belief that history class should sound like historians working. My students practice words like "evidence," "causation," and "perspective" because those aren't just vocabulary words — they're the discourse of the discipline. And I bring experience working with multilingual learners across proficiency levels, designing lessons where newcomers and advanced students make meaning together rather than being separated into proficiency tracks.</p>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">05</span>
+    <span class="qa-q-text">How will you support EL students in your classroom?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Scaffolding &middot; Interaction &middot; Translanguaging</span>
+    <p>I support EL students by designing every lesson so that language development and content learning happen simultaneously — not sequentially. Zwiers' insight is that academic language doesn't develop through vocabulary lists and grammar drills. It develops through purposeful use in authentic contexts. When a student argues with a peer about whether economic or social factors caused the Great Depression, they're developing the academic discourse of historical analysis at the same time they're building content understanding.</p>
+    <p>My support structures include scaffolded interaction protocols (QSSSA, Think-Pair-Share with accountable talk stems, building blocks conversations), translanguaging as a principled practice (students think in their strongest language first, then bridge to English), graphic organizers and sentence frames that provide access to rigor without lowering the ceiling, and Walqui's three-phase lesson design: preparing learners, interacting with concept or text, and extending understanding. I also use WIDA Can-Do descriptors to understand what students CAN do at every proficiency level, rather than focusing on deficits. A Level 1 student can evaluate, analyze, and create — they just need the right scaffolds to show it.</p>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">06</span>
+    <span class="qa-q-text">Rigor, relevance, relationship — rank these in order of importance and explain why.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Framework Hierarchy</span>
+    <p><strong>Relationship first.</strong> Without relationship, nothing else is possible. hooks insists that learning only happens in genuine community — not groups, but spaces of care where every voice matters. Students must believe they belong before they'll take intellectual risks. Zwiers identifies the belonging gap as one of seven equity gaps: students who don't feel seen, valued, and safe will never access rigorous learning, no matter how well-designed the task. Relationship is the foundation of my framework — I build it through identity affirmation, dignity before it's earned, and genuine interest in who my students are.</p>
+    <p><strong>Relevance second.</strong> Once students belong, the work must matter to them. Relevance isn't about making everything "fun" — it's about connecting academic content to questions worth caring about, to students' lives, cultures, and futures. When I use funds of knowledge and funds of identity to shape instruction, I'm making relevance structural, not superficial. Zwiers' idea-building approach demands that students build understanding around ideas that transfer beyond the unit — that's deep relevance.</p>
+    <p><strong>Rigor third — but not less important.</strong> Rigor without relationship is coercion. Rigor without relevance is compliance. But rigor WITH relationship and relevance is where meaning-making lives. The challenge IS the learning. I scaffold up to rigor, never water down. And I hold the same intellectual expectations for every student — because critical thinking is a right, not a tier. This ranking isn't about importance; it's about sequence. You build the relationship, establish the relevance, and then rigor becomes not just possible but natural.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Classroom Management &amp; Behavior</h2><hr></div>
+
+<!-- Q7 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">07</span>
+    <span class="qa-q-text">How would you deal with behavior problems — chair throwing, stabbing with a pencil?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Safety &middot; Restorative &middot; Relationship</span>
+    <p>Safety is always first and non-negotiable. In a crisis like chair-throwing or physical aggression, I separate the students, secure the environment, and follow the school's emergency protocols immediately. That's not a philosophical question — that's protecting every student and adult in the room.</p>
+    <p>But the more important question is what happens before and after. Before: most extreme behaviors are downstream of unmet needs — Zwiers' belonging gap, agency gap, or engagement gap. A classroom built on genuine community, where dignity is bestowed and interaction is the norm, dramatically reduces the conditions that produce explosive behavior. When students have voice, when they feel seen, when the work is engaging and challenging — chair-throwing rarely enters the picture. After: I believe in restorative practices over purely punitive responses. The goal is to understand what happened, repair the harm, and rebuild the relationship. A student who throws a chair is telling me something — about their frustration, their history, their pain. Punishment alone doesn't address any of that. A restorative conversation that says "you belong here, and we need to figure out what went wrong" does.</p>
+    <p>That said, I'm not naive. Some behaviors require administrative support, counselor referral, or safety plans. My role is to be the steady, caring adult who maintains the relationship even through crisis — because if I lose the relationship, I lose the student.</p>
+  </div>
+</div>
+
+<!-- Q8 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">08</span>
+    <span class="qa-q-text">How do you manage your classroom?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Community &middot; Structure &middot; Meaning-Making</span>
+    <p>My classroom management IS my instructional approach — they're not separate systems. When students are engaged in meaningful interaction, building ideas together with scaffolded protocols, management largely takes care of itself. The biggest management problems in schools come from accumulation-based classrooms where students sit passively and have nothing intellectually engaging to do. Boredom and disengagement produce behavior problems. Meaning-making produces investment.</p>
+    <p>Structurally, I manage through routines and protocols that students internalize: QSSSA for processing before sharing, building blocks for peer conversation, clear transitions between activities, and co-created norms that students own. I manage through relationships — taking time to connect informally, knowing my students' names and stories, bestowing dignity before it's earned. And I manage through high expectations: I expect every student to think, contribute, and grow, and they rise to that expectation because the structures support them. Zwiers' five mindsets — students as capable, language as a tool, interaction as essential, ideas as the goal, and assessment as growth — are my management foundation. When those beliefs drive the classroom, management becomes culture rather than control.</p>
+  </div>
+</div>
+
+<!-- Q9 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">09</span>
+    <span class="qa-q-text">How would you deal with a difficult student in the classroom?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Relationship &middot; Belonging Gap</span>
+    <p>I start by reframing "difficult student" as "student whose needs aren't being met by the current structure." That's not soft — it's diagnostic. Zwiers identifies seven equity gaps, and the belonging gap is often the root of what looks like defiance or disruption. A student who doesn't believe school is for them, who hasn't been seen or heard, who's been asked to leave parts of their identity at the door — that student has every reason to resist.</p>
+    <p>My approach: relationship first, always. I learn what they care about, I talk with them one-on-one, I find ways to connect their interests to the content. I lower social risk through paired conversations before group work, writing before speaking, and translanguaging so they can think in their strongest language. I don't start with consequences — I start with curiosity. "What do you need?" is a more powerful question than "Why aren't you participating?" And I hold the long view: trust builds slowly, especially for students who've been failed by school before. I'm willing to invest weeks of relationship-building before expecting full engagement, because I know that once a student believes they belong, the meaning-making follows.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Classroom Environment &amp; Culture</h2><hr></div>
+
+<!-- Q10 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">10</span>
+    <span class="qa-q-text">What will the students see when they first come into your classroom?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Environment &middot; Identity &middot; Interaction</span>
+    <p>Students will see a room designed for interaction, not isolation. Desks arranged for pairs or small groups — never rows facing the front — because the physical space should signal that learning happens together, not in silence. They'll see a warm-up already on their desks: a primary source on physical paper with a compelling question to solve with their partner. Something that immediately says, "your thinking matters and it starts now."</p>
+    <p>On the walls, they'll see student work — not decorative posters but evidence of ideas students have built together. Anchor charts from previous building blocks conversations. Vocabulary walls organized by concepts, not alphabetical lists. And representations of the diversity in the room: multilingual welcome signs, cultural artifacts, maps that show where our classroom community comes from. They'll see me at the door, greeting them by name. The first thing students experience should be belonging — then the intellectual challenge begins.</p>
+  </div>
+</div>
+
+<!-- Q11 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">11</span>
+    <span class="qa-q-text">What are you going to do on the first day of school?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Belonging &middot; Community &middot; Norms</span>
+    <p>The first day sets the tone for everything that follows, so I don't waste it on syllabus review and rules. Day one is about two things: belonging and interaction. Students will immediately experience what this classroom is — a place where their voices matter and where learning happens together.</p>
+    <p>I start with a community-building activity that lets students share something about themselves using their full linguistic repertoire — an identity artifact, a story, a word from home that matters to them. This does double duty: it establishes that this is a space where every language and every background is valued, and it begins building the personal building blocks (Zwiers) that will fuel our academic conversations all year. Then we do a low-stakes building blocks conversation about a genuinely interesting question — something from history that has no single right answer. Students experience QSSSA, they practice listening to each other, they discover that this class is going to ask them to think. By the end of day one, students should know three things: I see you, your ideas matter, and we build understanding together. No syllabus quiz can accomplish that.</p>
+  </div>
+</div>
+
+<!-- Q12 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">12</span>
+    <span class="qa-q-text">Please describe a time where you created an inclusive and welcoming environment for your students.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Identity &middot; Funds of Knowledge</span>
+    <p>At the beginning of each year, I have students complete a comprehensive identity survey — not just "what's your favorite color" but deep questions about their families, languages, cultural traditions, and what they want me to know about how they learn. I then use those responses to shape instruction throughout the year. When I learned that several of my students had family members who had immigrated during specific historical periods we were studying, I restructured a unit to include their families' stories as primary sources alongside the textbook materials. Students interviewed family members, brought in artifacts, and shared perspectives that no published source could provide.</p>
+    <p>The result was transformative. Students who had been quiet and disengaged suddenly had expertise — their family's experience was the content. Moll calls this funds of knowledge, and it's not a feel-good add-on. It's rigorous, identity-affirming instruction that treats students' lives as legitimate academic material. One student told me it was the first time school felt like it was about her life. That's what inclusive means: not just welcoming students into our space, but welcoming their knowledge into our curriculum.</p>
+  </div>
+</div>
+
+<!-- Q13 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">13</span>
+    <span class="qa-q-text">Why middle school?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Personal &middot; Development</span>
+    <p>Middle school is where identity is being formed in real time — and that makes it the most important place to do this work. Early adolescents are figuring out who they are, what they believe, and whether they belong. If I can reach them during this window with a classroom built on dignity, voice, and meaning-making, I'm not just teaching content — I'm shaping how they see themselves as thinkers and learners for the rest of their lives.</p>
+    <p>Middle schoolers are also at a developmental sweet spot for the kind of work I do. They're old enough for genuine academic conversation, complex enough in their thinking for idea-building, and hungry enough for intellectual challenge when it's presented through engaging problems. They push back, they question authority, they care deeply about fairness. Those aren't problems to manage — those are the exact qualities I need for building blocks conversations, for critical thinking, for meaning-making. I love the energy, the rawness, and the honesty of middle school students. They deserve teachers who take them seriously as intellectual partners, and that's what I do.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Instructional Practice</h2><hr></div>
+
+<!-- Q14 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">14</span>
+    <span class="qa-q-text">If I was to observe your classroom, what are some instructional strategies I would see?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Interaction &middot; Scaffolding &middot; Translanguaging</span>
+    <p>You would see a room full of students talking — purposefully. Not chaos, but structured academic conversation using building blocks: clarifying, supporting with evidence, building on each other's ideas, and evaluating. You'd see QSSSA protocols where every student processes a question individually before sharing with a partner, then with the class. You'd hear students using accountable talk stems — "I agree with ___ and I want to add..." "Can you clarify what you mean by...?" — language that I've explicitly taught and that students are developing as a competency.</p>
+    <p>You'd see primary sources on desks, graphic organizers being co-constructed, sentence frames that scaffold analytical thinking without lowering the intellectual bar. You'd see students working in strategic pairs and small groups, with translanguaging happening naturally — a student brainstorming in Spanish, drafting in English, and discussing in both. You'd see me circulating, listening, asking probing questions, and taking formative assessment notes — not standing at the front delivering content. And you'd see a warm-up that looks like a mystery to solve, not a worksheet to complete. If you stayed for the full period, you'd see Walqui's three phases in action: preparing learners, interacting with concept or text, and extending understanding.</p>
+  </div>
+</div>
+
+<!-- Q15 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">15</span>
+    <span class="qa-q-text">Describe a lesson you taught.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Practice &middot; All Domains</span>
+    <p>One of my strongest lessons is the USS Maine Murder Mystery. The Big-Idea Statement: "When evidence is ambiguous, those with power shape the narrative." Students receive a packet of primary sources — newspaper headlines from Hearst and Pulitzer, a naval investigation report, a letter from the ship's captain, and a Spanish diplomatic response. The warm-up hook: "Was it an accident, sabotage, or a setup? You have 40 minutes to figure it out."</p>
+    <p>Students work in pairs, analyzing each source for reliability and bias using scaffolded analysis questions. Then pairs combine into groups of four for a building blocks conversation: they must share their evidence, challenge each other's interpretations, and build toward a collective argument. Every group creates a cause-effect diagram showing their theory of what happened and why it mattered. Translanguaging is encouraged throughout — several students research additional sources in Spanish, finding the Spanish perspective that English-language sources omit.</p>
+    <p>The lesson hits all four WIDA domains: reading primary sources, writing analytical claims, listening to peers' arguments, speaking in structured academic conversation. And interaction — the fifth domain — is the engine that drives everything. Students leave with an idea they built together, not information I delivered. And they remember it — because they did the thinking.</p>
+  </div>
+</div>
+
+<!-- Q16 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">16</span>
+    <span class="qa-q-text">When planning a lesson, how do you seek multiple perspectives and approaches to include all students?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Scaffolding &middot; Differentiation &middot; Identity</span>
+    <p>I plan using Walqui's three-phase framework — Preparing Learners, Interacting with Concept or Text, and Extending Understanding — and at every phase I ask: who might be excluded, and what structure will include them? I build in multiple entry points: visual supports for newcomers, sentence frames for developing speakers, extension questions for advanced students — all accessing the same rigorous content. I don't create different lessons for different levels; I create one lesson with multiple scaffolded pathways to the same Big-Idea Statement.</p>
+    <p>I also seek multiple perspectives literally — in the content itself. I choose primary sources from diverse perspectives, I include voices that textbooks omit, and I structure conversations where students bring their own cultural lenses to historical analysis. When students from different backgrounds analyze the same event, they see different things — and that diversity of perspective IS the learning. Zwiers' information gaps work beautifully here: by design, students have different pieces and must share to build the whole picture. Inclusion isn't accommodation — it's the instructional design itself.</p>
+  </div>
+</div>
+
+<!-- Q17 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">17</span>
+    <span class="qa-q-text">How would you respond to students who did not pass or achieve the goals you set out in a lesson plan?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Assessment FOR Learning</span>
+    <p>My first response is diagnostic, not evaluative. If students didn't achieve the goals, I need to understand why — and that means looking at my instruction before looking at the student. Was the scaffolding sufficient? Did students have enough interaction time to build the idea? Was the task engaging enough to produce genuine investment? Zwiers' assessment FOR learning framework asks "where are you in your thinking, and what do you need next?" — not "did you get it or not?"</p>
+    <p>Practically, I look at formative evidence: what happened during the building blocks conversations? Where did understanding break down? Then I reteach through a different entry point — maybe a different primary source, a different interaction structure, a different scaffolding approach. I don't repeat the same lesson louder. I also look at whether my assessment was measuring what I thought it was measuring. If a student built a sophisticated argument in conversation but couldn't demonstrate it on a written test, the problem might be the assessment, not the learning. Multi-dimensional evidence — writing, talk, visual products, self-assessment — gives me a fuller picture than any single measure can.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Diversity, Equity &amp; Inclusion</h2><hr></div>
+
+<!-- Q18 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">18</span>
+    <span class="qa-q-text">What are some best practices you have found in educating yourself and others around diversity, equity, and inclusion?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Equity &middot; Advocacy &middot; Growth</span>
+    <p>The most important practice is treating DEI not as a training to attend but as a lens through which every instructional decision is made. Zwiers' concept of pedagogical vigilance captures this perfectly: the ongoing discipline of asking whether my structures are building or blocking students' access to agency, voice, challenge, interaction, idea-building, and meaningful assessment. That's not a workshop — it's a daily practice.</p>
+    <p>Concretely, I educate myself through research — 17 graduate papers have shaped my understanding of how language, culture, and identity interact in the classroom. I read Freire on liberation, hooks on engaged pedagogy, Baker and Wright on bilingualism, Moll on funds of knowledge. But research isn't enough without reflection. I examine my own biases — the monolingual bias that Baker and Wright warn about, the deficit framing that positions multilingual students as lacking rather than capable. And I educate others by modeling: when I share Zwiers' tools with content-area colleagues, I'm not just sharing strategies — I'm sharing a vision of what equitable instruction looks like. The best practice is making equity structural, not aspirational.</p>
+  </div>
+</div>
+
+<!-- Q19 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">19</span>
+    <span class="qa-q-text">What experiences have helped you understand the impact of race, culture, and ethnicity on teaching and learning?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Identity &middot; Reflection &middot; Growth</span>
+    <p>Working with multilingual learners every day has been the most powerful education I could receive. When a student's home language is treated as a deficit in their other classes but as an asset in mine, I see firsthand how institutional culture shapes learning outcomes. When a student who's been labeled "struggling" in English-only settings demonstrates brilliant analytical thinking through translanguaging, I understand that the system was measuring the wrong thing — English proficiency, not content knowledge.</p>
+    <p>My graduate research deepened this understanding theoretically. Studying Freire taught me that education is never neutral — it either liberates or domesticates. hooks taught me that the teacher must examine their own positionality and be willing to be changed. Moll's funds of knowledge research showed me how much intellectual capital schools ignore when they don't honor students' cultural backgrounds. And Zwiers' seven equity gaps gave me a precise diagnostic framework: when a student isn't succeeding, I can ask which gap — belonging, engagement, agency, assessment, relationship, opportunity, or achievement — is the barrier. That specificity matters because it moves the conversation from "this student is struggling" to "this structure is failing this student."</p>
+  </div>
+</div>
+
+<!-- Q20 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">20</span>
+    <span class="qa-q-text">How do you start a courageous conversation with a colleague about inequitable practices toward marginalized students?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Advocacy &middot; Collaboration</span>
+    <p>I start with curiosity, not accusation. Just as I approach a struggling student by asking "what do you need?" rather than "why aren't you performing?", I approach a colleague by asking about their intent before addressing their impact. "I noticed ___ in your classroom. Can you help me understand your thinking?" opens a door that "you're being inequitable" slams shut. Most teachers with inequitable practices aren't malicious — they're operating from unexamined assumptions, often the same monolingual bias that Baker and Wright describe.</p>
+    <p>Then I lead with shared values and concrete tools. "I know we both want this student to succeed. Here's what I've seen work in my classroom — would you be open to trying it?" I might share a scaffolded version of their assignment, a set of sentence frames for academic conversation, or WIDA Can-Do descriptors that reframe what the student CAN do. Zwiers' principle applies here too: I'm not simplifying the conversation — I'm scaffolding it. And I document patterns. If I see systemic inequity — a colleague consistently assigning lower-level work to multilingual students, for example — I bring that to administration with evidence and a framework for improvement, not just a complaint. Advocacy means being willing to be uncomfortable in service of students' rights.</p>
+  </div>
+</div>
+
+<!-- Q21 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">21</span>
+    <span class="qa-q-text">How would you approach a coworker you witnessed treating a minority student in a way you didn't agree with?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Advocacy &middot; Courage</span>
+    <p>I would address it — always. Not addressing it makes me complicit. But how I address it depends on severity. If a student is being harmed or humiliated in the moment, I intervene immediately to protect the student, even if it's uncomfortable with the colleague. The student's dignity comes first.</p>
+    <p>For less acute situations — biased language, lowered expectations, deficit framing — I have a private conversation with the colleague. I describe what I observed without labeling it, share the impact I saw on the student, and offer an alternative approach grounded in research. "When we describe a student as 'low' rather than 'developing,' it shapes how we teach them." I bring Zwiers' pedagogical vigilance framework: are our structures building or blocking this student's access? And if the behavior continues after a private conversation, I escalate to administration — not as a punishment, but as advocacy. Zwiers is clear that classroom-level changes fizzle without systemic support. Sometimes advocacy means saying the uncomfortable thing to the people who have the power to change it.</p>
+  </div>
+</div>
+
+<!-- Q22 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">22</span>
+    <span class="qa-q-text">How would you approach a colleague who was saying or doing something inappropriate?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Professionalism &middot; Advocacy</span>
+    <p>Directly, privately, and with respect — the same way I'd want someone to approach me. I would describe the specific behavior I observed, explain why it concerns me, and listen to their perspective. People are often unaware of how their words or actions land. A private conversation that assumes good intent while naming the impact gives the colleague a chance to self-correct without defensiveness.</p>
+    <p>If the behavior is harmful to students or violates professional standards, I don't wait to see if it happens again. I report it to administration. That's not being difficult — that's being professional. hooks teaches that the classroom must be a safe space for every student, and Zwiers' pedagogical vigilance extends beyond my own classroom to the school environment. I can't control what other teachers do, but I can refuse to be silent when I see something that harms students.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Relationships &amp; Communication</h2><hr></div>
+
+<!-- Q23 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">23</span>
+    <span class="qa-q-text">How do you learn about your students? How do you have them learn about you?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Identity &middot; Funds of Knowledge</span>
+    <p>I learn about my students through comprehensive identity surveys at the start of the year, through informal conversations before and after class, through observation of how they interact with peers, and through the content they create. Moll's funds of knowledge framework guides me: every student carries intellectual and cultural resources from their home and community. My job is to discover them and weave them into instruction. When I learn that a student's family runs a small business, that's economics. When I learn about their immigration journey, that's history. When I learn what language they dream in, that's identity.</p>
+    <p>I let students learn about me by being a vulnerable participant — hooks' engaged pedagogy demands this. I share my own learning struggles, my own evolution as a thinker, my own connection to the content. When we study historical injustice, I share why it matters to me personally. I don't hide behind the authority of the teacher role. Students need to see that their teacher is also a learner, also imperfect, also willing to be changed. That mutuality is what makes genuine community possible. I can't ask students to take intellectual risks if I'm not willing to take relational ones.</p>
+  </div>
+</div>
+
+<!-- Q24 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">24</span>
+    <span class="qa-q-text">Give me an example of how, when, and why you would communicate with parents.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Families &middot; Funds of Knowledge</span>
+    <p><strong>How:</strong> Through whatever channel reaches the family — phone, text, email, translated letters, WhatsApp, or through a cultural liaison or interpreter when needed. I don't assume every family has email or speaks English. Communication must be accessible to be communication. I send messages in the family's home language when possible, and I keep them brief and clear.</p>
+    <p><strong>When:</strong> Early and often — and not just when there's a problem. I make positive calls home in the first weeks of school so that families' first experience with me is celebration, not concern. Then ongoing: when a student does something impressive, when I notice a change in behavior, when I need family insight to better support a student, and yes, when there's a challenge that requires partnership. The ratio matters — if families only hear from me when something's wrong, I've built a deficit relationship.</p>
+    <p><strong>Why:</strong> Because families are meaning-making partners, not just audience members. Moll's funds of knowledge research shows that the richest learning happens when home and school are connected. When I communicate with families, I'm not just informing — I'm inviting them into the learning. "Your child is studying immigration this week. Does your family have a story that might enrich our discussion?" That's communication that serves the student.</p>
+  </div>
+</div>
+
+<!-- Q25 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">25</span>
+    <span class="qa-q-text">Give an example of a time you had to explain something to a frustrated parent. How did you handle it?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Families &middot; Communication</span>
+    <p>I had a parent who was frustrated because they felt their child wasn't getting enough "real" instruction — they saw group work and conversation and interpreted it as unstructured socializing. They wanted more lectures, more worksheets, more traditional assignments. I understood their concern because it came from love: they wanted their child to succeed, and their own school experience had taught them that success looks like quiet compliance and filled-out worksheets.</p>
+    <p>I invited them in to observe a lesson. I walked them through what was actually happening: the sentence frames scaffolding academic language, the building blocks of interaction developing higher-order thinking, the way their child was constructing historical arguments with peers using evidence. I showed them their child's work over time — the growth in analytical writing, the increasingly sophisticated use of academic vocabulary, the confidence in expressing ideas. By the end of the observation, the parent said, "I've never seen them this engaged." I didn't dismiss their concern — I honored it by showing them evidence. That's assessment FOR learning applied to the parent relationship.</p>
+  </div>
+</div>
+
+<!-- Q26 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">26</span>
+    <span class="qa-q-text">What are two steps you take when someone comes to you with a problem?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Interpersonal</span>
+    <p><strong>Step one: Listen to understand, not to respond.</strong> The same principle that drives my classroom interaction applies to every relationship. Zwiers' building blocks start with clarifying — making sure you truly understand what someone is saying before you build on it or challenge it. When someone comes to me with a problem, I resist the urge to immediately problem-solve. I ask questions: "Help me understand what happened. What do you need right now?" Sometimes people need a solution. Sometimes they need to feel heard. I can't know which until I listen.</p>
+    <p><strong>Step two: Respond with action, not just empathy.</strong> Empathy without action is hollow. Once I understand the problem, I commit to a concrete next step — and I follow through. Whether it's a student, a parent, or a colleague, trust is built through reliability. I name what I'm going to do, when I'm going to do it, and I circle back to confirm it's been done. hooks' engaged pedagogy isn't just for the classroom — it's for every human interaction. Showing up fully and following through is how trust gets built.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Collaboration &amp; Professional Growth</h2><hr></div>
+
+<!-- Q27 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">27</span>
+    <span class="qa-q-text">Tell us about one of your favorite experiences working with a team and your contributions.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Collaboration &middot; Leadership</span>
+    <p>One of my most rewarding team experiences was co-planning a cross-curricular unit with an ELA teacher where we aligned our instruction so students could build the same academic language across both classes. I brought Zwiers' conversation structures and WIDA-aligned scaffolds; they brought literary analysis frameworks and writing instruction. Together, we created a unit where students practiced the same building blocks — clarifying, supporting with evidence, building on ideas — in both settings, reinforcing the language through purposeful use across contexts.</p>
+    <p>My contribution was bridging the gap between "ESOL strategies" and "good instruction for everyone." I showed the team that sentence frames, translanguaging, and structured academic conversation aren't ESOL accommodations — they're best practices that benefit all learners. The result was that content teachers started using QSSSA and building blocks in their own classrooms, not because I asked them to, but because they saw the impact. That's the collaboration I believe in: shared tools, shared understanding, shared ownership of every student's growth. Zwiers' vision of pedagogical justice can't live in one classroom — it needs to spread through genuine partnership.</p>
+  </div>
+</div>
+
+<!-- Q28 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">28</span>
+    <span class="qa-q-text">What is one of your challenges with working with other adults? How do you overcome this?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Growth &middot; Honesty</span>
+    <p>My biggest challenge is patience when I see practices that I know are failing students. When a colleague assigns vocabulary matching worksheets to multilingual learners while their peers do analytical writing, I feel the urgency of Zwiers' argument: those students are being denied their right to engaging challenges and idea-building. The temptation is to be forceful, to lecture, to say "the research is clear." But that's the banking model applied to adult relationships — and it works just as poorly with colleagues as it does with students.</p>
+    <p>I overcome it the same way I build my classroom: through relationship first, then scaffolded interaction. I earn trust before I push for change. I share tools rather than critique practices. I model what I believe in my own classroom and invite colleagues to observe. And I remind myself that hooks says the teacher must be willing to be changed — which means I must also be willing to learn from colleagues whose approaches differ from mine. Sometimes their experience reveals something my research missed. The best collaboration happens when everyone is both teacher and learner.</p>
+  </div>
+</div>
+
+<!-- Q29 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">29</span>
+    <span class="qa-q-text">What has been your experience in being reflective and changing your own behavior after receiving feedback?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(58,107,74,0.1);color:var(--forest)">Growth &middot; Engaged Pedagogy</span>
+    <p>The most significant example: I used to call what I do in my classroom "collaboration." It sounded right, it felt right, and it was better than lecturing. But when I studied Zwiers' work deeply, I received feedback — from the research itself — that I was thinking too small. What I called collaboration was actually a classroom strategy. What Zwiers calls interaction is a domain of language, a competency students develop. That distinction completely changed my practice. I stopped designing "collaborative activities" and started explicitly teaching the building blocks of interaction as skills students needed to develop over time.</p>
+    <p>That willingness to revise my thinking — not just my lessons — is central to who I am as a teacher. hooks calls it being willing to be changed. I actively seek feedback from administrators, colleagues, and students. I pay attention to what my formative assessments tell me about my instruction, not just about student performance. And I treat every graduate course, every book, every PD as an opportunity to challenge my assumptions. Teaching is an exercise in self-humility. The moment I stop being reflective is the moment I stop being effective.</p>
+  </div>
+</div>
+
+<!-- Q30 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">30</span>
+    <span class="qa-q-text">Tell me about an educator or mentor in your life who has inspired you.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Personal &middot; Growth</span>
+    <p>bell hooks has been the most transformative intellectual mentor in my development as an educator, even though we never met. Her concept of engaged pedagogy — the insistence that the classroom must be a place of excitement, that the teacher must be a vulnerable participant rather than a detached authority, that education is the practice of freedom — fundamentally reshaped how I think about my role. Before hooks, I was a teacher who used good strategies. After hooks, I understood that teaching is a relational, liberatory act.</p>
+    <p>What inspires me most is hooks' insistence that the teacher must also be willing to grow, to be changed by their students. That's not a comfortable idea. It means I can't hide behind expertise. It means I must show up fully, admit what I don't know, and let my students' perspectives reshape my understanding. That vulnerability is what makes genuine community possible — and genuine community is what makes meaning-making possible. Every time I take a few minutes to just talk with my students before class, every time I share my own struggle with a concept, every time I revise my approach based on what I learn — that's hooks' legacy in my practice.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Difficult Situations &amp; Emotional Intelligence</h2><hr></div>
+
+<!-- Q31 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">31</span>
+    <span class="qa-q-text">Describe a time you handled an emotionally charged situation at work. How did you handle the negative emotions?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Emotional Intelligence &middot; Restorative</span>
+    <p>I had a situation where a student broke down crying during a lesson about immigration history because it hit too close to their family's experience. The room went silent, other students looked uncomfortable, and I had to navigate multiple things simultaneously: honor this student's emotion, protect their dignity, maintain the learning for the class, and manage my own emotional response.</p>
+    <p>I paused the lesson. I acknowledged what was happening without making the student the center of attention: "This is real history, and it connects to real lives in this room. Let's take a moment." I gave the student space — offered them a quiet minute outside with a trusted peer, not a forced march to the counselor. Then I redirected the class into a reflective writing activity: "Why does this history still matter? What does it connect to in your life or your community?" This turned the emotional moment into a meaning-making moment without exploiting the student's vulnerability.</p>
+    <p>Afterwards, I checked in privately with the student, connected them with the counselor if they wanted, and reflected on whether I should have scaffolded the emotional content differently. I handled my own emotions by remembering hooks: the classroom is the most radical space of possibility, and sometimes that means sitting with discomfort rather than rushing past it. Negative emotions aren't problems to solve — they're signals to listen to.</p>
+  </div>
+</div>
+
+<!-- Q32 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">32</span>
+    <span class="qa-q-text">Talk about a time you had a problem with a co-worker or student, and how did you resolve it?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(42,107,107,0.1);color:var(--deep-teal)">Conflict Resolution &middot; Collaboration</span>
+    <p>I had a content-area colleague who consistently sent multilingual students to me mid-lesson with the message: "They can't do the work." It was disruptive to my instruction, harmful to the students, and based on a deficit assumption that I couldn't accept. But this was a colleague I needed to work with, and a confrontation would have closed the door to change.</p>
+    <p>I asked for a meeting and came prepared — not with accusations, but with tools. I brought the students' WIDA levels and explained what each level meant in terms of what students CAN do. I brought scaffolded versions of their recent assignments — same content, same rigor, with sentence frames and graphic organizers added. I said, "These students can absolutely do your work. They need these supports." Then I offered to co-plan two lessons so the teacher could see how the scaffolds worked in practice. It took time, but by the end of the semester, that colleague was using QSSSA stems in their classroom and had stopped sending students out. The resolution wasn't a conversation — it was a relationship built over time, with shared tools and shared success. That's what Zwiers means by systemic change: it starts with one colleague at a time.</p>
+  </div>
+</div>
+
+<div class="section-break"><h2>Personal &amp; Big Picture</h2><hr></div>
+
+<!-- Q33 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">33</span>
+    <span class="qa-q-text">Tell me about yourself and your qualifications for this position, and why you're interested in teaching middle school students.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(184,150,62,0.1);color:var(--muted-gold)">Personal &middot; Qualifications</span>
+    <p>I'm a Social Studies teacher with ESOL endorsement and a teaching philosophy built on 17 graduate research papers that I've synthesized into a coherent framework: meaning-making as the purpose of education. I've studied the theoretical foundations — Freire on liberation, hooks on engaged pedagogy, Vygotsky and Walqui on scaffolding, Baker and Wright on bilingualism, Zwiers on interaction and Pedagogical Justice — and I've applied them in real classrooms with real students across multiple proficiency levels.</p>
+    <p>What makes me different from other candidates is integration. I don't just know strategies — I understand why they work, which means I can adapt when something isn't working. I can design a lesson where WIDA Level 1 and Level 5 students are building ideas together in the same conversation, because I understand the framework deeply enough to adjust in real time. I'm interested in middle school specifically because early adolescents are forming their identities as thinkers and learners. If I can show a 12-year-old that their voice matters, that their language is an asset, and that they are capable of sophisticated intellectual work, I'm not just teaching content — I'm shaping how they see themselves in the world. That's the work I want to spend my career doing.</p>
+  </div>
+</div>
+
+<!-- Q34 -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">34</span>
+    <span class="qa-q-text">Tell me three character traits you bring to your classroom that help engage your students.</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(139,111,160,0.1);color:var(--soft-purple)">Personal &middot; Character</span>
+    <p><strong>Enthusiasm.</strong> I genuinely find the content fascinating, and students can tell. When I hand out a primary source and say, "You're not going to believe what I found" — I mean it. hooks says the classroom must be a place of excitement, and that excitement starts with the teacher. If I'm not engaged, I can't ask students to be. My warm-ups are designed to spark curiosity because I'm curious myself. Did President Tyler really die of poison? I don't know — let's find out together.</p>
+    <p><strong>Patience.</strong> Trust builds slowly, especially for students who've been failed by school before. I'm willing to invest weeks in relationship-building before expecting full engagement. I don't interpret silence as defiance or slow progress as inability. I hold the long view because I know that once a student believes they belong, the meaning-making follows. Patience isn't passive — it's an active decision to keep showing up for a student even when the results aren't immediate.</p>
+    <p><strong>High expectations.</strong> I believe every student in my room is capable of rigorous intellectual work, and I refuse to lower that bar. This isn't harshness — it's respect. When I scaffold up rather than water down, I'm saying to every student: "I believe you can do this, and I'm going to make sure you have the support to get there." Students feel the difference between a teacher who expects nothing and a teacher who expects everything and provides the scaffolding to make it possible.</p>
+  </div>
+</div>
+
+<!-- Q35 - Student Voice -->
+<div class="qa-card" onclick="this.classList.toggle('open')">
+  <div class="qa-question">
+    <span class="qa-num">35</span>
+    <span class="qa-q-text">How have you or how will you allow for student voice to change what you teach and how you teach?</span>
+    <span class="qa-toggle">&#9656;</span>
+  </div>
+  <div class="qa-answer">
+    <span class="qa-tag" style="background:rgba(196,93,62,0.1);color:var(--terracotta)">Agency &middot; Engaged Pedagogy</span>
+    <p>Student voice changes my teaching because I listen to it — not as decoration, but as data. When students tell me through their engagement, their questions, their confusion, or their excitement what's working and what isn't, I adjust. hooks demands that the teacher be willing to be changed. That means if students show me that a lesson I loved isn't working for them, I don't blame the students — I redesign the lesson.</p>
+    <p>Structurally, I build in mechanisms for student voice to shape instruction: exit tickets that ask "What confused you?" and "What do you want to know more about?", student-led selection of discussion topics, co-created rubrics for projects, and open conversations about what kinds of learning feel most meaningful. When students told me they wanted to investigate current events through the same analytical lens we use for historical events, we created a unit where they applied primary source analysis to contemporary media. Their voice didn't just change how I taught — it improved the curriculum. Zwiers' agency dimension of Pedagogical Justice isn't just about giving students choices. It's about giving their voices genuine power to shape the classroom experience.</p>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <a href="/tools/interview-prep.html">&larr; Primary Interview Questions</a> &nbsp;&middot;&nbsp; Meaning-Making Framework &nbsp;&middot;&nbsp; Zwiers 2024
+</footer>
+
+<script src="/auth.js"></script>
+</body>
+</html>
