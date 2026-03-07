@@ -4,62 +4,305 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beauty &amp; Truth | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#05966914;color:#059669}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #059669;
+  --accent-light: #05966918;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #0f1a14 0%, #1a2e22 50%, #0f1a14 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #05966918 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #0596690d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #059669;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDUC 537</span>
-      <span class="semester">Fall 2022</span>
-    </div>
-    <p><strong>Beauty &amp; Truth – Global Thinking Routine</strong></p>
-    <p><strong>FIRST, v</strong><strong>iew the </strong><strong>three </strong><strong>image</strong><strong>s in the “Beauty &amp; Truth” folder on Blackboard in </strong><strong>this module</strong><strong>.  The three images are labeled “Images for Beauty &amp; Truth.” After viewing the three images, return to this document</strong></p>
-    <p><strong>SECOND</strong><strong>, </strong><strong>Engage in this global thinking routine – Beauty &amp; Truth</strong></p>
-    <p><strong>Think about these questions:</strong></p>
-    <ul>
-    <li><strong>Can you find </strong><strong><em>beauty </em></strong><strong>in these</strong><strong> image</strong><strong>s</strong><strong>?</strong></li>
-    <li><strong>Can you find </strong><strong><em>truth </em></strong><strong>in these</strong><strong> image</strong><strong>s</strong><strong>?</strong></li>
-    </ul>
-    <p><strong>Respond here:</strong></p>
-    <p><strong>Yes! All three images have beauty in them. The second and third show joy—which is easy to perceive as beauty. The first one looks like families hoping to find a better life, and that is always a beautiful thing to me. </strong></p>
-    <p><strong>Lived lives are always truth, right? There is nothing inauthentic here, and children especially will always find joy </strong><strong>in the midst of</strong><strong> tougher macro challenges.  </strong></p>
-    <p><strong>Now, please view the videos on Blackboard in the “Beauty &amp; Truth” folder.</strong></p>
-    <p><strong>THIRD,</strong><strong> respond to these questions:</strong></p>
-    <ul>
-    <li><strong>How might beauty </strong><strong><em>reveal </em></strong><strong>truth?</strong></li>
-    <li><strong>How might beauty </strong><strong><em>conceal </em></strong><strong>truth?</strong></li>
-    </ul>
-    <p><strong>Respond here:</strong></p>
-    <p><strong>After watching the videos, beauty can certainly conceal truth. Happy faces and people enjoying themselves might conceal a (on paper) low quality of life, </strong><strong>e.g.</strong><strong> little green spaces in the Syrian refugee camp, hunger situations, or a person can conceal hidden pain, both emotional and physical.</strong></p>
-    <p><strong>A bit of a paradox, I reckon, but the same beauty can reveal truth, such as </strong><strong>living a beautiful life despite situations that may be beyond our control, finding the best in </strong><strong>the every</strong><strong> day. There are shades of both of these in each video of the refugees. </strong></p>
-    <p><strong>FINALLY, </strong><strong>Please</strong><strong> save your document as:  LAST NAME Beauty &amp; Truth and upload it as an attachment to the Discussion Board link for that purpose.</strong></p>
-    <p><strong><em>Thank you for engaging in this Global Thinking Routine!</em></strong></p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDUC 537 &middot; Fall 2022</div>
+    <h1>Beauty &amp; Truth</h1>
+    <p class="hero-subtitle">Global Thinking Routine exploring beauty, truth, and perspective through visual analysis</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p><strong>Beauty &amp; Truth – Global Thinking Routine</strong></p>
+      <p><strong>FIRST, v</strong><strong>iew the </strong><strong>three </strong><strong>image</strong><strong>s in the “Beauty &amp; Truth” folder on Blackboard in </strong><strong>this module</strong><strong>.  The three images are labeled “Images for Beauty &amp; Truth.” After viewing the three images, return to this document</strong></p>
+      <p><strong>SECOND</strong><strong>, </strong><strong>Engage in this global thinking routine – Beauty &amp; Truth</strong></p>
+      <p><strong>Think about these questions:</strong></p>
+      <ul>
+      <li><strong>Can you find </strong><strong><em>beauty </em></strong><strong>in these</strong><strong> image</strong><strong>s</strong><strong>?</strong></li>
+      <li><strong>Can you find </strong><strong><em>truth </em></strong><strong>in these</strong><strong> image</strong><strong>s</strong><strong>?</strong></li>
+      </ul>
+      <p><strong>Respond here:</strong></p>
+      <p><strong>Yes! All three images have beauty in them. The second and third show joy—which is easy to perceive as beauty. The first one looks like families hoping to find a better life, and that is always a beautiful thing to me. </strong></p>
+      <p><strong>Lived lives are always truth, right? There is nothing inauthentic here, and children especially will always find joy </strong><strong>in the midst of</strong><strong> tougher macro challenges.  </strong></p>
+      <p><strong>Now, please view the videos on Blackboard in the “Beauty &amp; Truth” folder.</strong></p>
+      <p><strong>THIRD,</strong><strong> respond to these questions:</strong></p>
+      <ul>
+      <li><strong>How might beauty </strong><strong><em>reveal </em></strong><strong>truth?</strong></li>
+      <li><strong>How might beauty </strong><strong><em>conceal </em></strong><strong>truth?</strong></li>
+      </ul>
+      <p><strong>Respond here:</strong></p>
+      <p><strong>After watching the videos, beauty can certainly conceal truth. Happy faces and people enjoying themselves might conceal a (on paper) low quality of life, </strong><strong>e.g.</strong><strong> little green spaces in the Syrian refugee camp, hunger situations, or a person can conceal hidden pain, both emotional and physical.</strong></p>
+      <p><strong>A bit of a paradox, I reckon, but the same beauty can reveal truth, such as </strong><strong>living a beautiful life despite situations that may be beyond our control, finding the best in </strong><strong>the every</strong><strong> day. There are shades of both of these in each video of the refugees. </strong></p>
+      <p><strong>FINALLY, </strong><strong>Please</strong><strong> save your document as:  LAST NAME Beauty &amp; Truth and upload it as an attachment to the Discussion Board link for that purpose.</strong></p>
+      <p><strong><em>Thank you for engaging in this Global Thinking Routine!</em></strong></p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

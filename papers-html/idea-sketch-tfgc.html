@@ -4,56 +4,299 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Idea Sketch: Teaching for Global Competence | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#D9770614;color:#D97706}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #D97706;
+  --accent-light: #D9770618;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #2a1e0f 0%, #3a2a14 50%, #2a1e0f 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #D9770618 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #D977060d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #D97706;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDUC 537</span>
-      <span class="semester">Fall 2022</span>
-    </div>
-    <p class="center"><strong><em>EDUC 537 </em></strong><strong><em>Idea Sketch for Teaching for Global Competence (</em></strong><strong><em>TfGC</em></strong><strong><em>)!</em></strong></p>
-    <p><strong><em>For which</em></strong><strong><em> grade level</em></strong> <strong><em>and content area </em></strong><strong><em>are you designing this Idea Sketch</em></strong><strong><em>?</em></strong></p>
-    <p>This is for my 7th grade US History II class. Reagan Middle School (my school) has an interesting demographic mix, where I think it is hard for the subsection of students that come from privilege to imagine or perceive what the Jim Crow era was like. </p>
-    <p><strong><em>Which issue of global significance would you like to explore with these learners?  Why?</em></strong><strong><em> How does this topic fit with your curriculum?</em></strong></p>
-    <p>I would like to explore the American Civil Rights movement with my students for this idea sketch. We already cover it in the curriculum, but a lesson like this with the GTR is not part of our repertoire – yet! </p>
-    <p><strong><em>What kind of “provocation” (e.g., visual, video, artwork, news story) will you use to spark learners’ thinking around this global issue?  Why?</em></strong></p>
-    <p>This picture from a Memphis water fountain is famous at this point, but most students haven’t seen it. It is a great shock, or spark, to begin to explore what the Jim Crow era actually looked and felt like. There is so much in this picture to think about and discuss, like segregation and the water fountain quality. </p>
-    <p><strong><em>What would the “I Can” Statemen</em></strong><strong><em>t(s)/Objective(s)</em></strong><strong><em> be for your lesson</em></strong><strong><em>(s)</em></strong><strong><em>?  Why?</em></strong></p>
-    <p>I can describe what happened when the Supreme Court said local governments could provide “separate but equal” facilities. I think this is an important beginning for a lesson objective. I really want students to get to the point where they can empathetically understand what it was like for African-Americans to live daily life during this time, but I think that is a natural step if they can describe the difference in facility quality based off of this and other pictures. </p>
-    <p><strong><em>Which global thinking routine(s) would you include in your lesson(s)? Why?</em></strong><strong><em> IF you wish, you can also list other learning activities that you would include.</em></strong></p>
-    <p>I would use the 3Ys here. So often students perceive history doesn’t apply to them, but exploring the question why would this matter to those around them today—since the student audience is very heterogenous. One of the activities would include a stations gallery with similar photos or news articles.  </p>
-    <p><strong><em>In what ways would this lesson connect to teaching with equity for all learners in mind?</em></strong></p>
-    <p>I think its important for students to connect to other times human beings have suffered because of inequitable conditions, especially due to race. All learners should learn how power can be manipulated to take advantage of a minority group of people, this is an important skill in thinking globally or attaining global competence. </p>
-    <p><strong><em>What did you learn about YOURSELF and your own knowledge or skills for </em></strong><strong><em>TfGC</em></strong><strong><em> through completing this </em></strong><strong><em>I</em></strong><strong><em>dea </em></strong><strong><em>S</em></strong><strong><em>ketch?</em></strong></p>
-    <p>I kept thinking back to when I was a teenager, and what I might perceive or feel as I went through this lesson. I kept asking what would draw empathy from me – an often academically disinterested student? Even though I might have been academically disinterested, I think I learned if teachers continually demonstrated injustices to me, I would become engaged with the content. I think empathy can occur naturally over time with continual exposure to world issues and through fostering relationships with students. </p>
-    <p class="center"><strong><em>Thank you for sharing your time and thinking around </em></strong><strong><em>TfGC</em></strong><strong><em>!</em></strong></p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDUC 537 &middot; Fall 2022</div>
+    <h1>Idea Sketch: Teaching for Global Competence</h1>
+    <p class="hero-subtitle">Lesson design for teaching the Civil Rights movement through a global competence framework</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong><em>EDUC 537 </em></strong><strong><em>Idea Sketch for Teaching for Global Competence (</em></strong><strong><em>TfGC</em></strong><strong><em>)!</em></strong></p>
+      <p><strong><em>For which</em></strong><strong><em> grade level</em></strong> <strong><em>and content area </em></strong><strong><em>are you designing this Idea Sketch</em></strong><strong><em>?</em></strong></p>
+      <p>This is for my 7th grade US History II class. Reagan Middle School (my school) has an interesting demographic mix, where I think it is hard for the subsection of students that come from privilege to imagine or perceive what the Jim Crow era was like. </p>
+      <p><strong><em>Which issue of global significance would you like to explore with these learners?  Why?</em></strong><strong><em> How does this topic fit with your curriculum?</em></strong></p>
+      <p>I would like to explore the American Civil Rights movement with my students for this idea sketch. We already cover it in the curriculum, but a lesson like this with the GTR is not part of our repertoire – yet! </p>
+      <p><strong><em>What kind of “provocation” (e.g., visual, video, artwork, news story) will you use to spark learners’ thinking around this global issue?  Why?</em></strong></p>
+      <p>This picture from a Memphis water fountain is famous at this point, but most students haven’t seen it. It is a great shock, or spark, to begin to explore what the Jim Crow era actually looked and felt like. There is so much in this picture to think about and discuss, like segregation and the water fountain quality. </p>
+      <p><strong><em>What would the “I Can” Statemen</em></strong><strong><em>t(s)/Objective(s)</em></strong><strong><em> be for your lesson</em></strong><strong><em>(s)</em></strong><strong><em>?  Why?</em></strong></p>
+      <p>I can describe what happened when the Supreme Court said local governments could provide “separate but equal” facilities. I think this is an important beginning for a lesson objective. I really want students to get to the point where they can empathetically understand what it was like for African-Americans to live daily life during this time, but I think that is a natural step if they can describe the difference in facility quality based off of this and other pictures. </p>
+      <p><strong><em>Which global thinking routine(s) would you include in your lesson(s)? Why?</em></strong><strong><em> IF you wish, you can also list other learning activities that you would include.</em></strong></p>
+      <p>I would use the 3Ys here. So often students perceive history doesn’t apply to them, but exploring the question why would this matter to those around them today—since the student audience is very heterogenous. One of the activities would include a stations gallery with similar photos or news articles.  </p>
+      <p><strong><em>In what ways would this lesson connect to teaching with equity for all learners in mind?</em></strong></p>
+      <p>I think its important for students to connect to other times human beings have suffered because of inequitable conditions, especially due to race. All learners should learn how power can be manipulated to take advantage of a minority group of people, this is an important skill in thinking globally or attaining global competence. </p>
+      <p><strong><em>What did you learn about YOURSELF and your own knowledge or skills for </em></strong><strong><em>TfGC</em></strong><strong><em> through completing this </em></strong><strong><em>I</em></strong><strong><em>dea </em></strong><strong><em>S</em></strong><strong><em>ketch?</em></strong></p>
+      <p>I kept thinking back to when I was a teenager, and what I might perceive or feel as I went through this lesson. I kept asking what would draw empathy from me – an often academically disinterested student? Even though I might have been academically disinterested, I think I learned if teachers continually demonstrated injustices to me, I would become engaged with the content. I think empathy can occur naturally over time with continual exposure to world issues and through fostering relationships with students. </p>
+      <p class="center"><strong><em>Thank you for sharing your time and thinking around </em></strong><strong><em>TfGC</em></strong><strong><em>!</em></strong></p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

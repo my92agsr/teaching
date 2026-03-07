@@ -4,120 +4,365 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Language Acquisition Case Study | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#0891B214;color:#0891B2}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #0891B2;
+  --accent-light: #0891B218;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #0f1a22 0%, #142a36 50%, #0f1a22 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #0891B218 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #0891B20d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #0891B2;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDCI 516</span>
-      <span class="semester">Spring 2023</span>
-    </div>
-    <p class="center"><strong>Language Acquisition Case Study</strong></p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">College of Education and Human Development, George Mason University</p>
-    <p class="center">EDCI 516: Bilingualism &amp; Language Acquisition Research</p>
-    <p class="center">Dr. Woomee Kim &amp; Dr. Manqian Zhao</p>
-    <p class="center">May 4th, 2023</p>
-    <p class="center"><strong>Section I: Introduction &amp; Findings</strong></p>
-    <p>This is a language acquisition case study performed during the spring semester of 2023. For this study, I interviewed Miguel, a seventh-grade student in my United States History II class. I chose Miguel for this case study for a variety of reasons. First, the English to Students of Other Languages (ESOL) department and myself have developed a relationship with Miguel’s parents. Miguel’s dad become involved in some school functions and was an active participant in helping Miguel develop his English. A natural relationship developed between the ESOL teachers and his parents. I initiated a relationship with Miguel’s parents at the ESOL teacher’s suggestion, in the hopes of benefitting his academic and language work in my classroom. Like their son, Miguel’s parents exude kindness. Second, Miguel is in an interesting area of language development: he is progressing rapidly through English proficiency levels while slowly losing fluency in his first language, Spanish. Miguel is identified as a level three English speaker on the WiDA model, recently progressing from a level two identification. </p>
-    <p>Miguel is thirteen years old and was born in Mexico. He moved to the United States two years ago when he was eleven.  He has an older sister in college who has notably lost a significant portion of her Spanish, according to Miguel. Miguel’s personality is a fun and dynamic one, he is gregarious and makes his classmates laugh often. He loves to play hockey while also exuding a passion and shared interest in soccer with his peers. Miguel also enjoys playing Xbox with his friends. His disposition toward others is warm and welcoming. Miguel has a silly sense of humor, one that is endearing to his classmates. In the hallway, Miguel will often tap myself or another teacher on the opposite while walking past the opposite shoulder. He brings this type of harmless, fun enjoyment to his work in seventh period. </p>
-    <p class="center"><strong>Section </strong><strong>II:</strong> <strong>Analysis</strong></p>
-    <p>Miguel and I had a casual conversation in my classroom for the oral language sample. He came during advisory time so there was no conflict with an instructional class. We discussed mostly personal topics like sports and family, with a couple of questions sprinkled in about school. We had a rather enjoyable part of the conversation discussing who the best soccer play in the world is—Messi or Ronaldo. We discussed some of his hobbies, including video games and hockey. Finally, we discussed school, his favorite subject to learn, and his perspective on some history topics. </p>
-    <p>My initial impression with Miguel’s English proficiency is that he is essentially fluent in terms of holding conversations, with an expanding, but limited, vocabulary. He can respond quickly without gathering his thoughts, while demonstrating a conversational fluency that has clearly grown significantly since the beginning of the year. He will pause in the middle of a sentence occasionally to gather his thoughts or search for words. Formally, my initial impression with Miguel’s speaking ability was consistent with his level three WiDA identification from the school. When he states, “what they did was kind of interesting and why they did it for, for reasons,” Miguel is demonstrating emerging complexities in his phrasing. He also pauses to search for specific words at times, indicative of level three vocabulary usage (WiDA, 2007). Further, he is generally comprehensible, with an occasional syntax error, like when he uses the phrase “field kick” instead of “free kick,” referring to a soccer play. However, this may be an L1 transfer or translation issue. For instance, he could be attempting to translate “spot kick” from Spanish, perhaps a more commonly used phrase around the world for what one would call a “penalty kick” in English. This error could also be an L2 vocabulary confusion, mixing phrasing between the sports of soccer and American football (“field goal”). All the above is indicative of a level three rating on the rubric. At times, however, Miguel demonstrates levels much higher.</p>
-    <p>When responding to a question about an inquiry lesson we had in class, he said, “I first thought that there was going to be like, like they knew about the attacks at Pearl Harbor. But then like going through the slides there was like no evidence that they knew about it, because it [a memo] wasn’t important to know about.” His ability to make an argument using historical evidence, or lack thereof, suggests technical language specific to historical reasoning. He even uses the specific vocabulary we use in class. These marks indicate levels four and five on the WiDA speaking rubric in terms of vocabulary usage. His usage of evidence in his verbal historical reasoning also demonstrates emerging cohesion, indicative of a level four in terms of linguistic complexity. He does, however, still grasp for vocabulary, and most of his sentences do not actually vary in complexity or length, marks of level five. The above leads me to conclude that Miguel’s English proficiency in terms of speaking is indicative of a level four on the WiDA rubric (WiDA, 2007). </p>
-    <p>I also used the WiDA Can-Do Descriptors to formally assess Miguel (WiDA, 2016). I found these extraordinarily helpful. The WiDA Can-Do Descriptors break down speaking ability into four areas: recount, explain, argue, and discuss. Recounting is defined as demonstrating knowledge or narrating experiences, while explaining is reserved for explaining the “why” or “how” of a concept. Arguing is defined by making claims backed up with evidence. Discussion is reserved for small group discussions, so it will be left out of the following assessment (WiDA, 2016). </p>
-    <p>Miguel’s recount ability reached levels three and four during our conversation. He references watching Champion’s League soccer in the past tense, stating “I did. I used to do like watch it every single day when it was Champion’s League. And like some days, like right now I’m watching Champion’s League like I’m watching Man City (see Appendix A).” His transition from using past tense to present tense while narrating an experience matches level three on the Can-Do Descriptor. He also summarizes content-related ideas regarding history, regarding the Pearl Harbor part of the conversation, reaching level four on the Can-Do Descriptor (see Appendix A; WiDA, 2016). Regarding the explain and argue categories on the descriptors, Miguel hits a high level during our discussion on Messi and Ronaldo. Miguel believes Ronaldo is the best soccer player in the world, and in our discussion, I make the case that Messi is better. Miguel supported his argument with the claim that Ronaldo is “tall, and he’s stronger [than Messi]. I agreed with his points and added, “yeah, you’re right. Ronaldo also has five Champion’s League titles and Messi has four.” Miguel used a counterclaim to point out, however, that Messi had won a World Cup title while Ronaldo has not, adding that Messi has also won the world’s best player award more often. Miguel’s counterclaims demonstrate supporting details, level four on the explain rubric, and debating with counterclaims and evidence, level five on the argue rubric (WiDA, 2016). His ability to do so is impressive. It also demonstrates that, while he may have identified as a level three on his most recent WiDA assessment, Miguel shows higher proficiency levels in certain settings, likely indicating he will be able to exit the ESOL program soon. </p>
-    <p>Miguel’s oral literacy has progressed well in his two years in the United States, as he demonstrates, at times, conversationally fluency at the higher levels of a culturally and linguistically diverse learner (CLD). It has certainly helped some that Miguel’s L1 is Spanish, with some structural similarities to English. Miguel’s’ basic L2 vocabulary is strong. He can quickly grasp most basic responses and add complexity to his speech with relative ease. Miguel has an accent when he speaks, which is to be expected of an older CLD, as opposed to a young child. Younger children can manipulate their phonology more and are more likely to develop an accent that sounds native to their L2 (Baker &amp; Wright, 2021). Miguel’s L2 proficiency level when it came to discussing soccer appeared to be stronger than when discussing other topics. This is representative of communicative competence, a theory developed by Dell Hymes. Hymes’ communicative competence argues that language learners will appear more fluent when speaking about topics they are interested in (Baker &amp; Wright, 2021). </p>
-    <p>Miguel’s passion for soccer, visibly apparent in his L2 discussions with peers, also demonstrates a social pressure to further develop his L2. Miguel spends most of his day with other CLDs, only some of whom have a common L1 with Miguel, Spanish. Most are speakers of other languages foreign to Miguel, however, many of these peers also possess a strong interest in soccer. Soccer is discussed many days a week in my class, and this year was a cultural first: a World Cup occurring in the middle of the school year, in November and December. How else would several WiDA level ones and twos, with roughly seven or eight different L1s, converse about a world tournament in which many of their home countries are participating? English! This small example of soccer driving social pressure to become more adept in their new language, English, is a microcosm of the larger social pressure which drives young people to learn English faster than adults. It is this social pressure that in-part leads younger people to learn a language faster than adults. Children being quick language learners is not, notably, because of a theory called the critical period hypothesis (Baker &amp; Wright, 2021). </p>
-    <p>Miguel’s writing sample is from a research essay Miguel completed for his English Language Arts class, an essay about dinosaurs (see Appendix B). My initial impression with Miguel’s writing is that he demonstrates a strong English Language Proficiency (ELP) with several corresponding areas of growth, most notably a diminishing L1 language ability. Formally, Miguel’s language complexity reaches levels three and four. His writing demonstrates both simple and expanded sentence structure, an indicator of level three, while also demonstrating a nice variety of sentence lengths, an indicator of level four on the WiDA rubric (WiDA, 2006). In terms of vocabulary usage, I rated Miguel as a level three. He shows proficiency in terms of the scientific content language when he uses words like “terrestrial” and “aquatic.” However, his basic English vocabulary is more lacking, as demonstrated when he overuses words like “awesome.” His language control is excellent and comprehensible. Some of his language is hindered by grammatical errors. Grammatical errors can often be due to L1 transfer issues, but this appears to me to be more of a syntax and composition issue, based off my conversations with Miguel (Baker &amp; Wright, 2021). Miguel also scores well on the WiDA Can-Do Descriptors. Miguel uses transitions well, such as “as we have seen” and “not only,” indicative of a level four (see Appendix B; WiDA, 2017). As he compares different species to others in terms of size, he demonstrates a level three ability on the explain part of the rubric. He also uses examples to substantiate his opinions, as he demonstrates the Spinosaurus wasn’t just “enormous [. . .], [but it measured] up to 42 feet in length,” indicative of the level three rating on the argue section (WiDA, 2017). Miguel demonstrates many punctuation errors, which is not necessarily a language transfer issue. However, even with errors, Miguel’s writing is perfectly comprehensible. He does not demonstrate interlanguage issues, which is often true of young CLDs (Baker &amp; Wright, 2021). </p>
-    <p>Overall, Miguel clearly gives off clues of subtractive bilingualism in both his speaking and writing abilities. When speaking, he will grasp for words and meanings as he attempts to convey a more complex thought. His rather basic vocabulary when writing is likely indicative of few words in which to transfer or translate from in his L1, Spanish. Immigrants to the United States, often must conform to the dominant language, English, for a variety of reasons. Many students, including Miguel, lose or are losing their L1 as they develop and focus on their English proficiency (Baker &amp; Wright, 2021). Ultimately, this hinders L2 language development, as seen in Miguel’s basic word usage in his writing sample, as students have fewer L1 words from which to translate or transfer (Palmer &amp; Martinez, 2016). This is my main concern with Miguel’s ELP development, a concern that is also rectifiable. </p>
-    <p class="center"><strong>Section </strong><strong>I</strong><strong>I</strong><strong>I:</strong> <strong>Exploratory Action Plan</strong></p>
-    <p>	The exploratory action plan I would implement for Miguel would focus on two main things: first, bolstering his L1 proficiency in both speaking and writing; second, I would recommend to Miguel’s teachers to create in-class opportunities to utilize his L1, primarily through translanguaging. </p>
-    <p>	Miguel possesses a strong language transfer; however, Miguel would clearly benefit from bolstering his L1 proficiency. He would then be able to transfer a more comprehensive set of vocabulary, syntax, and grammar to his L2, leading to a stronger ELP (Palmer &amp; Martinez, 2016). There are several ways to go about this, including work the family can complete through home practice and perhaps hiring a Spanish tutor, if necessary. However, what should concern educators is opportunities to bolster L1’s in school within the system we currently have. Miguel should clearly take Spanish class as an eighth grader next year. I recently learned of a new class offered through the district, Spanish for Native Speakers. This is not currently offered at my school, but it would be a terrific addition to the catalog and one that can be reasonably added. From what my colleagues and mentor coach have said, it is a huge benefit to the CLDs who take it. This is corroborated by recent research as well. Students who further develop their L1 tend to score higher on L2 proficiency metrics than their peers. Development of the L1 also improves overall academic achievement and cognitive development, in addition to strengthening the learner’s cultural identity (Collier &amp; Thomas, 2017). </p>
-    <p>	There are also in-class ways to further develop Miguel’s L1. Miguel should be encouraged in either his English Language Arts class or in his ESOL class to write and journal in his L1. A five- or ten-minute daily habit of writing in his L1 would help significantly. Classroom assignments should also occasionally be developed and completed in his L1. Many schools in the district have language objectives for all classes. Miguel would benefit greatly from this, especially with formative checks and feedback given on his language objective. There is not a public bilingual school option for Miguel, which would likely be the most beneficial to his L1 (Collier &amp; Thomas, 2017). However, thoughtful practice by Miguel’s teachers could greatly benefit both Miguel’s L1 proficiency and ELP. </p>
-    <p>The way Miguel grasps for meaning or pauses to search for new words demonstrates that he would benefit from being able to fill L2 gaps with L1 words. Translanguaging would be the most beneficial step for Miguel to address this. The English learning classes at Miguel’s school are language diverse. Most of his classes have multilingual students whose families are from all over the world; therefore, Miguel’s classes usually have eight or more different L1’s present in a classroom at any given time. This provides a difficult atmosphere for translanguaging to occur naturally. However, intentional steps taken by Miguel’s teachers could create an environment that is not only friendly to translanguaging but also one that encourages it. </p>
-    <p>In addition to the suggestions above regarding L1 development, Miguel’s teachers should also be encouraged to create structured environments that permit and encourage translanguaging. The goal here is push learners into the Zone of Proximal Development. While collaborating with others, learners can make new meaning while building upon one another’s ideas. Too often, CLDs do not feel comfortable participating in this collaboration process due to limited English proficiency. However, a friendly environment that encourages translanguaging can allow CLDs to create new meaning with their peers while filling in L2 holes with L1 words and phrases. Simply put, greater meaning making and learning can occur when learners have more words in their vocabulary arsenal (Walqui, 2006).</p>
-    <p>There are a few ways for educators to be intentional about creating spaces for students to utilize translanguaging. First, in a classroom that is L1 diverse, students can be seated with others who share the same L1. Second, there can be teacher-encouraged formulaic expressions. Henderson and Ingram suggest this as a call and response in a student’s L1, but I think formulaic expressions could be adapted to a graphic organizer with a variety of phrases in a student’s L1 with content specific words (2018). For example, in my history class, I could have “My evidence is…” in Miguel’s L1 on a graphic organizer when we are using sources to draw conclusions. Helpful phrases in an L1 can encourage other words in the same L1 to come out, leading to translanguaging opportunities. Several times a week or even at the beginning of class each day, a student can have the opportunity to tell the class a joke in the student’s L1, with the translated joke told a second time in English. This is a fun way to subtly remind students that languages other than English are okay to be used in class (Henderson &amp; Ingram, 2018). Lastly, group instructional tasks should be occasionally completed in students’ L1s, allowing the heavy use and development of L1s to occur in class. </p>
-    <p class="center"><strong>Section </strong><strong>IV</strong><strong>:</strong> <strong>Reflection</strong></p>
-    <p>	This project and course have been a great adventure in tearing down knowledge structures that an American public educator develops in our system of traditional English as Second Language (ESL) classes. During this course, I developed a more holistic picture of language acquisition. Specifically, I learned that learning opportunities for CLDs increase when given opportunities to use every word available in a learner’s linguistic repertoire, whether it is in the learners L1 or L2. This is a subtle mindset shift for educators; one I can best describe as thinking of a classroom as a place for students to make new meanings. If that is the goal, then CLDs will best be able to make new meanings if they are permitted to utilize a holistic language system, both their L1 and L2. This is demonstrated above with Miguel’s exploratory action plan, focused on L1 proficiency development and the creation of translanguaging opportunities. </p>
-    <p>	There is an opportunity to present this theory of learning to educators in both departments and entire schools. The mindset shift I just described is one that can easily be explained other educators through meetings or perhaps more appropriately, professional development. If translanguaging was explained briefly, there may be some perceived confusion from general education teachers. However, explaining to teachers that it improves the learning opportunities of CLDs would improve its adoption in classrooms, along with proper training. </p>
-    <p>	Personally, I am excited thinking about the ways in which new learning can be created through multilanguage use. In addition, there are several practical strategies I can implement now to improve language acquisition in my classroom. I hope to make my classroom as close to a bilingual school setting as possible, with the exception that instruction cannot be bilingual, because my Spanish is not quite ready. To make my classroom more friendly to multilanguage use, I hope to seat students with the same L1s together for specific group tasks. Also, in the long term, I hope to develop a series of tactics to create an environment friendly to multilanguage use. This includes bilingual jokes, L1 graphic organizers with content phrases, and assignments completed in L1s. Personal anchor charts for students with content vocabulary for each unit will also be added to my classes with CLDs. </p>
-    <p>	Overall, I am excited for the numerous steps educators can take right now to help learners like Miguel. There is much room for our district to grow in its teaching of CLDs, but there is so much that can be done within the system we have, I believe. I am hopeful for a bright future for CLD learning in our district and look forward to help implementing it with the things I learned through this project. </p>
-    <p class="center"><strong>References</strong></p>
-    <p>Baker, C., &amp; Wright, W. E. (2021). <em>Foundations of bilingual education and bilingualism.</em> Multilingual Matters.</p>
-    <p>Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
-    <p>Echevarria, J., Frey, N., &amp; Fisher, D. (2015, March). What it takes for English learners to succeed. <em>Educational </em><em>	Leadership</em>, 22–26.</p>
-    <p>Henderson, K. I., &amp; Ingram, M. (2018). “Mister, you’re writing in Spanglish”: Fostering spaces for meaning making 	and metalinguistic connections through teacher translanguaging shifts in the bilingual classroom. <em>Bilingual </em><em>	Research Journal</em>, <em>41</em>(3), 253–271. </p>
-    <p>Palmer, D. K., &amp; Martínez, R. A. (2016). Developing biliteracy: What do teachers really need to know about 	language? <em>Language Arts</em>, <em>93</em>(5), 379–385.</p>
-    <p>Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180. https://doi.org/10.1080/13670050608668639 </p>
-    <p>WiDA. (2007). WiDA speaking and writing rubrics. In <em>ACCESS for ELLs training toolkit and test administration manual</em> (Ser. 103). essay, WiDA.</p>
-    <p>WiDA. (2016). <em>WiDA can do descriptors - key uses edition</em>. WiDA - University of Wisconsin. Retrieved from </p>
-    <p class="center"><strong>Appendix A</strong></p>
-    <p class="center"><strong>Oral Language Sample – Miguel</strong></p>
-    <p>Me: Who do you think is better, Ronaldo or Messi?</p>
-    <p>Miguel: Ronaldo.</p>
-    <p>Me: You think so? Make your case.</p>
-    <p>Miguel: I just think he has to work harder for how good he is. </p>
-    <p>Me: What is he best at?</p>
-    <p>Miguel: Kicking field kicks. No wait, free kicks!  I think he has like a ton of power on his shot. </p>
-    <p>Me: Nice, he definitely does. Another reason he is better than Messi?</p>
-    <p>Miguel: He’s tall, and he’s stronger. </p>
-    <p>Me: Yeah you’re right. Ronaldo also has five Champions League [titles] and Messi has four. </p>
-    <p>Miguel: Like Messi has the World Cup and six or seven B’allon d’Ors. </p>
-    <p>Me: Do you watch Champion’s League? </p>
-    <p>Miguel: I did. I used to do like watch it every single day when it was Champion’s League. And like some days like right now I’m watching Champions League like I’m watching Man City. I hope they win. </p>
-    <p>Me: Nice. </p>
-    <p>Miguel: So yeah, I’m cheering for those. </p>
-    <p>Me: Right now, I like Benefica. I’m pumped because they’re winning. They’re in Lisbon, Portugal. It would be fun to me if they win, because Man City is <em>so</em> good. </p>
-    <p>Miguel: It would. But they’ve [Man City] got Haaland. </p>
-    <p>—</p>
-    <p>Me: Ok. How do you like school?</p>
-    <p>Miguel: It’s pretty fun. Even though I don’t like school, it’s like decent, like all my classes. Even having you is kind of a fun class.</p>
-    <p>Me: Thanks, man. What do you like about school throughout your day? </p>
-    <p>Miguel: I like having like having (sic) PE. Talking to friends. Maybe learning new stuff. </p>
-    <p>Me: What do you like to learn? </p>
-    <p>Miguel: About wars and all that. </p>
-    <p>Me: You like the WWII stuff?</p>
-    <p>Miguel: I was just playing the WWII game on the Xbox. And you start going to D-Day, and you like move up and try to regain friends again.</p>
-    <p>Me: Cool. Do you like Math?</p>
-    <p>Miguel: I do. I think it is like my favorite subject. </p>
-    <p>Me: What else do you like about history class, besides the wars?</p>
-    <p>Miguel: Like learning about what happened before to get to where we are now. And like what they did was kind of interesting and why they did it for, for reasons. </p>
-    <p>Me: Favorite thing you’ve learned so far in history class? </p>
-    <p>Miguel: I think like World War I. </p>
-    <p>Me: Thinking about Pearl Harbor. Do you think there is evidence that the US leaders knew about the attack?</p>
-    <p>Miguel: I first thought that there was going to be like, like they knew about the attacks at Pearl Harbor. But then like going through the slides there was like no evidence that they knew about it, because it [a memo] wasn’t important to know about. </p>
-    <p>Me: Nice argument, Miguel. </p>
-    <p class="center"><strong>Appendix </strong><strong>B</strong></p>
-    <p class="center"><strong>Written Language Sample</strong></p>
-    <p class="center"><strong>Assignment</strong>: Research Essay - English Language Arts class</p>
-    <p><strong>Sample</strong>: Do you know one of the strongest dinosaurs was the TRex? Dinosaurs were animals that appeared during the Triassic period and dominated the earth for more than 140 million years and were able to adapt to all terrestrial and aquatic ecosystems. As we have seen in the movies-, there could be very small, or large species and other giant ones. The T Rex was called the king of the tyrant lizards. Not only was it enormous, being able to measure up to 42 feet in length and about 13 feet in height, but also, it’s weight ranged between 6 and 8 tons. However, we now know that the spinosaurus was even bigger than the Trex. Dinosaurs are awsome because it´s impresive how strong, smart and heavy they were. Let's learn more about these awsome animals that once dominated the Earth.</p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDCI 516 &middot; Spring 2023</div>
+    <h1>Language Acquisition Case Study</h1>
+    <p class="hero-subtitle">In-depth case study of a multilingual learner's language acquisition journey</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Bilingualism &amp; Language Acquisition Research</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong>Language Acquisition Case Study</strong></p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">College of Education and Human Development, George Mason University</p>
+      <p class="center">EDCI 516: Bilingualism &amp; Language Acquisition Research</p>
+      <p class="center">Dr. Woomee Kim &amp; Dr. Manqian Zhao</p>
+      <p class="center">May 4th, 2023</p>
+      <p class="center"><strong>Section I: Introduction &amp; Findings</strong></p>
+      <p>This is a language acquisition case study performed during the spring semester of 2023. For this study, I interviewed Miguel, a seventh-grade student in my United States History II class. I chose Miguel for this case study for a variety of reasons. First, the English to Students of Other Languages (ESOL) department and myself have developed a relationship with Miguel’s parents. Miguel’s dad become involved in some school functions and was an active participant in helping Miguel develop his English. A natural relationship developed between the ESOL teachers and his parents. I initiated a relationship with Miguel’s parents at the ESOL teacher’s suggestion, in the hopes of benefitting his academic and language work in my classroom. Like their son, Miguel’s parents exude kindness. Second, Miguel is in an interesting area of language development: he is progressing rapidly through English proficiency levels while slowly losing fluency in his first language, Spanish. Miguel is identified as a level three English speaker on the WiDA model, recently progressing from a level two identification. </p>
+      <p>Miguel is thirteen years old and was born in Mexico. He moved to the United States two years ago when he was eleven.  He has an older sister in college who has notably lost a significant portion of her Spanish, according to Miguel. Miguel’s personality is a fun and dynamic one, he is gregarious and makes his classmates laugh often. He loves to play hockey while also exuding a passion and shared interest in soccer with his peers. Miguel also enjoys playing Xbox with his friends. His disposition toward others is warm and welcoming. Miguel has a silly sense of humor, one that is endearing to his classmates. In the hallway, Miguel will often tap myself or another teacher on the opposite while walking past the opposite shoulder. He brings this type of harmless, fun enjoyment to his work in seventh period. </p>
+      <p class="center"><strong>Section </strong><strong>II:</strong> <strong>Analysis</strong></p>
+      <p>Miguel and I had a casual conversation in my classroom for the oral language sample. He came during advisory time so there was no conflict with an instructional class. We discussed mostly personal topics like sports and family, with a couple of questions sprinkled in about school. We had a rather enjoyable part of the conversation discussing who the best soccer play in the world is—Messi or Ronaldo. We discussed some of his hobbies, including video games and hockey. Finally, we discussed school, his favorite subject to learn, and his perspective on some history topics. </p>
+      <p>My initial impression with Miguel’s English proficiency is that he is essentially fluent in terms of holding conversations, with an expanding, but limited, vocabulary. He can respond quickly without gathering his thoughts, while demonstrating a conversational fluency that has clearly grown significantly since the beginning of the year. He will pause in the middle of a sentence occasionally to gather his thoughts or search for words. Formally, my initial impression with Miguel’s speaking ability was consistent with his level three WiDA identification from the school. When he states, “what they did was kind of interesting and why they did it for, for reasons,” Miguel is demonstrating emerging complexities in his phrasing. He also pauses to search for specific words at times, indicative of level three vocabulary usage (WiDA, 2007). Further, he is generally comprehensible, with an occasional syntax error, like when he uses the phrase “field kick” instead of “free kick,” referring to a soccer play. However, this may be an L1 transfer or translation issue. For instance, he could be attempting to translate “spot kick” from Spanish, perhaps a more commonly used phrase around the world for what one would call a “penalty kick” in English. This error could also be an L2 vocabulary confusion, mixing phrasing between the sports of soccer and American football (“field goal”). All the above is indicative of a level three rating on the rubric. At times, however, Miguel demonstrates levels much higher.</p>
+      <p>When responding to a question about an inquiry lesson we had in class, he said, “I first thought that there was going to be like, like they knew about the attacks at Pearl Harbor. But then like going through the slides there was like no evidence that they knew about it, because it [a memo] wasn’t important to know about.” His ability to make an argument using historical evidence, or lack thereof, suggests technical language specific to historical reasoning. He even uses the specific vocabulary we use in class. These marks indicate levels four and five on the WiDA speaking rubric in terms of vocabulary usage. His usage of evidence in his verbal historical reasoning also demonstrates emerging cohesion, indicative of a level four in terms of linguistic complexity. He does, however, still grasp for vocabulary, and most of his sentences do not actually vary in complexity or length, marks of level five. The above leads me to conclude that Miguel’s English proficiency in terms of speaking is indicative of a level four on the WiDA rubric (WiDA, 2007). </p>
+      <p>I also used the WiDA Can-Do Descriptors to formally assess Miguel (WiDA, 2016). I found these extraordinarily helpful. The WiDA Can-Do Descriptors break down speaking ability into four areas: recount, explain, argue, and discuss. Recounting is defined as demonstrating knowledge or narrating experiences, while explaining is reserved for explaining the “why” or “how” of a concept. Arguing is defined by making claims backed up with evidence. Discussion is reserved for small group discussions, so it will be left out of the following assessment (WiDA, 2016). </p>
+      <p>Miguel’s recount ability reached levels three and four during our conversation. He references watching Champion’s League soccer in the past tense, stating “I did. I used to do like watch it every single day when it was Champion’s League. And like some days, like right now I’m watching Champion’s League like I’m watching Man City (see Appendix A).” His transition from using past tense to present tense while narrating an experience matches level three on the Can-Do Descriptor. He also summarizes content-related ideas regarding history, regarding the Pearl Harbor part of the conversation, reaching level four on the Can-Do Descriptor (see Appendix A; WiDA, 2016). Regarding the explain and argue categories on the descriptors, Miguel hits a high level during our discussion on Messi and Ronaldo. Miguel believes Ronaldo is the best soccer player in the world, and in our discussion, I make the case that Messi is better. Miguel supported his argument with the claim that Ronaldo is “tall, and he’s stronger [than Messi]. I agreed with his points and added, “yeah, you’re right. Ronaldo also has five Champion’s League titles and Messi has four.” Miguel used a counterclaim to point out, however, that Messi had won a World Cup title while Ronaldo has not, adding that Messi has also won the world’s best player award more often. Miguel’s counterclaims demonstrate supporting details, level four on the explain rubric, and debating with counterclaims and evidence, level five on the argue rubric (WiDA, 2016). His ability to do so is impressive. It also demonstrates that, while he may have identified as a level three on his most recent WiDA assessment, Miguel shows higher proficiency levels in certain settings, likely indicating he will be able to exit the ESOL program soon. </p>
+      <p>Miguel’s oral literacy has progressed well in his two years in the United States, as he demonstrates, at times, conversationally fluency at the higher levels of a culturally and linguistically diverse learner (CLD). It has certainly helped some that Miguel’s L1 is Spanish, with some structural similarities to English. Miguel’s’ basic L2 vocabulary is strong. He can quickly grasp most basic responses and add complexity to his speech with relative ease. Miguel has an accent when he speaks, which is to be expected of an older CLD, as opposed to a young child. Younger children can manipulate their phonology more and are more likely to develop an accent that sounds native to their L2 (Baker &amp; Wright, 2021). Miguel’s L2 proficiency level when it came to discussing soccer appeared to be stronger than when discussing other topics. This is representative of communicative competence, a theory developed by Dell Hymes. Hymes’ communicative competence argues that language learners will appear more fluent when speaking about topics they are interested in (Baker &amp; Wright, 2021). </p>
+      <p>Miguel’s passion for soccer, visibly apparent in his L2 discussions with peers, also demonstrates a social pressure to further develop his L2. Miguel spends most of his day with other CLDs, only some of whom have a common L1 with Miguel, Spanish. Most are speakers of other languages foreign to Miguel, however, many of these peers also possess a strong interest in soccer. Soccer is discussed many days a week in my class, and this year was a cultural first: a World Cup occurring in the middle of the school year, in November and December. How else would several WiDA level ones and twos, with roughly seven or eight different L1s, converse about a world tournament in which many of their home countries are participating? English! This small example of soccer driving social pressure to become more adept in their new language, English, is a microcosm of the larger social pressure which drives young people to learn English faster than adults. It is this social pressure that in-part leads younger people to learn a language faster than adults. Children being quick language learners is not, notably, because of a theory called the critical period hypothesis (Baker &amp; Wright, 2021). </p>
+      <p>Miguel’s writing sample is from a research essay Miguel completed for his English Language Arts class, an essay about dinosaurs (see Appendix B). My initial impression with Miguel’s writing is that he demonstrates a strong English Language Proficiency (ELP) with several corresponding areas of growth, most notably a diminishing L1 language ability. Formally, Miguel’s language complexity reaches levels three and four. His writing demonstrates both simple and expanded sentence structure, an indicator of level three, while also demonstrating a nice variety of sentence lengths, an indicator of level four on the WiDA rubric (WiDA, 2006). In terms of vocabulary usage, I rated Miguel as a level three. He shows proficiency in terms of the scientific content language when he uses words like “terrestrial” and “aquatic.” However, his basic English vocabulary is more lacking, as demonstrated when he overuses words like “awesome.” His language control is excellent and comprehensible. Some of his language is hindered by grammatical errors. Grammatical errors can often be due to L1 transfer issues, but this appears to me to be more of a syntax and composition issue, based off my conversations with Miguel (Baker &amp; Wright, 2021). Miguel also scores well on the WiDA Can-Do Descriptors. Miguel uses transitions well, such as “as we have seen” and “not only,” indicative of a level four (see Appendix B; WiDA, 2017). As he compares different species to others in terms of size, he demonstrates a level three ability on the explain part of the rubric. He also uses examples to substantiate his opinions, as he demonstrates the Spinosaurus wasn’t just “enormous [. . .], [but it measured] up to 42 feet in length,” indicative of the level three rating on the argue section (WiDA, 2017). Miguel demonstrates many punctuation errors, which is not necessarily a language transfer issue. However, even with errors, Miguel’s writing is perfectly comprehensible. He does not demonstrate interlanguage issues, which is often true of young CLDs (Baker &amp; Wright, 2021). </p>
+      <p>Overall, Miguel clearly gives off clues of subtractive bilingualism in both his speaking and writing abilities. When speaking, he will grasp for words and meanings as he attempts to convey a more complex thought. His rather basic vocabulary when writing is likely indicative of few words in which to transfer or translate from in his L1, Spanish. Immigrants to the United States, often must conform to the dominant language, English, for a variety of reasons. Many students, including Miguel, lose or are losing their L1 as they develop and focus on their English proficiency (Baker &amp; Wright, 2021). Ultimately, this hinders L2 language development, as seen in Miguel’s basic word usage in his writing sample, as students have fewer L1 words from which to translate or transfer (Palmer &amp; Martinez, 2016). This is my main concern with Miguel’s ELP development, a concern that is also rectifiable. </p>
+      <p class="center"><strong>Section </strong><strong>I</strong><strong>I</strong><strong>I:</strong> <strong>Exploratory Action Plan</strong></p>
+      <p>	The exploratory action plan I would implement for Miguel would focus on two main things: first, bolstering his L1 proficiency in both speaking and writing; second, I would recommend to Miguel’s teachers to create in-class opportunities to utilize his L1, primarily through translanguaging. </p>
+      <p>	Miguel possesses a strong language transfer; however, Miguel would clearly benefit from bolstering his L1 proficiency. He would then be able to transfer a more comprehensive set of vocabulary, syntax, and grammar to his L2, leading to a stronger ELP (Palmer &amp; Martinez, 2016). There are several ways to go about this, including work the family can complete through home practice and perhaps hiring a Spanish tutor, if necessary. However, what should concern educators is opportunities to bolster L1’s in school within the system we currently have. Miguel should clearly take Spanish class as an eighth grader next year. I recently learned of a new class offered through the district, Spanish for Native Speakers. This is not currently offered at my school, but it would be a terrific addition to the catalog and one that can be reasonably added. From what my colleagues and mentor coach have said, it is a huge benefit to the CLDs who take it. This is corroborated by recent research as well. Students who further develop their L1 tend to score higher on L2 proficiency metrics than their peers. Development of the L1 also improves overall academic achievement and cognitive development, in addition to strengthening the learner’s cultural identity (Collier &amp; Thomas, 2017). </p>
+      <p>	There are also in-class ways to further develop Miguel’s L1. Miguel should be encouraged in either his English Language Arts class or in his ESOL class to write and journal in his L1. A five- or ten-minute daily habit of writing in his L1 would help significantly. Classroom assignments should also occasionally be developed and completed in his L1. Many schools in the district have language objectives for all classes. Miguel would benefit greatly from this, especially with formative checks and feedback given on his language objective. There is not a public bilingual school option for Miguel, which would likely be the most beneficial to his L1 (Collier &amp; Thomas, 2017). However, thoughtful practice by Miguel’s teachers could greatly benefit both Miguel’s L1 proficiency and ELP. </p>
+      <p>The way Miguel grasps for meaning or pauses to search for new words demonstrates that he would benefit from being able to fill L2 gaps with L1 words. Translanguaging would be the most beneficial step for Miguel to address this. The English learning classes at Miguel’s school are language diverse. Most of his classes have multilingual students whose families are from all over the world; therefore, Miguel’s classes usually have eight or more different L1’s present in a classroom at any given time. This provides a difficult atmosphere for translanguaging to occur naturally. However, intentional steps taken by Miguel’s teachers could create an environment that is not only friendly to translanguaging but also one that encourages it. </p>
+      <p>In addition to the suggestions above regarding L1 development, Miguel’s teachers should also be encouraged to create structured environments that permit and encourage translanguaging. The goal here is push learners into the Zone of Proximal Development. While collaborating with others, learners can make new meaning while building upon one another’s ideas. Too often, CLDs do not feel comfortable participating in this collaboration process due to limited English proficiency. However, a friendly environment that encourages translanguaging can allow CLDs to create new meaning with their peers while filling in L2 holes with L1 words and phrases. Simply put, greater meaning making and learning can occur when learners have more words in their vocabulary arsenal (Walqui, 2006).</p>
+      <p>There are a few ways for educators to be intentional about creating spaces for students to utilize translanguaging. First, in a classroom that is L1 diverse, students can be seated with others who share the same L1. Second, there can be teacher-encouraged formulaic expressions. Henderson and Ingram suggest this as a call and response in a student’s L1, but I think formulaic expressions could be adapted to a graphic organizer with a variety of phrases in a student’s L1 with content specific words (2018). For example, in my history class, I could have “My evidence is…” in Miguel’s L1 on a graphic organizer when we are using sources to draw conclusions. Helpful phrases in an L1 can encourage other words in the same L1 to come out, leading to translanguaging opportunities. Several times a week or even at the beginning of class each day, a student can have the opportunity to tell the class a joke in the student’s L1, with the translated joke told a second time in English. This is a fun way to subtly remind students that languages other than English are okay to be used in class (Henderson &amp; Ingram, 2018). Lastly, group instructional tasks should be occasionally completed in students’ L1s, allowing the heavy use and development of L1s to occur in class. </p>
+      <p class="center"><strong>Section </strong><strong>IV</strong><strong>:</strong> <strong>Reflection</strong></p>
+      <p>	This project and course have been a great adventure in tearing down knowledge structures that an American public educator develops in our system of traditional English as Second Language (ESL) classes. During this course, I developed a more holistic picture of language acquisition. Specifically, I learned that learning opportunities for CLDs increase when given opportunities to use every word available in a learner’s linguistic repertoire, whether it is in the learners L1 or L2. This is a subtle mindset shift for educators; one I can best describe as thinking of a classroom as a place for students to make new meanings. If that is the goal, then CLDs will best be able to make new meanings if they are permitted to utilize a holistic language system, both their L1 and L2. This is demonstrated above with Miguel’s exploratory action plan, focused on L1 proficiency development and the creation of translanguaging opportunities. </p>
+      <p>	There is an opportunity to present this theory of learning to educators in both departments and entire schools. The mindset shift I just described is one that can easily be explained other educators through meetings or perhaps more appropriately, professional development. If translanguaging was explained briefly, there may be some perceived confusion from general education teachers. However, explaining to teachers that it improves the learning opportunities of CLDs would improve its adoption in classrooms, along with proper training. </p>
+      <p>	Personally, I am excited thinking about the ways in which new learning can be created through multilanguage use. In addition, there are several practical strategies I can implement now to improve language acquisition in my classroom. I hope to make my classroom as close to a bilingual school setting as possible, with the exception that instruction cannot be bilingual, because my Spanish is not quite ready. To make my classroom more friendly to multilanguage use, I hope to seat students with the same L1s together for specific group tasks. Also, in the long term, I hope to develop a series of tactics to create an environment friendly to multilanguage use. This includes bilingual jokes, L1 graphic organizers with content phrases, and assignments completed in L1s. Personal anchor charts for students with content vocabulary for each unit will also be added to my classes with CLDs. </p>
+      <p>	Overall, I am excited for the numerous steps educators can take right now to help learners like Miguel. There is much room for our district to grow in its teaching of CLDs, but there is so much that can be done within the system we have, I believe. I am hopeful for a bright future for CLD learning in our district and look forward to help implementing it with the things I learned through this project. </p>
+      <div class="references">
+      <h3><strong>References</strong></h3>
+      <p class="ref">Baker, C., &amp; Wright, W. E. (2021). <em>Foundations of bilingual education and bilingualism.</em> Multilingual Matters.</p>
+      <p class="ref">Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
+      <p class="ref">Echevarria, J., Frey, N., &amp; Fisher, D. (2015, March). What it takes for English learners to succeed. <em>Educational </em><em>	Leadership</em>, 22–26.</p>
+      <p class="ref">Henderson, K. I., &amp; Ingram, M. (2018). “Mister, you’re writing in Spanglish”: Fostering spaces for meaning making 	and metalinguistic connections through teacher translanguaging shifts in the bilingual classroom. <em>Bilingual </em><em>	Research Journal</em>, <em>41</em>(3), 253–271. </p>
+      <p class="ref">Palmer, D. K., &amp; Martínez, R. A. (2016). Developing biliteracy: What do teachers really need to know about 	language? <em>Language Arts</em>, <em>93</em>(5), 379–385.</p>
+      <p class="ref">Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180. https://doi.org/10.1080/13670050608668639 </p>
+      </div>
+      <p>WiDA. (2007). WiDA speaking and writing rubrics. In <em>ACCESS for ELLs training toolkit and test administration manual</em> (Ser. 103). essay, WiDA.</p>
+      <p>WiDA. (2016). <em>WiDA can do descriptors - key uses edition</em>. WiDA - University of Wisconsin. Retrieved from </p>
+      <p class="center"><strong>Appendix A</strong></p>
+      <p class="center"><strong>Oral Language Sample – Miguel</strong></p>
+      <p>Me: Who do you think is better, Ronaldo or Messi?</p>
+      <p>Miguel: Ronaldo.</p>
+      <p>Me: You think so? Make your case.</p>
+      <p>Miguel: I just think he has to work harder for how good he is. </p>
+      <p>Me: What is he best at?</p>
+      <p>Miguel: Kicking field kicks. No wait, free kicks!  I think he has like a ton of power on his shot. </p>
+      <p>Me: Nice, he definitely does. Another reason he is better than Messi?</p>
+      <p>Miguel: He’s tall, and he’s stronger. </p>
+      <p>Me: Yeah you’re right. Ronaldo also has five Champions League [titles] and Messi has four. </p>
+      <p>Miguel: Like Messi has the World Cup and six or seven B’allon d’Ors. </p>
+      <p>Me: Do you watch Champion’s League? </p>
+      <p>Miguel: I did. I used to do like watch it every single day when it was Champion’s League. And like some days like right now I’m watching Champions League like I’m watching Man City. I hope they win. </p>
+      <p>Me: Nice. </p>
+      <p>Miguel: So yeah, I’m cheering for those. </p>
+      <p>Me: Right now, I like Benefica. I’m pumped because they’re winning. They’re in Lisbon, Portugal. It would be fun to me if they win, because Man City is <em>so</em> good. </p>
+      <p>Miguel: It would. But they’ve [Man City] got Haaland. </p>
+      <p>—</p>
+      <p>Me: Ok. How do you like school?</p>
+      <p>Miguel: It’s pretty fun. Even though I don’t like school, it’s like decent, like all my classes. Even having you is kind of a fun class.</p>
+      <p>Me: Thanks, man. What do you like about school throughout your day? </p>
+      <p>Miguel: I like having like having (sic) PE. Talking to friends. Maybe learning new stuff. </p>
+      <p>Me: What do you like to learn? </p>
+      <p>Miguel: About wars and all that. </p>
+      <p>Me: You like the WWII stuff?</p>
+      <p>Miguel: I was just playing the WWII game on the Xbox. And you start going to D-Day, and you like move up and try to regain friends again.</p>
+      <p>Me: Cool. Do you like Math?</p>
+      <p>Miguel: I do. I think it is like my favorite subject. </p>
+      <p>Me: What else do you like about history class, besides the wars?</p>
+      <p>Miguel: Like learning about what happened before to get to where we are now. And like what they did was kind of interesting and why they did it for, for reasons. </p>
+      <p>Me: Favorite thing you’ve learned so far in history class? </p>
+      <p>Miguel: I think like World War I. </p>
+      <p>Me: Thinking about Pearl Harbor. Do you think there is evidence that the US leaders knew about the attack?</p>
+      <p>Miguel: I first thought that there was going to be like, like they knew about the attacks at Pearl Harbor. But then like going through the slides there was like no evidence that they knew about it, because it [a memo] wasn’t important to know about. </p>
+      <p>Me: Nice argument, Miguel. </p>
+      <p class="center"><strong>Appendix </strong><strong>B</strong></p>
+      <p class="center"><strong>Written Language Sample</strong></p>
+      <p class="center"><strong>Assignment</strong>: Research Essay - English Language Arts class</p>
+      <p><strong>Sample</strong>: Do you know one of the strongest dinosaurs was the TRex? Dinosaurs were animals that appeared during the Triassic period and dominated the earth for more than 140 million years and were able to adapt to all terrestrial and aquatic ecosystems. As we have seen in the movies-, there could be very small, or large species and other giant ones. The T Rex was called the king of the tyrant lizards. Not only was it enormous, being able to measure up to 42 feet in length and about 13 feet in height, but also, it’s weight ranged between 6 and 8 tons. However, we now know that the spinosaurus was even bigger than the Trex. Dinosaurs are awsome because it´s impresive how strong, smart and heavy they were. Let's learn more about these awsome animals that once dominated the Earth.</p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

@@ -3,85 +3,330 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equity Issue: Legislation Impacting ELs | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<title>Equity Issue: Legislation Impacting English Learners | Matt Walker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#DC262614;color:#DC2626}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #DC2626;
+  --accent-light: #DC262618;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #2a1414 0%, #3a1818 50%, #2a1414 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #DC262618 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #DC26260d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #DC2626;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDUC 537</span>
-      <span class="semester">Fall 2022</span>
-    </div>
-    <p class="center"><strong>Equity Issue Paper – Legislation Impacting English Learners</strong></p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">College of Education and Human Development, George Mason University</p>
-    <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
-    <p class="center">Dr. Kathleen Ramos</p>
-    <p class="center">November 15th, 2022</p>
-    <p class="center"><strong>Section I: Introduction to the Issue in your Setting</strong></p>
-    <p>	The United States, in its long history of offering a new start to immigrants, has become a nation that speaks numerous languages, houses many cultures, and has a heterogenous citizenry. The impact this has on K-12 schooling is immense. By 2025, English language learners will grow to become 40% of the school aged population (Collier &amp; Thomas, 2017, p. 203). In many schools across Prince William County and Virginia, this is already the case. Ronald Reagan Middle School in Haymarket has a 20% English Learner population, but it is safe to assume this population will grow in the coming years. </p>
-    <p>	Schools and school districts in the United States have long sought-after methods of appropriately educating students who are new to the English language. In 1839, Ohio passed a bilingual education law to serve German immigrants (Cruz, 2022, p. 226). By 1900, several states had passed laws to support English learners with bilingual education. Bilingual education, for the purposes of this paper, is defined as instruction given in both English and the native language of the student, usually in a 50/50 model. Following a wave of nativism after World War I, thirty-four states banned non-English instruction by the mid-1920s (Cruz, 2022, p. 226). Following this, K-12 schools around the nation were forced to educate English learners in English as a Second Language programs (ESL), with instruction given only in English. </p>
-    <p>After a series of laws reforming education, Congress, in 1968, passed the Bilingual Education Act. The law provided federal grants to K-12 schools to facilitate the creation of bilingual programs for English learners (Cruz, 2022, p. 227). This was heralded as the “dawning of a new education age,” and “a new phase of ethnic and race relations in the history of American public schooling” (Petrzela, 2010, p. 409). Senator Ralph Yarborough of Texas, the bill’s patron, had even higher hopes for the law, stating the law could be transformative in “overcoming the poor performance in school and high dropout rates [. . .] and great psychological harm caused by English-only policies” (Petrzela, 2010, p. 410). Despite the optimistic beginnings for the Bilingual Education Act, implementation was weak with a small budget and no federal enforcement. </p>
-    <p>	 Amendments to the Bilingual Education Act in 1988 limited student participation in Title VII programs to three years. Under President George W. Bush, No Child Left Behind watered down and relocated what was left of Title VII to Title III of the Elementary and Secondary Education Act (Colorín Colorado, 2015). As a result of these changes, along with a reemergence of English-only laws, K-12 schools transitioned their English learner programs to various types of abbreviated ESL programs in the hopes of meeting the federal requirement for English proficiency in three years. (Collier &amp; Thomas, 2017, p. 34). The impact of implementing ESL programs instead of bilingual programs has had a significant negative impact on overall achievement from English learners. English learners in ESL programs drop out at the highest rate of any population group in school. If they graduate, their English proficiency is significantly behind their monolingually educated peers, hindering English learners’ academic and mental well-being. The achievement gap between English learners in ESL programs and their peers is the most salient equity issue facing English learners today. Fortunately, there is a viable, researched, cost-effective alternative that closes the achievement gap. </p>
-    <p class="center">	<strong>Section II: Research Related to the Issue</strong></p>
-    <p>There are two main models of instruction for English learners: English as a Second Language (ESL) and bilingual education (Collier &amp; Thomas, 2002, p. 32). ESL offers little or no instruction in the student’s native language, and after amendments to Title VII, is typically only offered for three years. Subtypes of this model include ESL pull-out and ESL mainstream. ESL pull-out students spend part or all of their day sheltered in an ESL classroom, while mainstream places students in typical classes with special instruction for English learners, such as an emphasis on content vocabulary (Collier &amp; Thomas, 2002, p. 32-34). Prince William County utilizes a variety of ESL methods, including pull-out and mainstream.</p>
-    <p>Bilingual education has two main subtypes: transitional bilingual education (TBE) and two-way or dual-immersion bilingual education (Collier &amp; Thomas, 2002, pp. 32-34). Transitional bilingual education offers instruction in the native language while teaching English proficiency at the same time, but only lasts two to three years (Cruz, 2022, p. 245). Two-way bilingual education offers instruction in both the student’s native language and English, usually in a 50/50 model, where students spend half the day with instruction in English while the other half of the day has native language instruction (Collier &amp; Thomas, 2002, p. 33). Two-way is also characterized by having both English learners and native English speakers in the group, serving as peer tutors to one another.</p>
-    <p>	The premier body of research regarding bilingual schooling was completed by Virginia P. Collier and Wayne P. Thomas, researchers from George Mason University. Historically, researchers tried to answer the question, “How long does it take to learn a second language?” (Collier &amp; Thomas, 2017, p. 207). Instead, Collier and Thomas researched the length of time it took English learners to reach grade level achievement in English. This is a departure from the main body of research, which often suggested ESL programs worked best because students acquire some form of English fluency faster in an English-immersion. These studies are likely flawed as they measure a poor implementation of bilingual programs (Conger, 2010, p. 1115-1119). Collier and Thomas’s research is most appropriate, since academic fluency in a new language takes, at a minimum, four years (Collier &amp; Thomas, 2002, p. 35).</p>
-    <p>	Collier and Thomas conclude that continued growth of the student’s first language (L1) is the best predictor of student achievement in their second language (L2) (2017, p. 205). Two-way bilingual schools are programs that offer instruction in both English and the student’s native language. Students who continue learning how to read and write in L1 are 2-3 years ahead in their L2 when compared to peers in other programs. If an English learner begins a two-way bilingual program in kindergarten, they will typically reach grade-level proficiency in both languages by fifth or sixth grade. Two-way bilingual program students also have better attendance, improved interest in school, and report greater levels of satisfaction in their classes (Collier &amp; Thomas, 2017, p. 209). In terms of English proficiency, two-way bilingual students are proficient at a “far deeper level than that of [. . .] ESL classes” (Collier &amp; Thomas, 2017, p. 211). Collier and Thomas demonstrate that ESL pull-out students achieve English proficiency in only the 11th percentile, while two-way bilingual programs reach English proficiency levels in the 50th percentile, closing the achievement gap with native English speakers (2002, p. 31). In fact, students in effective programs attain the 70th percentile in English proficiency by the time they graduate, higher than the national median for native English speakers. The 50th percentile achievement gap is closed by middle school, and bilingual program students surpass it in high school. Students are successful at reaching this achievement level regardless of their socioeconomic background. This is remarkable, as no type of ESL program demonstrates, on average, achievement beyond the 25th percentile (Collier &amp; Thomas, 2002, pp. 33-36).</p>
-    <p>	Two-way bilingual programs are effective for the native English speakers in the program, as well. Native English speakers gain proficiency in a second language without losing their primary language, while also achieving proficiency as higher levels than their peers. Further, bilingual individuals have greater success in the job market (Conger, 2010, p. 1120). Two-way bilingual programs are the most cost effective of the programs offered to English learners, assuming a school can acquire teachers who can teach in one of the two languages needed. Students can spend half the day with one teacher who teaches in English, and the other half with a teacher who teaches in English learners’ native language. The students are an essential component, as native English speakers can naturally tutor English learners, with the roles reversed in the minority language (Collier &amp; Thomas, 2002, p. 33). </p>
-    <p>	Collier and Thomas have several policy recommendations regarding English learners. Considering their research, they recommend long term bilingual education, as it is the only program that closes the achievement gap in both English and the native language. Further, they recommend against short-term ESL programs for English learners who begin with no English proficiency. The duration of these programs is detrimental as academic fluency takes at a minimum four years, and on average, six (Collier &amp; Thomas, 2002, p. 35). These recommendations, if followed, would have a significant impact on most K-12 schools in the country, which offer ESL programs that typically last three years. At a minimum, counties like Prince William should offer multiple two-way bilingual programs, in which students with little English proficiency or no prior schooling can be enrolled. These students are at the most risk of not closing the achievement gap, and a two-way bilingual program is the best method available, according to the research (Collier &amp; Thomas, 2002, p. 35). 	There are several viable strategy options for implementing more bilingual programs in Prince William County, Virginia, and nationwide.</p>
-    <p class="center"><strong>Section III:   Possible Interventions &amp; Brief Action Plan</strong></p>
-    <p>The research makes clear the default English learner methodology in the United States should be two-way bilingual immersion programs. Not only should districts be utilizing this method, but there is an urgent need to transition the majority of the nation’s ESL programs to a bilingual program. The United States was already in what can be described as a reading crisis for all students prior to the COVID-19 pandemic exacerbating the issue. Even if native English speakers reading scores stopped declining, the crisis could still worsen because the language minority population is growing and the proficiency scores of English Learners in ESL programs remain stagnant or are declining (Meckler, 2021). The situation is critical, and the academic well-being and mental health of our nation’s English learners will be impacted by the decisions made by policymakers.  </p>
-    <p>Taking the urgency of the situation into consideration, two possible strategies to implement more bilingual programs in Virginia are: 1) local school boards creating bilingual programs on their own; and 2) a state funded and implemented bilingual education plan. Both strategies should begin immediately. Regarding local school board initiatives, new legislation at the state level is not necessary to create bilingual programs. While the Virginia code declares English as the Commonwealth’s official language, the code does not forbid non-English instruction in K-12 schools. Further, in 2018, the Virginia General Assembly added dual-language instruction to the Virginia Department of Education Standards of Quality and permitted license endorsements in dual language (Cuba, 2020). School Boards in Virginia can now legally utilize English learner funds for the creation of bilingual programs. Fairfax County Public Schools has taken advantage of this, creating one-way and two-way bilingual programs offered in five different languages (Fairfax County Public Schools). In Prince William County, this is something that I can help advocate for in my own professional context. We have the resources, we even have the staff for bilingual programs, but we do not have any bilingual programs.</p>
-    <p>The Commonwealth should not wait for local school boards to act of their own accord, however. A second strategy is for Virginia to create a model statewide bilingual implementation plan representative of the diverse state it has become. Through educator and non-profit advocacy, policymakers can be influenced to initiate a series of legislative policies aimed at incentivizing and easing the burden on local school boards. First, state-funded grants can be established and distributed to school districts to cover the creation and implementation of such programs. Second, the state should fund the creation of bilingual educator programs at Virginia colleges and universities. Tuition forgiveness should be considered for graduates who commit to teach in the Commonwealth for a defined number of years. Following in the footsteps of the California Multlingual Education Act, Virginia should give districts the freedom to design their own multilingual programs that best fit their staffing levels and student population. Virginia should mimic the requirements California set for school districts, which require local districts to discuss bilingual programs with parents and the community. The law requires a school to explore bilingual program feasibility if 30 parents from one school request it (Hopkinson, 2017).</p>
-    <p> It would not make sense for a school with three English learners to implement a bilingual education program. However, if a grade level has a dozen or more English learners in one grade that speak the same native language, it would be ideal for Virginia to help fund bilingual program creation and to require its consideration if parents request it. Statewide program implementation costs are likely to be cost effective due to two-way bilingual programs not requiring more staff, only training, assuming educators who speak the native language are available. One-way programs are also viable options for schools with a homogeneous population whose native language is not English. Finally, legislators should direct the Virginia Department of Education to set a goal of bilingually educating one third of all K-12 students by 2050. The benefits to academic performance and lifelong English proficiency in two languages is significant and stated above, but this would also give Virginia a pipeline of future bilingual educators. Virginia’s program implementation can be a model to duplicate in regional states and throughout the country, with the creation of programs in other states done with haste. </p>
-    <p class="center"><strong>Section IV:   Additional Feedback from Colleagues/Peers</strong></p>
-    <p>	Feedback from coworkers has generally been positive. An ESOL department chair and program mentor explained that bilingual programs solve an equity issue regarding access—all students in the program, including English natives, will spend time learning with a new language that is foreign to them. Bilingual programs may also help prevent English learners remaining “stuck” in an ESL program. All coworkers who provided feedback agreed that the bilingual program would help English learners feel more welcome and less likely to fall behind in school. </p>
-    <p>	My colleagues seem to share a general fear of the complexity involved in implementing a bilingual program.  This seems to be mostly a misunderstanding, however. When first hearing about it, a bilingual program can sound overwhelming and very difficult to implement. While there are certainly challenges, the workload for educators should remain relatively constant after training. Other considerations raised by the ESOL department chair regarded how best to implement it—should the program be a pilot for one class? Perhaps a team, or the entire school? One coworker explained that bilingual programs should be implemented for other minority languages in addition to Spanish, such as Arabic, Korean, Urdu, and Vietnamese.   </p>
-    <p>	I agree with my coworkers on nearly all the points mentioned above. Bilingual programs should be implemented for any minority language that has enough students to create a bilingual class, but this is logistically challenging. A pilot program for one or two programs might be the best approach for a district starting bilingual instruction, with success and failures documented and shared with future programs. The staff needs to be highly competent and believe in the efficacy of bilingual instruction, one coworker stated. I agree wholeheartedly with this notion—a quality program is only as good as those running it. My coworkers were very thoughtful with their feedback, and I learned teachers will have a positive attitude toward new initiatives if it’s what is best for students. </p>
-    <p class="center"><strong>Conclusion</strong></p>
-    <p>	To conclude, despite the United States having a long history of providing new opportunities for immigrants, legislation has forced school districts to implement inequitable programs for English learners that hinder overall achievement (Collier &amp; Thomas, 2002). English learners in ESL programs drop out at the highest rate of any population group in school and, at best, only reach the 25th percentile in English proficiency. Although ESL students will initially outperform bilingual program students in English proficiency, bilingual students surpass the achievement of their monolingually educated peers by the end of high school (Collier &amp; Thomas, 2002, p. 31-34). It is clear K-12 schools need to transition, as possible, to bilingual education as their long-term solution for educating English learners. </p>
-    <p>	Students who are schooled in a two-way bilingual program for five to six years close the achievement gap and perform above national averages for English proficiency by the end of high school (Collier &amp; Thomas, 2017, p. 33-34). Schools with as few as a dozen English learners with the same native language can implement a two-way bilingual program for virtually no cost, provided there is at least one staff person that speaks the native language of the students. Statewide and nationwide bilingual initiatives are feasible through advocacy, legislation, and proper planning. Strategies for implementation can begin right away, with Virginians contacting their school board representatives to initiate a bilingual program, and then their state representatives to begin a larger, statewide plan. The work to create these programs will be difficult, especially with a national bilingual educator shortage, but the dividends will payoff both for students and for the long-term benefit of public education (Gibney, et al., 2021). A pipeline of future bilingual educators can be created with these programs, as well as more equitable access to K-12 public schools for families who might otherwise face a language barrier. </p>
-    <p>	As I reflect on my own journey with this learning, it is enlightening to see what has changed. I had assumed ESL was at least a somewhat effective program at providing English proficiency, but I would have never imagined the achievement gap to be as large as it is between English learners and native English speakers. I am struck by the dropout rates among English learners and fear the COVID-19 pandemic has only worsened the situation. As I think about the English learners in my classes, I wish they had bilingual programs offered to them the first day they started their education in Prince William County Schools. In the meantime, I can make my classroom content as accessible as possible, utilize funds of knowledge and other skills I will learn in this master’s certificate, in the hopes of providing a strong education for the English learners in my classroom. I can also begin an advocacy journey, advocating for more equitable language acquisition programs in Prince William County, the Commonwealth, and the nation.</p>
-    <p class="center">References</p>
-    <p>Collier, V. P., &amp; Thomas, W. P. (2002). Reforming education policies for English learners. <em>The State Education Standard</em>, 31–36. </p>
-    <p>Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
-    <p>Colorín Colorado. (2015, December 1). <em>A chronology of federal law and Policy Impacting Language Minority students</em>. Colorín Colorado. Retrieved November 12, 2022, from https://www.colorincolorado.org/article/chronology-federal-law-and-policy-impacting-language-minority-students </p>
-    <p>Conger, D. (2010). Does bilingual education interfere with English-language acquisition? <em>Social Science Quarterly</em>, <em>91</em>(4), 1103–1122. https://doi.org/10.1111/j.1540-6237.2010.00751.x </p>
-    <p>Cruz, C. (2022). The LEARN Act: A bipartisan legislative proposal to advance educational opportunities for immigrants and English learners. <em>Harvard Journal on Legislation</em>, 224–255. </p>
-    <p>Cuba, M. J. (2020). (publication). <em>Policy and practice brief 1: Virginia not an English-only instruction state</em> (pp. 1–3). Richmond, VA: Metropolitan Educational Research Consortium. </p>
-    <p>Fairfax County Public Schools. (n.d.). <em>Dual language immersion programs - celebrating over three decades of excellence</em>. Fairfax County Public Schools. Retrieved November 14, 2022, from https://www.fcps.edu/academics/world-languages-immersion-programs </p>
-    <p>Gibney, D. T., Kelly, H., Rutherford-Quach, S., Riccards, J. B., &amp; Parker, C. (2021, April). <em>Addressing the bilingual teacher shortage</em>. Comprehensive Center Network. Retrieved November 12, 2022, from https://www.compcenternetwork.org/sites/default/files/2.%20Addressing%20the%20bilingual%20teacher%20shortage_Acc.pdf </p>
-    <p>Hopkinson, A. (2017, January 6). <em>A new era for bilingual education: Explaining California's proposition 58</em>. EdSource. Retrieved November 13, 2022, from https://edsource.org/2017/a-new-era-for-bilingual-education-explaining-californias-proposition-58/574852 </p>
-    <p>Meckler, L. (2021, October 14). <em>'nation's report card' finds falling test scores, even pre-covid</em>. The Washington Post. Retrieved November 14, 2022, from https://www.washingtonpost.com/education/2021/10/14/nations-report-card-scores-falling/ </p>
-    <p>Mitchell, C. (2017, October 24). <em>Some states with 'English-only' laws won't offer tests in other languages</em>. Education Week. Retrieved November 8, 2022, from https://www.edweek.org/policy-politics/some-states-with-english-only-laws-wont-offer-tests-in-other-languages/2017/10 </p>
-    <p>Petrzela, N. M. (2010). Before the Federal Bilingual Education Act: Legislation and lived experience in California. <em>Peabody Journal of Education</em>, <em>85</em>(4), 406–424. https://doi.org/10.1080/0161956x.2010.518021 </p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDUC 537 &middot; Fall 2022</div>
+    <h1>Equity Issue: Legislation Impacting English Learners</h1>
+    <p class="hero-subtitle">Analysis of legislation affecting English Learners and its implications for equitable education</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong>Equity Issue Paper – Legislation Impacting English Learners</strong></p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">College of Education and Human Development, George Mason University</p>
+      <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+      <p class="center">Dr. Kathleen Ramos</p>
+      <p class="center">November 15th, 2022</p>
+      <p class="center"><strong>Section I: Introduction to the Issue in your Setting</strong></p>
+      <p>	The United States, in its long history of offering a new start to immigrants, has become a nation that speaks numerous languages, houses many cultures, and has a heterogenous citizenry. The impact this has on K-12 schooling is immense. By 2025, English language learners will grow to become 40% of the school aged population (Collier &amp; Thomas, 2017, p. 203). In many schools across Prince William County and Virginia, this is already the case. Ronald Reagan Middle School in Haymarket has a 20% English Learner population, but it is safe to assume this population will grow in the coming years. </p>
+      <p>	Schools and school districts in the United States have long sought-after methods of appropriately educating students who are new to the English language. In 1839, Ohio passed a bilingual education law to serve German immigrants (Cruz, 2022, p. 226). By 1900, several states had passed laws to support English learners with bilingual education. Bilingual education, for the purposes of this paper, is defined as instruction given in both English and the native language of the student, usually in a 50/50 model. Following a wave of nativism after World War I, thirty-four states banned non-English instruction by the mid-1920s (Cruz, 2022, p. 226). Following this, K-12 schools around the nation were forced to educate English learners in English as a Second Language programs (ESL), with instruction given only in English. </p>
+      <p>After a series of laws reforming education, Congress, in 1968, passed the Bilingual Education Act. The law provided federal grants to K-12 schools to facilitate the creation of bilingual programs for English learners (Cruz, 2022, p. 227). This was heralded as the “dawning of a new education age,” and “a new phase of ethnic and race relations in the history of American public schooling” (Petrzela, 2010, p. 409). Senator Ralph Yarborough of Texas, the bill’s patron, had even higher hopes for the law, stating the law could be transformative in “overcoming the poor performance in school and high dropout rates [. . .] and great psychological harm caused by English-only policies” (Petrzela, 2010, p. 410). Despite the optimistic beginnings for the Bilingual Education Act, implementation was weak with a small budget and no federal enforcement. </p>
+      <p>	 Amendments to the Bilingual Education Act in 1988 limited student participation in Title VII programs to three years. Under President George W. Bush, No Child Left Behind watered down and relocated what was left of Title VII to Title III of the Elementary and Secondary Education Act (Colorín Colorado, 2015). As a result of these changes, along with a reemergence of English-only laws, K-12 schools transitioned their English learner programs to various types of abbreviated ESL programs in the hopes of meeting the federal requirement for English proficiency in three years. (Collier &amp; Thomas, 2017, p. 34). The impact of implementing ESL programs instead of bilingual programs has had a significant negative impact on overall achievement from English learners. English learners in ESL programs drop out at the highest rate of any population group in school. If they graduate, their English proficiency is significantly behind their monolingually educated peers, hindering English learners’ academic and mental well-being. The achievement gap between English learners in ESL programs and their peers is the most salient equity issue facing English learners today. Fortunately, there is a viable, researched, cost-effective alternative that closes the achievement gap. </p>
+      <p class="center">	<strong>Section II: Research Related to the Issue</strong></p>
+      <p>There are two main models of instruction for English learners: English as a Second Language (ESL) and bilingual education (Collier &amp; Thomas, 2002, p. 32). ESL offers little or no instruction in the student’s native language, and after amendments to Title VII, is typically only offered for three years. Subtypes of this model include ESL pull-out and ESL mainstream. ESL pull-out students spend part or all of their day sheltered in an ESL classroom, while mainstream places students in typical classes with special instruction for English learners, such as an emphasis on content vocabulary (Collier &amp; Thomas, 2002, p. 32-34). Prince William County utilizes a variety of ESL methods, including pull-out and mainstream.</p>
+      <p>Bilingual education has two main subtypes: transitional bilingual education (TBE) and two-way or dual-immersion bilingual education (Collier &amp; Thomas, 2002, pp. 32-34). Transitional bilingual education offers instruction in the native language while teaching English proficiency at the same time, but only lasts two to three years (Cruz, 2022, p. 245). Two-way bilingual education offers instruction in both the student’s native language and English, usually in a 50/50 model, where students spend half the day with instruction in English while the other half of the day has native language instruction (Collier &amp; Thomas, 2002, p. 33). Two-way is also characterized by having both English learners and native English speakers in the group, serving as peer tutors to one another.</p>
+      <p>	The premier body of research regarding bilingual schooling was completed by Virginia P. Collier and Wayne P. Thomas, researchers from George Mason University. Historically, researchers tried to answer the question, “How long does it take to learn a second language?” (Collier &amp; Thomas, 2017, p. 207). Instead, Collier and Thomas researched the length of time it took English learners to reach grade level achievement in English. This is a departure from the main body of research, which often suggested ESL programs worked best because students acquire some form of English fluency faster in an English-immersion. These studies are likely flawed as they measure a poor implementation of bilingual programs (Conger, 2010, p. 1115-1119). Collier and Thomas’s research is most appropriate, since academic fluency in a new language takes, at a minimum, four years (Collier &amp; Thomas, 2002, p. 35).</p>
+      <p>	Collier and Thomas conclude that continued growth of the student’s first language (L1) is the best predictor of student achievement in their second language (L2) (2017, p. 205). Two-way bilingual schools are programs that offer instruction in both English and the student’s native language. Students who continue learning how to read and write in L1 are 2-3 years ahead in their L2 when compared to peers in other programs. If an English learner begins a two-way bilingual program in kindergarten, they will typically reach grade-level proficiency in both languages by fifth or sixth grade. Two-way bilingual program students also have better attendance, improved interest in school, and report greater levels of satisfaction in their classes (Collier &amp; Thomas, 2017, p. 209). In terms of English proficiency, two-way bilingual students are proficient at a “far deeper level than that of [. . .] ESL classes” (Collier &amp; Thomas, 2017, p. 211). Collier and Thomas demonstrate that ESL pull-out students achieve English proficiency in only the 11th percentile, while two-way bilingual programs reach English proficiency levels in the 50th percentile, closing the achievement gap with native English speakers (2002, p. 31). In fact, students in effective programs attain the 70th percentile in English proficiency by the time they graduate, higher than the national median for native English speakers. The 50th percentile achievement gap is closed by middle school, and bilingual program students surpass it in high school. Students are successful at reaching this achievement level regardless of their socioeconomic background. This is remarkable, as no type of ESL program demonstrates, on average, achievement beyond the 25th percentile (Collier &amp; Thomas, 2002, pp. 33-36).</p>
+      <p>	Two-way bilingual programs are effective for the native English speakers in the program, as well. Native English speakers gain proficiency in a second language without losing their primary language, while also achieving proficiency as higher levels than their peers. Further, bilingual individuals have greater success in the job market (Conger, 2010, p. 1120). Two-way bilingual programs are the most cost effective of the programs offered to English learners, assuming a school can acquire teachers who can teach in one of the two languages needed. Students can spend half the day with one teacher who teaches in English, and the other half with a teacher who teaches in English learners’ native language. The students are an essential component, as native English speakers can naturally tutor English learners, with the roles reversed in the minority language (Collier &amp; Thomas, 2002, p. 33). </p>
+      <p>	Collier and Thomas have several policy recommendations regarding English learners. Considering their research, they recommend long term bilingual education, as it is the only program that closes the achievement gap in both English and the native language. Further, they recommend against short-term ESL programs for English learners who begin with no English proficiency. The duration of these programs is detrimental as academic fluency takes at a minimum four years, and on average, six (Collier &amp; Thomas, 2002, p. 35). These recommendations, if followed, would have a significant impact on most K-12 schools in the country, which offer ESL programs that typically last three years. At a minimum, counties like Prince William should offer multiple two-way bilingual programs, in which students with little English proficiency or no prior schooling can be enrolled. These students are at the most risk of not closing the achievement gap, and a two-way bilingual program is the best method available, according to the research (Collier &amp; Thomas, 2002, p. 35). 	There are several viable strategy options for implementing more bilingual programs in Prince William County, Virginia, and nationwide.</p>
+      <p class="center"><strong>Section III:   Possible Interventions &amp; Brief Action Plan</strong></p>
+      <p>The research makes clear the default English learner methodology in the United States should be two-way bilingual immersion programs. Not only should districts be utilizing this method, but there is an urgent need to transition the majority of the nation’s ESL programs to a bilingual program. The United States was already in what can be described as a reading crisis for all students prior to the COVID-19 pandemic exacerbating the issue. Even if native English speakers reading scores stopped declining, the crisis could still worsen because the language minority population is growing and the proficiency scores of English Learners in ESL programs remain stagnant or are declining (Meckler, 2021). The situation is critical, and the academic well-being and mental health of our nation’s English learners will be impacted by the decisions made by policymakers.  </p>
+      <p>Taking the urgency of the situation into consideration, two possible strategies to implement more bilingual programs in Virginia are: 1) local school boards creating bilingual programs on their own; and 2) a state funded and implemented bilingual education plan. Both strategies should begin immediately. Regarding local school board initiatives, new legislation at the state level is not necessary to create bilingual programs. While the Virginia code declares English as the Commonwealth’s official language, the code does not forbid non-English instruction in K-12 schools. Further, in 2018, the Virginia General Assembly added dual-language instruction to the Virginia Department of Education Standards of Quality and permitted license endorsements in dual language (Cuba, 2020). School Boards in Virginia can now legally utilize English learner funds for the creation of bilingual programs. Fairfax County Public Schools has taken advantage of this, creating one-way and two-way bilingual programs offered in five different languages (Fairfax County Public Schools). In Prince William County, this is something that I can help advocate for in my own professional context. We have the resources, we even have the staff for bilingual programs, but we do not have any bilingual programs.</p>
+      <p>The Commonwealth should not wait for local school boards to act of their own accord, however. A second strategy is for Virginia to create a model statewide bilingual implementation plan representative of the diverse state it has become. Through educator and non-profit advocacy, policymakers can be influenced to initiate a series of legislative policies aimed at incentivizing and easing the burden on local school boards. First, state-funded grants can be established and distributed to school districts to cover the creation and implementation of such programs. Second, the state should fund the creation of bilingual educator programs at Virginia colleges and universities. Tuition forgiveness should be considered for graduates who commit to teach in the Commonwealth for a defined number of years. Following in the footsteps of the California Multlingual Education Act, Virginia should give districts the freedom to design their own multilingual programs that best fit their staffing levels and student population. Virginia should mimic the requirements California set for school districts, which require local districts to discuss bilingual programs with parents and the community. The law requires a school to explore bilingual program feasibility if 30 parents from one school request it (Hopkinson, 2017).</p>
+      <p> It would not make sense for a school with three English learners to implement a bilingual education program. However, if a grade level has a dozen or more English learners in one grade that speak the same native language, it would be ideal for Virginia to help fund bilingual program creation and to require its consideration if parents request it. Statewide program implementation costs are likely to be cost effective due to two-way bilingual programs not requiring more staff, only training, assuming educators who speak the native language are available. One-way programs are also viable options for schools with a homogeneous population whose native language is not English. Finally, legislators should direct the Virginia Department of Education to set a goal of bilingually educating one third of all K-12 students by 2050. The benefits to academic performance and lifelong English proficiency in two languages is significant and stated above, but this would also give Virginia a pipeline of future bilingual educators. Virginia’s program implementation can be a model to duplicate in regional states and throughout the country, with the creation of programs in other states done with haste. </p>
+      <p class="center"><strong>Section IV:   Additional Feedback from Colleagues/Peers</strong></p>
+      <p>	Feedback from coworkers has generally been positive. An ESOL department chair and program mentor explained that bilingual programs solve an equity issue regarding access—all students in the program, including English natives, will spend time learning with a new language that is foreign to them. Bilingual programs may also help prevent English learners remaining “stuck” in an ESL program. All coworkers who provided feedback agreed that the bilingual program would help English learners feel more welcome and less likely to fall behind in school. </p>
+      <p>	My colleagues seem to share a general fear of the complexity involved in implementing a bilingual program.  This seems to be mostly a misunderstanding, however. When first hearing about it, a bilingual program can sound overwhelming and very difficult to implement. While there are certainly challenges, the workload for educators should remain relatively constant after training. Other considerations raised by the ESOL department chair regarded how best to implement it—should the program be a pilot for one class? Perhaps a team, or the entire school? One coworker explained that bilingual programs should be implemented for other minority languages in addition to Spanish, such as Arabic, Korean, Urdu, and Vietnamese.   </p>
+      <p>	I agree with my coworkers on nearly all the points mentioned above. Bilingual programs should be implemented for any minority language that has enough students to create a bilingual class, but this is logistically challenging. A pilot program for one or two programs might be the best approach for a district starting bilingual instruction, with success and failures documented and shared with future programs. The staff needs to be highly competent and believe in the efficacy of bilingual instruction, one coworker stated. I agree wholeheartedly with this notion—a quality program is only as good as those running it. My coworkers were very thoughtful with their feedback, and I learned teachers will have a positive attitude toward new initiatives if it’s what is best for students. </p>
+      <p class="center"><strong>Conclusion</strong></p>
+      <p>	To conclude, despite the United States having a long history of providing new opportunities for immigrants, legislation has forced school districts to implement inequitable programs for English learners that hinder overall achievement (Collier &amp; Thomas, 2002). English learners in ESL programs drop out at the highest rate of any population group in school and, at best, only reach the 25th percentile in English proficiency. Although ESL students will initially outperform bilingual program students in English proficiency, bilingual students surpass the achievement of their monolingually educated peers by the end of high school (Collier &amp; Thomas, 2002, p. 31-34). It is clear K-12 schools need to transition, as possible, to bilingual education as their long-term solution for educating English learners. </p>
+      <p>	Students who are schooled in a two-way bilingual program for five to six years close the achievement gap and perform above national averages for English proficiency by the end of high school (Collier &amp; Thomas, 2017, p. 33-34). Schools with as few as a dozen English learners with the same native language can implement a two-way bilingual program for virtually no cost, provided there is at least one staff person that speaks the native language of the students. Statewide and nationwide bilingual initiatives are feasible through advocacy, legislation, and proper planning. Strategies for implementation can begin right away, with Virginians contacting their school board representatives to initiate a bilingual program, and then their state representatives to begin a larger, statewide plan. The work to create these programs will be difficult, especially with a national bilingual educator shortage, but the dividends will payoff both for students and for the long-term benefit of public education (Gibney, et al., 2021). A pipeline of future bilingual educators can be created with these programs, as well as more equitable access to K-12 public schools for families who might otherwise face a language barrier. </p>
+      <p>	As I reflect on my own journey with this learning, it is enlightening to see what has changed. I had assumed ESL was at least a somewhat effective program at providing English proficiency, but I would have never imagined the achievement gap to be as large as it is between English learners and native English speakers. I am struck by the dropout rates among English learners and fear the COVID-19 pandemic has only worsened the situation. As I think about the English learners in my classes, I wish they had bilingual programs offered to them the first day they started their education in Prince William County Schools. In the meantime, I can make my classroom content as accessible as possible, utilize funds of knowledge and other skills I will learn in this master’s certificate, in the hopes of providing a strong education for the English learners in my classroom. I can also begin an advocacy journey, advocating for more equitable language acquisition programs in Prince William County, the Commonwealth, and the nation.</p>
+      <div class="references">
+      <h3>References</h3>
+      <p class="ref">Collier, V. P., &amp; Thomas, W. P. (2002). Reforming education policies for English learners. <em>The State Education Standard</em>, 31–36. </p>
+      <p class="ref">Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
+      </div>
+      <p>Colorín Colorado. (2015, December 1). <em>A chronology of federal law and Policy Impacting Language Minority students</em>. Colorín Colorado. Retrieved November 12, 2022, from https://www.colorincolorado.org/article/chronology-federal-law-and-policy-impacting-language-minority-students </p>
+      <p class="ref">Conger, D. (2010). Does bilingual education interfere with English-language acquisition? <em>Social Science Quarterly</em>, <em>91</em>(4), 1103–1122. https://doi.org/10.1111/j.1540-6237.2010.00751.x </p>
+      <p class="ref">Cruz, C. (2022). The LEARN Act: A bipartisan legislative proposal to advance educational opportunities for immigrants and English learners. <em>Harvard Journal on Legislation</em>, 224–255. </p>
+      <p class="ref">Cuba, M. J. (2020). (publication). <em>Policy and practice brief 1: Virginia not an English-only instruction state</em> (pp. 1–3). Richmond, VA: Metropolitan Educational Research Consortium. </p>
+      <p>Fairfax County Public Schools. (n.d.). <em>Dual language immersion programs - celebrating over three decades of excellence</em>. Fairfax County Public Schools. Retrieved November 14, 2022, from https://www.fcps.edu/academics/world-languages-immersion-programs </p>
+      <p class="ref">Gibney, D. T., Kelly, H., Rutherford-Quach, S., Riccards, J. B., &amp; Parker, C. (2021, April). <em>Addressing the bilingual teacher shortage</em>. Comprehensive Center Network. Retrieved November 12, 2022, from https://www.compcenternetwork.org/sites/default/files/2.%20Addressing%20the%20bilingual%20teacher%20shortage_Acc.pdf </p>
+      <p class="ref">Hopkinson, A. (2017, January 6). <em>A new era for bilingual education: Explaining California's proposition 58</em>. EdSource. Retrieved November 13, 2022, from https://edsource.org/2017/a-new-era-for-bilingual-education-explaining-californias-proposition-58/574852 </p>
+      <p class="ref">Meckler, L. (2021, October 14). <em>'nation's report card' finds falling test scores, even pre-covid</em>. The Washington Post. Retrieved November 14, 2022, from https://www.washingtonpost.com/education/2021/10/14/nations-report-card-scores-falling/ </p>
+      <p class="ref">Mitchell, C. (2017, October 24). <em>Some states with 'English-only' laws won't offer tests in other languages</em>. Education Week. Retrieved November 8, 2022, from https://www.edweek.org/policy-politics/some-states-with-english-only-laws-wont-offer-tests-in-other-languages/2017/10 </p>
+      <p class="ref">Petrzela, N. M. (2010). Before the Federal Bilingual Education Act: Legislation and lived experience in California. <em>Peabody Journal of Education</em>, <em>85</em>(4), 406–424. https://doi.org/10.1080/0161956x.2010.518021 </p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

@@ -4,58 +4,303 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cultural Autobiography | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#8B5CF614;color:#8B5CF6}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #8B5CF6;
+  --accent-light: #8B5CF618;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #1a1428 0%, #2a1e3e 50%, #1a1428 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #8B5CF618 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #8B5CF60d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #8B5CF6;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDUC 537</span>
-      <span class="semester">Fall 2022</span>
-    </div>
-    <p class="center"><strong>Cultural Autobiography</strong></p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">College of Education and Human Development, George Mason University</p>
-    <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
-    <p class="center">Dr. Kathleen Ramos</p>
-    <p class="center">October 11, 2022</p>
-    <p>“Hey man, I’m calling you from my new phone.” It was Christmas day, and my best friend Jordan was not calling me from an iPhone, Samsung, or other modern device, but from his new corded phone that was installed in his bedroom. It was 1997 and we were eleven years old. In this simple memory from my childhood are two of the most important impacts that have shaped my cultural self: my best friend Jordan and time with my family. Upon reflection, these two shaping forces on my life had more impact than I even knew, forming me into the person I have become, twenty-five years later. </p>
-    <p>	Jordan came into my life as a toddler, moving into his family’s house down the street, perhaps as close to neighbors as one gets in rural Virginia. Jordan was an adopted orphan and refugee from the Salvadoran Civil War, found wandering on the street by himself as an eighteen-month-old. Growing up, we did everything together and remain best friends to this day. That is not to say our friendship has not had its challenges, but I am proud to still call Jordan my “bestie.” Being raised in the United States by a family like mine– white, Christian, and of the dominant culture, Jordan and I usually shared the same interests: we both played soccer, liked the Red Hot Chili Peppers, and dressed in clothes from Structure. That is, we shared the same <em>big-C </em>Culture (Cushner et al., 2022, p. 84). It was not until around the age of eight or nine that it clicked with me that Jordan was not the same race as his family or mine. Over time, Jordan’s ethnicity and the war that brought him to the United States sparked my curiosity. Jordan went through his own process of identity-seeking with the added weights of exploring his ethnic heritage and the complexities that come along with adoption. It was impossible for me to understand what he was going through. I could not tell at the time, but the foundation was being laid in my life for a deep empathy for others and their suffering, especially those with heritages from the Latin American part of the world. </p>
-    <p>	My family is another large cultural shaping agent in my life. I am the second youngest of five children in my family, with two wonderful parents, led by our emotionally-herculean mother. My oldest sibling is a free-spirit, who, if my reminiscing is accurate, loved Madonna, much to the horror of my five-year-old ear drums. James is my brother and the second oldest. Despite being the opposite of myself in terms of personality traits, we are very close. Then there are my other two sisters, child number three and child number five, with whom I spent the most years in school. I explain the dynamics of my siblings because we are still to this day a tight-knit group. Upon reflection, the complexities of a five-child house developed empathy in all of us, but perhaps that is largely thanks to my amazing mother. My mom, I came to find out as a young adult, was emotionally abused as a child by her mom. In some form, emotional or physical abuse occurred in her family for five or more generations. Mom was a gentle soul, whose smile and magnetism could light up a room. In what seems like a miracle, the generational abuse stopped with her line on the family tree, as she exuded empathy for her children, friends, and strangers. Now deceased, my mom’s legacy shaped each of her children in visible ways. For me, I place a high value on empathy and forgiveness, particularly within the family. </p>
-    <p>There are many socializing agents that impact each person (Cushner, 97). Beyond the influences of my mom and my best friend, Jordan, I am very much a product of post-9/11 America. However, I was fifteen when 9/11 occurred, and the empathy lens from my childhood socialization agents was already developing. Like many in the United States, my reaction to 9/11 was frustration and anger through the guise of patriotism. Over the course of many years, however, I eventually became frustrated with the “War on Terror” and was moved by the ongoing humanitarian crises in both the Middle East and around the world, often thinking back to my friend Jordan and his experience. It was around this time that I became cognizant of the impact on children worldwide, and I slowly realized I was destined to become an educator. </p>
-    <p>Naturally, growing up in rural Virginia as a white male, I had many beliefs, biases, and assumptions that needed to be challenged. Ethnocentrism is a normal human tendency, especially when it goes unchallenged (Cushner et al., 2022, pp. 101-102). Like most adolescents of privilege, I was plagued by the biases that come along with ethnocentrism. As a result, I learned how to organize my daily world into tidy categories. A relic of humans’ instinct for survival, categorization, when not managed well, can lead to stereotyping or worse (Cushner et al., 2022, pp. 101-104). For instance, for the first time outside of a two-week history class unit, I learned the fact that Muslims and Arabs are two distinct and separate terms. As an adolescent preparing for college in the wake of the new war in Iraq, I had to begin to process the complexities of our species. Thanks to my friend Jordan, I was not completely in the Defense stage of the Development Model of Intercultural Sensitivity. People in this stage tend to think poorly of those from other cultures (Cushner et al., 2022, p. 165). In light of my experience, I have always had a proclivity toward empathy, and like to think I was merely in the Minimization stage. However, even this personal reflection on who I was a long time ago betrays a defense of myself, a defense that can only be made from a position of privilege. And herein lies the crux of intercultural interactions, one must be forced to deal with, in one way or another, their personal biases (Cushner et al., 2022, p. 132). If I am not careful, it would be convenient to fall into an ease-of-use categorization system as characterized by the Defense or Minimization stages, labeling others to fit into a tidy organization system (Cushner et al., 2022, pp. 165-166). I could complete this mental gymnastics feat without conscience, a hallmark of white privilege (Cushner et al., 2022, p. 193). It truly is important work to stay aware of my mental state and what categorizing I may or may not be doing in my mind.</p>
-    <p>Briefly returning to my story, I learned over time, especially with the help of Jordan’s story, that these labels and terms often fail, falling short of describing an intricate human who has their own desires and beliefs. It is with this important principle in life that I approach my interpersonal interactions and my interactions in the realm of education. </p>
-    <p>In my classroom, I may think of myself on the ethnorelative side of the Development Model of Intercultural Sensitivity model, but is that true of all my interactions with my students? Do I consider their complexities, even within specific cultures and subcultures? For example, in one of my classes, there are seven students with Hispanic heritage and a home-language of Spanish. It would be easy for me to approach interactions with them, implementing what I know to be important to many people with Hispanic heritages. While understanding cultures is helpful and important, utilizing this type of approach can result in the stereotyping of students. Instead, a culture-general approach is best, with the goal of making sure lessons are accessible to all the students in a specific class (Cushner et al., 2022, p. 86). While this is certainly easier said than done, equity is always an important task. </p>
-    <p>As I get to know my students and build relationships, I can improve my “bifocal” lenses, that is, the ability to notice the ways in which students may be culturally similar and also different (Cushner et al., 2022, p. 129). For example, I have learned that one subset of Hispanic students in the aforementioned class prefers moving around to stations and working together to learn, another group wishes to work individually and quietly at their desk. This is a learning style difference that occurs across and within cultures and must be recognized by educators like myself. This is something that is improved over time as I improve my craft. In the meantime, I must strive to recognize each and every day that students are complex humans with their own cultures, subcultures, emotions, and desires, and are worthy of the effort needed to get to know them. </p>
-    <p>The legacies and impact of my family and Jordan stand tall in my personal interactions with others. I am now a father of three young children, and I strive to provide an environment for them that emulates the open arms and empathy my parents created in the house in which I grew up. I know, as a parent, I am a primary socializing agent for my kids and have a larger impact than I can imagine. This macro impact is hard to perceive in the moment-to-moment parts of daily life. Yet each interaction I have with my child is a microcosm of the interactions I hope they will be prepared to have as they enter the larger world. Each interaction is one in which I can model understanding and the ability to walk in someone else’s shoes. This also applies to interactions my children see me have with other people. Two weeks ago, a gardener completed work at our house. Did my actions communicate to my children that this man is an equal or did they communicate something else? I strive for and hope it was the former. When the United States left Afghanistan and a refugee crisis arose, we discussed with our toddler ways in which we might be able to help. The world of reading board-books and listening to Cocomelon might seem grand to our four-year-old, but we felt it important to remind our child that there are many who are currently experiencing difficult circumstances. </p>
-    <p>As I reflect on my cultural autobiography, it is clear why I feel these things are important. My friend Jordan and I still text nearly every day, and the presence of his relationship is a permanent reminder of the daily adversity humans can face. I remained close with my mom in the late stages of her life, and I remember texting back-and-forth with her about the ancient ideas of turning swords into plows and finding peace with others. We were both intrigued by these ideas, and it is clear now where my intrigue came from. Her empathy and example shaped me from birth, which in turn shaped my siblings and once-again shaped me. It seems to me that each interaction we have with another is formative for all parties involved. It is important to me to treat each of these interactions, both inside and outside of my classroom, with care, reflective of the personal dignity that each human being deserves. </p>
-    <p class="center">References</p>
-    <p>Cushner, K., McClelland, A., Cushner, H., &amp; Safford, P. L. (2022). <em>Human diversity in education: An intercultural approach</em> (Tenth). McGraw Hill LLC. </p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDUC 537 &middot; Fall 2022</div>
+    <h1>Cultural Autobiography</h1>
+    <p class="hero-subtitle">Personal narrative exploring cultural identity, privilege, and the journey to teaching culturally diverse learners</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong>Cultural Autobiography</strong></p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">College of Education and Human Development, George Mason University</p>
+      <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+      <p class="center">Dr. Kathleen Ramos</p>
+      <p class="center">October 11, 2022</p>
+      <blockquote><p>“Hey man, I’m calling you from my new phone.” It was Christmas day, and my best friend Jordan was not calling me from an iPhone, Samsung, or other modern device, but from his new corded phone that was installed in his bedroom. It was 1997 and we were eleven years old. In this simple memory from my childhood are two of the most important impacts that have shaped my cultural self: my best friend Jordan and time with my family. Upon reflection, these two shaping forces on my life had more impact than I even knew, forming me into the person I have become, twenty-five years later. </p></blockquote>
+      <p>	Jordan came into my life as a toddler, moving into his family’s house down the street, perhaps as close to neighbors as one gets in rural Virginia. Jordan was an adopted orphan and refugee from the Salvadoran Civil War, found wandering on the street by himself as an eighteen-month-old. Growing up, we did everything together and remain best friends to this day. That is not to say our friendship has not had its challenges, but I am proud to still call Jordan my “bestie.” Being raised in the United States by a family like mine– white, Christian, and of the dominant culture, Jordan and I usually shared the same interests: we both played soccer, liked the Red Hot Chili Peppers, and dressed in clothes from Structure. That is, we shared the same <em>big-C </em>Culture (Cushner et al., 2022, p. 84). It was not until around the age of eight or nine that it clicked with me that Jordan was not the same race as his family or mine. Over time, Jordan’s ethnicity and the war that brought him to the United States sparked my curiosity. Jordan went through his own process of identity-seeking with the added weights of exploring his ethnic heritage and the complexities that come along with adoption. It was impossible for me to understand what he was going through. I could not tell at the time, but the foundation was being laid in my life for a deep empathy for others and their suffering, especially those with heritages from the Latin American part of the world. </p>
+      <p>	My family is another large cultural shaping agent in my life. I am the second youngest of five children in my family, with two wonderful parents, led by our emotionally-herculean mother. My oldest sibling is a free-spirit, who, if my reminiscing is accurate, loved Madonna, much to the horror of my five-year-old ear drums. James is my brother and the second oldest. Despite being the opposite of myself in terms of personality traits, we are very close. Then there are my other two sisters, child number three and child number five, with whom I spent the most years in school. I explain the dynamics of my siblings because we are still to this day a tight-knit group. Upon reflection, the complexities of a five-child house developed empathy in all of us, but perhaps that is largely thanks to my amazing mother. My mom, I came to find out as a young adult, was emotionally abused as a child by her mom. In some form, emotional or physical abuse occurred in her family for five or more generations. Mom was a gentle soul, whose smile and magnetism could light up a room. In what seems like a miracle, the generational abuse stopped with her line on the family tree, as she exuded empathy for her children, friends, and strangers. Now deceased, my mom’s legacy shaped each of her children in visible ways. For me, I place a high value on empathy and forgiveness, particularly within the family. </p>
+      <p>There are many socializing agents that impact each person (Cushner, 97). Beyond the influences of my mom and my best friend, Jordan, I am very much a product of post-9/11 America. However, I was fifteen when 9/11 occurred, and the empathy lens from my childhood socialization agents was already developing. Like many in the United States, my reaction to 9/11 was frustration and anger through the guise of patriotism. Over the course of many years, however, I eventually became frustrated with the “War on Terror” and was moved by the ongoing humanitarian crises in both the Middle East and around the world, often thinking back to my friend Jordan and his experience. It was around this time that I became cognizant of the impact on children worldwide, and I slowly realized I was destined to become an educator. </p>
+      <p>Naturally, growing up in rural Virginia as a white male, I had many beliefs, biases, and assumptions that needed to be challenged. Ethnocentrism is a normal human tendency, especially when it goes unchallenged (Cushner et al., 2022, pp. 101-102). Like most adolescents of privilege, I was plagued by the biases that come along with ethnocentrism. As a result, I learned how to organize my daily world into tidy categories. A relic of humans’ instinct for survival, categorization, when not managed well, can lead to stereotyping or worse (Cushner et al., 2022, pp. 101-104). For instance, for the first time outside of a two-week history class unit, I learned the fact that Muslims and Arabs are two distinct and separate terms. As an adolescent preparing for college in the wake of the new war in Iraq, I had to begin to process the complexities of our species. Thanks to my friend Jordan, I was not completely in the Defense stage of the Development Model of Intercultural Sensitivity. People in this stage tend to think poorly of those from other cultures (Cushner et al., 2022, p. 165). In light of my experience, I have always had a proclivity toward empathy, and like to think I was merely in the Minimization stage. However, even this personal reflection on who I was a long time ago betrays a defense of myself, a defense that can only be made from a position of privilege. And herein lies the crux of intercultural interactions, one must be forced to deal with, in one way or another, their personal biases (Cushner et al., 2022, p. 132). If I am not careful, it would be convenient to fall into an ease-of-use categorization system as characterized by the Defense or Minimization stages, labeling others to fit into a tidy organization system (Cushner et al., 2022, pp. 165-166). I could complete this mental gymnastics feat without conscience, a hallmark of white privilege (Cushner et al., 2022, p. 193). It truly is important work to stay aware of my mental state and what categorizing I may or may not be doing in my mind.</p>
+      <p>Briefly returning to my story, I learned over time, especially with the help of Jordan’s story, that these labels and terms often fail, falling short of describing an intricate human who has their own desires and beliefs. It is with this important principle in life that I approach my interpersonal interactions and my interactions in the realm of education. </p>
+      <p>In my classroom, I may think of myself on the ethnorelative side of the Development Model of Intercultural Sensitivity model, but is that true of all my interactions with my students? Do I consider their complexities, even within specific cultures and subcultures? For example, in one of my classes, there are seven students with Hispanic heritage and a home-language of Spanish. It would be easy for me to approach interactions with them, implementing what I know to be important to many people with Hispanic heritages. While understanding cultures is helpful and important, utilizing this type of approach can result in the stereotyping of students. Instead, a culture-general approach is best, with the goal of making sure lessons are accessible to all the students in a specific class (Cushner et al., 2022, p. 86). While this is certainly easier said than done, equity is always an important task. </p>
+      <p>As I get to know my students and build relationships, I can improve my “bifocal” lenses, that is, the ability to notice the ways in which students may be culturally similar and also different (Cushner et al., 2022, p. 129). For example, I have learned that one subset of Hispanic students in the aforementioned class prefers moving around to stations and working together to learn, another group wishes to work individually and quietly at their desk. This is a learning style difference that occurs across and within cultures and must be recognized by educators like myself. This is something that is improved over time as I improve my craft. In the meantime, I must strive to recognize each and every day that students are complex humans with their own cultures, subcultures, emotions, and desires, and are worthy of the effort needed to get to know them. </p>
+      <p>The legacies and impact of my family and Jordan stand tall in my personal interactions with others. I am now a father of three young children, and I strive to provide an environment for them that emulates the open arms and empathy my parents created in the house in which I grew up. I know, as a parent, I am a primary socializing agent for my kids and have a larger impact than I can imagine. This macro impact is hard to perceive in the moment-to-moment parts of daily life. Yet each interaction I have with my child is a microcosm of the interactions I hope they will be prepared to have as they enter the larger world. Each interaction is one in which I can model understanding and the ability to walk in someone else’s shoes. This also applies to interactions my children see me have with other people. Two weeks ago, a gardener completed work at our house. Did my actions communicate to my children that this man is an equal or did they communicate something else? I strive for and hope it was the former. When the United States left Afghanistan and a refugee crisis arose, we discussed with our toddler ways in which we might be able to help. The world of reading board-books and listening to Cocomelon might seem grand to our four-year-old, but we felt it important to remind our child that there are many who are currently experiencing difficult circumstances. </p>
+      <p>As I reflect on my cultural autobiography, it is clear why I feel these things are important. My friend Jordan and I still text nearly every day, and the presence of his relationship is a permanent reminder of the daily adversity humans can face. I remained close with my mom in the late stages of her life, and I remember texting back-and-forth with her about the ancient ideas of turning swords into plows and finding peace with others. We were both intrigued by these ideas, and it is clear now where my intrigue came from. Her empathy and example shaped me from birth, which in turn shaped my siblings and once-again shaped me. It seems to me that each interaction we have with another is formative for all parties involved. It is important to me to treat each of these interactions, both inside and outside of my classroom, with care, reflective of the personal dignity that each human being deserves. </p>
+      <div class="references">
+      <h3>References</h3>
+      <p class="ref">Cushner, K., McClelland, A., Cushner, H., &amp; Safford, P. L. (2022). <em>Human diversity in education: An intercultural approach</em> (Tenth). McGraw Hill LLC. </p>
+      </div>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

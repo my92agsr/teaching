@@ -4,67 +4,312 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Philosophy of Teaching | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#7C3AED14;color:#7C3AED}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #7C3AED;
+  --accent-light: #7C3AED18;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #1a1430 0%, #261e42 50%, #1a1430 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #7C3AED18 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #7C3AED0d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #7C3AED;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDCI 516</span>
-      <span class="semester">Spring 2023</span>
-    </div>
-    <p class="center"><strong>Philosophy of Teaching</strong></p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">College of Education and Human Development, George Mason University</p>
-    <p class="center">EDCI 516: Bilingualism &amp; Language Acquisition Research</p>
-    <p class="center">Dr. Woomee Kim &amp; Dr. Manqian Zhao</p>
-    <p class="center">March 28th, 2023</p>
-    <p class="center"><strong>Introduction</strong></p>
-    <p>My teaching philosophy centers around a timeless truth: as human beings, every student I encounter is deserving of my time, my respect, my enthusiasm, and a smile. This is the inverse of the listless cultural idiom, “respect is earned.” As students learn respect can be given to their peers before it is earned, they learn to trust one another and take pride in the classroom community they help create. The first ingredient in this successful classroom atmosphere is myself as I strive to build relationships with each of my students. I will often take a few minutes at the beginning of class to just talk with my students and catch-up. I utilize this focus on inclusivism and combine it with effective collaboration and scaffolding to foster an effective learning environment.</p>
-    <p class="center"><strong>A Student-Centered Classroom</strong></p>
-    <p><strong>Role of the Teacher. </strong>It might seem ironic to start a student-centered philosophy of teaching statement with the role of the teacher. However, to create a truly inclusive, student-centered classroom for all learners, including culturally and linguistically diverse (CLD) learners, I must recognize the cultural assumptions that I bring to work with me every day. Culturally in the United States, there is a strong bias that favors a monolingual perspective of language. It is all too easy for a member of this society, including a teacher like me, to subconsciously view a bilingual speaker as different or incapable when compared to their monolingual peers (Baker &amp; Wright, 2021). To create an inclusive environment that values and welcomes all learners, I must recognize each student as unique in their own way and, with proper scaffolding and collaboration, capable of incredible achievement. </p>
-    <p><strong>The Affirmation of Student Identity.</strong> As I explained in the introduction, I place an emphasis on relationships and helping students develop their cultural and academic identity. This is not only vital for student social-emotional health but is also a prerequisite to academic achievement. As students’ sense of identity is affirmed in my class, they are more likely to utilize their voice to speak and engage, as well as develop the confidence to make an academic argument in class (Walqui, 2006). This not only increases their sense of belonging and self-confidence, but also creates more space for academic learning. </p>
-    <p>Maintaining a student-centered focus means utilizing all aspects of a child’s life to bring new meaning to language and academic content. This includes a student’s cultural and ethnic background. As the classroom teacher, I will strive to respect a child’s native language and incorporate ways for students to use it in the classroom. This can be supported by taking the time to build relationships with families of CLD learners as well as utilizing cultural artifacts including songs and art in instruction (Kim &amp; Plotka, 2016). I plan to next year use a comprehensive student survey to develop a funds of knowledge database to incorporate into classroom instruction. Student learning will be improved in my classroom as they make meaning using their own cultural background in class through this approach (Moll, et al., 1992). </p>
-    <p>Another way I aim affirm a student’s identity is to guiding students to make new meaning through translanguaging. Translanguaging, using words or phrases from a native language while speaking a new language is an effective method increasing academic achievement when a higher language proficiency is not present (Yilmaz, 2019). Academically, translanguaging increases the learning capability of a student as it gives them more words to express their ideas and develop new concepts. Besides being an effective pedagogical tool, translanguaging allows students to celebrate their own cultural identity in the classroom (Yilmaz, 2019).</p>
-    <p class="center"><strong>Learning</strong></p>
-    <p><strong>A Collaborative</strong><strong> Physical</strong><strong> Environment. </strong>Collaboration is the foundation of all learning in my classroom (Walqui, 2006). Effective collaboration, however, can only occur in a conducive environment. I have students sit in “pods” of three to four with desks arranged to face one another. This fosters collaboration in addition to the development of peer relationships. Soon I plan to seek ways of promoting “flexible seating” to provide customizable grouping that is activity dependent. I plan to add more and more decorations around my classroom, including culturally diverse art and poems, as well as welcoming messages in student’s native languages. Such decorations are important to have in the classroom, however, these are only effective if they are symbols of a deeper identity validation that comes about in an inclusive, collaborative environment (Walqui, 2006).</p>
-    <p><strong>Collaboration </strong><strong>and Scaffolding </strong><strong>as Pedagogical Tool</strong><strong>s</strong><strong>.</strong> In my classroom I utilize collaboration to enhance a student’s sense of identity as well as promote learning through the Zone of Proximal Development (ZPD). There is a limit on what an individual can achieve alone, but learning can exceed this individual limit when a student works with one or more other students and teachers (Walqui, 2006). I plan to utilize this theory of learning through the ZPD while incorporating many collaborative and scaffolding techniques. When teaching a lesson, I ask students turn and talk to one another to review main ideas. I also ask students to think and pair with their tables to problem solve and then share their findings with the class. I have students work in groups to solve history mysteries or other inquiry-based assignments, allowing room to learn from one another and providing space for each student to practice using language. As students learn new vocabulary through inquiry assignments or primary-source texts, we regroup to review and collaboratively co-define new terms. Teaching and reviewing vocabulary as new terms are discovered is far more effective than pre-teaching it (Llosa, 2023). I provide other scaffolds to all the learners in my classroom that benefit not only CLD students but also all early adolescents, such as graphic organizers, sentence starters, peer scaffolds including turn and talk and think, pair, and share, and writing structure scaffolds such as RACE: restate the question, answer the question completely, cite evidence, and explain. It is important in my classroom to value the learning capabilities of CLD learners and recognize with the right scaffolds and effective collaboration, students with limited English proficiency can achieve or exceed similar learning levels as their monolingual peers. </p>
-    <p><strong>Assessment. </strong>An extension of collaboration I plan incorporate in my classroom is co-construction. Next year I plan to have students unpack standards with me and co-construct learning targets as well as what success looks like for each target. This will give students power and input over their own learning process. All learning is co-constructed through collaboration, assessment should not be any different (Walqui, 2006). It is vital that assessment is fair for all students, including CLD learners. As such, inviting students into the assessment process can lead to equitable outcomes for all, in addition to important metacognitive practices being instilled in the mindset of learners. </p>
-    <p><strong>My Own Learning. </strong>It is vital that I continue my own learning as a professional. With CLD learners and an ever-changing population, I cannot just teach the way I was taught or even the ways I have taught in the past. I plan to stay current with the latest research regarding education and improve my understanding of culturally and linguistically diverse teaching strategies. I will do this through finishing my master’s certificate and attending professional developments. I also plan on leading a professional development for teachers at my school about CLD teaching strategies in partnership with the English to Speakers of Other Languages teachers. In addition to staying current, I seek to be reflective in my practice and ask administrators and colleagues for feedback on what can be better in my classroom. </p>
-    <p>In conclusion, I hope to enter my classroom everyday with an attitude of humility, recognizing the dignity of all my students. I aim to leave my cultural biases at the door and remain reflective in my practices toward students. I plan to affirm my students’ identities daily and create a student-centered learning environment. Through pedagogical strategies including translanguaging and collaboration, the learners in my classroom can achieve at high levels with rigorous content (Walqui, 2006). Through co-construction I hope to give my students a voice in their own assessment, creating equitable outcomes. In my experience, teaching is an exercise in self-humility and self-learning. As such, I hope to remain a reflective, life-long learner and educator. </p>
-    <p class="center">References</p>
-    <p>Baker, C., &amp; Wright, W. E. (2021). <em>Foundations of bilingual education and bilingualism</em>. Multilingual Matters. </p>
-    <p>Kim, S., &amp; Plotka, R. (2016). Myths and facts regarding second language acquisition in early childhood. <em>Dimensions of Early Childhood</em>, <em>44</em>(1), 18–24. </p>
-    <p>Llosa, L. (2023, March). <em>Supporting multilingual learners in the science classrooms</em>. <em>ACESTEM Saturday Session</em>. </p>
-    <p>Moll, L. C., Amanti, C., Neff, D., &amp; Gonzalez, N. (1992). Funds of knowledge for teaching: Using a qualitative approach to connect homes and classrooms. <em>Theory Into Practice</em>, <em>31</em>(2), 132–141. https://doi.org/10.1080/00405849209543534 </p>
-    <p>Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180. https://doi.org/10.1080/13670050608668639 </p>
-    <p>Walqui, A. (2010, July). Scaffolding success: Five principles for succeeding with adolescent English learners. <em>Language Magazine</em>, 24–29. </p>
-    <p>Yilmaz, T. (2019). Translanguaging as a pedagogy for equity of language minoritized students. <em>International Journal of Multilingualism</em>, <em>18</em>(3), 435–454. https://doi.org/10.1080/14790718.2019.1640705 </p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDCI 516 &middot; Spring 2023</div>
+    <h1>Philosophy of Teaching</h1>
+    <p class="hero-subtitle">Early teaching philosophy statement grounded in bilingualism and language acquisition research</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Bilingualism &amp; Language Acquisition Research</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong>Philosophy of Teaching</strong></p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">College of Education and Human Development, George Mason University</p>
+      <p class="center">EDCI 516: Bilingualism &amp; Language Acquisition Research</p>
+      <p class="center">Dr. Woomee Kim &amp; Dr. Manqian Zhao</p>
+      <p class="center">March 28th, 2023</p>
+      <p class="center"><strong>Introduction</strong></p>
+      <p>My teaching philosophy centers around a timeless truth: as human beings, every student I encounter is deserving of my time, my respect, my enthusiasm, and a smile. This is the inverse of the listless cultural idiom, “respect is earned.” As students learn respect can be given to their peers before it is earned, they learn to trust one another and take pride in the classroom community they help create. The first ingredient in this successful classroom atmosphere is myself as I strive to build relationships with each of my students. I will often take a few minutes at the beginning of class to just talk with my students and catch-up. I utilize this focus on inclusivism and combine it with effective collaboration and scaffolding to foster an effective learning environment.</p>
+      <p class="center"><strong>A Student-Centered Classroom</strong></p>
+      <p><strong>Role of the Teacher. </strong>It might seem ironic to start a student-centered philosophy of teaching statement with the role of the teacher. However, to create a truly inclusive, student-centered classroom for all learners, including culturally and linguistically diverse (CLD) learners, I must recognize the cultural assumptions that I bring to work with me every day. Culturally in the United States, there is a strong bias that favors a monolingual perspective of language. It is all too easy for a member of this society, including a teacher like me, to subconsciously view a bilingual speaker as different or incapable when compared to their monolingual peers (Baker &amp; Wright, 2021). To create an inclusive environment that values and welcomes all learners, I must recognize each student as unique in their own way and, with proper scaffolding and collaboration, capable of incredible achievement. </p>
+      <p><strong>The Affirmation of Student Identity.</strong> As I explained in the introduction, I place an emphasis on relationships and helping students develop their cultural and academic identity. This is not only vital for student social-emotional health but is also a prerequisite to academic achievement. As students’ sense of identity is affirmed in my class, they are more likely to utilize their voice to speak and engage, as well as develop the confidence to make an academic argument in class (Walqui, 2006). This not only increases their sense of belonging and self-confidence, but also creates more space for academic learning. </p>
+      <p>Maintaining a student-centered focus means utilizing all aspects of a child’s life to bring new meaning to language and academic content. This includes a student’s cultural and ethnic background. As the classroom teacher, I will strive to respect a child’s native language and incorporate ways for students to use it in the classroom. This can be supported by taking the time to build relationships with families of CLD learners as well as utilizing cultural artifacts including songs and art in instruction (Kim &amp; Plotka, 2016). I plan to next year use a comprehensive student survey to develop a funds of knowledge database to incorporate into classroom instruction. Student learning will be improved in my classroom as they make meaning using their own cultural background in class through this approach (Moll, et al., 1992). </p>
+      <p>Another way I aim affirm a student’s identity is to guiding students to make new meaning through translanguaging. Translanguaging, using words or phrases from a native language while speaking a new language is an effective method increasing academic achievement when a higher language proficiency is not present (Yilmaz, 2019). Academically, translanguaging increases the learning capability of a student as it gives them more words to express their ideas and develop new concepts. Besides being an effective pedagogical tool, translanguaging allows students to celebrate their own cultural identity in the classroom (Yilmaz, 2019).</p>
+      <p class="center"><strong>Learning</strong></p>
+      <p><strong>A Collaborative</strong><strong> Physical</strong><strong> Environment. </strong>Collaboration is the foundation of all learning in my classroom (Walqui, 2006). Effective collaboration, however, can only occur in a conducive environment. I have students sit in “pods” of three to four with desks arranged to face one another. This fosters collaboration in addition to the development of peer relationships. Soon I plan to seek ways of promoting “flexible seating” to provide customizable grouping that is activity dependent. I plan to add more and more decorations around my classroom, including culturally diverse art and poems, as well as welcoming messages in student’s native languages. Such decorations are important to have in the classroom, however, these are only effective if they are symbols of a deeper identity validation that comes about in an inclusive, collaborative environment (Walqui, 2006).</p>
+      <p><strong>Collaboration </strong><strong>and Scaffolding </strong><strong>as Pedagogical Tool</strong><strong>s</strong><strong>.</strong> In my classroom I utilize collaboration to enhance a student’s sense of identity as well as promote learning through the Zone of Proximal Development (ZPD). There is a limit on what an individual can achieve alone, but learning can exceed this individual limit when a student works with one or more other students and teachers (Walqui, 2006). I plan to utilize this theory of learning through the ZPD while incorporating many collaborative and scaffolding techniques. When teaching a lesson, I ask students turn and talk to one another to review main ideas. I also ask students to think and pair with their tables to problem solve and then share their findings with the class. I have students work in groups to solve history mysteries or other inquiry-based assignments, allowing room to learn from one another and providing space for each student to practice using language. As students learn new vocabulary through inquiry assignments or primary-source texts, we regroup to review and collaboratively co-define new terms. Teaching and reviewing vocabulary as new terms are discovered is far more effective than pre-teaching it (Llosa, 2023). I provide other scaffolds to all the learners in my classroom that benefit not only CLD students but also all early adolescents, such as graphic organizers, sentence starters, peer scaffolds including turn and talk and think, pair, and share, and writing structure scaffolds such as RACE: restate the question, answer the question completely, cite evidence, and explain. It is important in my classroom to value the learning capabilities of CLD learners and recognize with the right scaffolds and effective collaboration, students with limited English proficiency can achieve or exceed similar learning levels as their monolingual peers. </p>
+      <p><strong>Assessment. </strong>An extension of collaboration I plan incorporate in my classroom is co-construction. Next year I plan to have students unpack standards with me and co-construct learning targets as well as what success looks like for each target. This will give students power and input over their own learning process. All learning is co-constructed through collaboration, assessment should not be any different (Walqui, 2006). It is vital that assessment is fair for all students, including CLD learners. As such, inviting students into the assessment process can lead to equitable outcomes for all, in addition to important metacognitive practices being instilled in the mindset of learners. </p>
+      <p><strong>My Own Learning. </strong>It is vital that I continue my own learning as a professional. With CLD learners and an ever-changing population, I cannot just teach the way I was taught or even the ways I have taught in the past. I plan to stay current with the latest research regarding education and improve my understanding of culturally and linguistically diverse teaching strategies. I will do this through finishing my master’s certificate and attending professional developments. I also plan on leading a professional development for teachers at my school about CLD teaching strategies in partnership with the English to Speakers of Other Languages teachers. In addition to staying current, I seek to be reflective in my practice and ask administrators and colleagues for feedback on what can be better in my classroom. </p>
+      <p>In conclusion, I hope to enter my classroom everyday with an attitude of humility, recognizing the dignity of all my students. I aim to leave my cultural biases at the door and remain reflective in my practices toward students. I plan to affirm my students’ identities daily and create a student-centered learning environment. Through pedagogical strategies including translanguaging and collaboration, the learners in my classroom can achieve at high levels with rigorous content (Walqui, 2006). Through co-construction I hope to give my students a voice in their own assessment, creating equitable outcomes. In my experience, teaching is an exercise in self-humility and self-learning. As such, I hope to remain a reflective, life-long learner and educator. </p>
+      <div class="references">
+      <h3>References</h3>
+      <p class="ref">Baker, C., &amp; Wright, W. E. (2021). <em>Foundations of bilingual education and bilingualism</em>. Multilingual Matters. </p>
+      <p class="ref">Kim, S., &amp; Plotka, R. (2016). Myths and facts regarding second language acquisition in early childhood. <em>Dimensions of Early Childhood</em>, <em>44</em>(1), 18–24. </p>
+      <p class="ref">Llosa, L. (2023, March). <em>Supporting multilingual learners in the science classrooms</em>. <em>ACESTEM Saturday Session</em>. </p>
+      <p class="ref">Moll, L. C., Amanti, C., Neff, D., &amp; Gonzalez, N. (1992). Funds of knowledge for teaching: Using a qualitative approach to connect homes and classrooms. <em>Theory Into Practice</em>, <em>31</em>(2), 132–141. https://doi.org/10.1080/00405849209543534 </p>
+      <p class="ref">Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180. https://doi.org/10.1080/13670050608668639 </p>
+      <p class="ref">Walqui, A. (2010, July). Scaffolding success: Five principles for succeeding with adolescent English learners. <em>Language Magazine</em>, 24–29. </p>
+      <p class="ref">Yilmaz, T. (2019). Translanguaging as a pedagogy for equity of language minoritized students. <em>International Journal of Multilingualism</em>, <em>18</em>(3), 435–454. https://doi.org/10.1080/14790718.2019.1640705 </p>
+      </div>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

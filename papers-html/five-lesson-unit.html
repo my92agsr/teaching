@@ -4,333 +4,578 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>5-Lesson Unit Plan | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#B4530914;color:#B45309}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #B45309;
+  --accent-light: #B4530918;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #2a1e0f 0%, #3a2a14 50%, #2a1e0f 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #B4530918 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #B453090d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #B45309;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDCI 519</span>
-      <span class="semester">Fall 2023</span>
-    </div>
-    <p class="center">Lesson Unit Plan Template</p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">George Mason University</p>
-    <p class="center">EDCI 519 – Methods of Teaching Culturally and Linguistically Diverse Learners</p>
-    <p class="center">Woomee Kim, Ph.D.; Manqian Zhao, Ph.D.</p>
-    <p class="center">December 5th, 2023</p>
-    <p class="center"><strong>EDCI 519 </strong><strong>5- </strong><strong>Lesson </strong><strong>Unit </strong><strong>Plan Template </strong></p>
-    <p><strong>EDCI 519 Student Name:</strong><strong> Matthew Walker</strong></p>
-    <p><strong>Unit Title:</strong> The Federal Government			</p>
-    <p><strong>Grade Level &amp; Content Area:</strong> 8th Grade Civics &amp; Economics</p>
-    <p><strong>Standards (VA SOLs and WIDA): </strong>STANDARD CE.6a</p>
-    <ul>
-    <li>The student will apply social science skills to understand the American constitutional government at the national level by</li>
-    <li>describing the structure and powers of the national government;</li>
-    <li>describing the roles and powers of the executive branch;</li>
-    <li>explaining and/or simulating the lawmaking process (VDOE, 2015);</li>
-    </ul>
-    <p><strong>WIDA Standards</strong></p>
-    <ul>
-    <li>Key Language Use: Identify, analyze, and give account for causal, consequential, or systems relationships;</li>
-    <li>Interpret multiple sources of information to develop claims and counterclaims;</li>
-    <li>Contextualize and evaluate primary and secondary sources (WIDA, 2020).</li>
-    </ul>
-    <p><strong>Unit Overview</strong> </p>
-    <p>This unit covers the structure and powers of the Federal Government, as well as Separation of Powers. It progresses through the three branches of government, starting with the Legislative Branch. The entire unit takes approximately three weeks. </p>
-    <p>I will use a Central Historical Question (CHQ) for this unit, exploring the powers of each branch and their role in a specific action against the social media platform TikTok. The question is: Should the United States government ban TikTok? The question can only be addressed after there is some background knowledge established. </p>
-    <p><strong>Unit Sequencing</strong></p>
-    <p>Lesson 1: Legislative Branch – Overview</p>
-    <p>This lesson introduces the Legislative Branch through a hook, introducing the CHQ from above. Then, students will explore a reading on the structure of the Legislative Branch. The goal of this lesson is for students to acquire a foundational knowledge of the branch’s structure and job.</p>
-    <p>Lesson 2: The Lawmaking Process</p>
-    <p>Students will explore the lawmaking process through the iCivics game LawCraft. This is a fun game that teaches students how laws are made and what needs to happen for a bill to pass. At the end of this lesson, the class will cocreate notes on the lawmaking process on our unit organizer. The goal of this lesson is to understand how a law is made and determine how a law succeeds or fails. </p>
-    <p>Lesson 3: Lawmaking Process Part II</p>
-    <p>This lesson will continue with the lawmaking process, with a structured review of how a law is made as well as other jobs of the Legislative Branch. Briefly, national security concerns some politicians have raised regarding TikTok will be reviewed with the class. Then, students will explore bills that have failed to become laws addressing TikTok as a national security concern. The goal is to determine in what stage of the lawmaking process these bills failed and begin making a pro and con list of banning the social media entity. </p>
-    <p>Lesson 4: Pros and Cons of banning TikTok. Strategy: Critical Pedagogy</p>
-    <p>Students will analyze diverse sources on whether TikTok should be banned and create a draft hypothesis statement. They will explore two videos and an article to accomplish this. The goal of this lesson is to analyze the power structures and motives behind banning TikTok while considering whether the ban should take place. </p>
-    <p>Lesson 5: Discussion. </p>
-    <p>Students will use their notes, class resources, and hypothesis statement to have a structured discussion in class about the CHQ. The goal here is for students to have an opportunity to make meaning as a class on what the United States government should do and how they can accomplish their goals. </p>
-    <p class="center"><strong>EDCI </strong><strong>519</strong><strong> Lesson Plan Template</strong><strong> – Day 1</strong></p>
-    <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
-    <p><strong>Lesson Objective(s):</strong></p>
-    <p>	Integrated Content and Language Objective: Students will analyze the Legislative Branch’s structure and powers using key legislative vocabulary</p>
-    <p><strong>Materials</strong><strong> (including any multimedia/digital)</strong><strong>:</strong></p>
-    <ul>
-    <li>graphic organizer</li>
-    <li>readings</li>
-    </ul>
-    <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
-    <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
-    <p>I will start this lesson with a quick hook—I will ask students to turn and talk to their neighbors and share whether they use social media or not. I will call on a couple of volunteers to share their experience with social media.  Then I will quickly recap recent attempts by various branches of government to ban TikTok, explaining the national security concerns of those individuals. </p>
-    <p>
-I will lastly introduce the learning target (objective), which is </p>
-    <p><strong><em>Detailed </em></strong><strong><em>Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
-    <p><strong>Hook</strong> – </p>
-    <p>Teacher will complete the opening hook described above, emphasizing the CHQ – Should the United States ban TikTok? </p>
-    <p>Students will turn and talk completing their teacher prompt regarding their social media experience.</p>
-    <p>Teacher will call on student volunteers to share their answer to the hook question. </p>
-    <p><strong>Activity – Legislative Branch Structure Reading</strong></p>
-    <p>Teacher will introduce the activity and explain the directions.</p>
-    <p>Teacher will pass out graphic organizer and differentiated readings. </p>
-    <p>Teacher will read the directions and model how to partner read the reading and collaborate to down answers in the graphic organizer. </p>
-    <p>Teacher will ask students to begin and roam the room to provide scaffolded assistance and prompts. </p>
-    <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
-    <p>Teacher will bring students back together as a class to review the content learned.</p>
-    <p>Teacher will review the brief answers regarding the composition and structure of the Legislative Branch. </p>
-    <p>Teacher will briefly introduce a Senate bill that has been initiated to ban TikTok. Teacher will guide students to write down the bill name and number under the Senate side of the graphic organizer. Teacher will guide students to draw a dotted arrow line from the bill to the House side to demonstrate what the bill must do to become a law (pass both houses). This anticipates the next day’s learning. </p>
-    <p><strong>Formative Assessment</strong></p>
-    <p>Finally, the teacher will ask students to cover their papers and quiz their table partner on the composition of the branch. Teacher will quickly roam the room to formatively assess student understanding. </p>
-    <p>Then, to end the class, teacher will complete a Fist of Five formative assessment (Lemov, 2015). </p>
-    <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable):</p>
-    <p>Teacher will direct students to ask their parents and siblings what they think should happen regarding the TikTok ban. </p>
-    <p><strong>Scaffolds in Lesson: </strong></p>
-    <ul>
-    <li>Partner reading</li>
-    <li>Pair work on graphic organizer and pair discussions</li>
-    <li>Verbal scaffolds provided by teacher as needed</li>
-    <li>Graphic organizer is a visual chart</li>
-    </ul>
-    <p><strong>Higher Order </strong><strong>Thinking (Reflected in Questions/</strong><strong>Tasks in Lesson</strong><strong>)</strong><strong>:</strong></p>
-    <ul>
-    <li>At the bottom of the graphic organizer is a question to answer with the table partner—&quot;why do you think the people who wrote the Constitution varied the term limits between 2 and 6 years instead of making them the same?”</li>
-    </ul>
-    <p><strong>Formative Assessments in Lesson:</strong></p>
-    <ul>
-    <li>Oral partner quiz at the end</li>
-    <li>Fist of five at close of lesson</li>
-    </ul>
-    <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
-    <ul>
-    <li>Students are tasked with asking family for input on a potential TikTok ban</li>
-    </ul>
-    <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 2</strong></p>
-    <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
-    <p><strong>Lesson Objective(s): </strong></p>
-    <p>	Integrated Content and Language Objective: Students will analyze the lawmaking process, while using key vocabulary such as bicameral and engaging with multimodal resources</p>
-    <p><strong>Materials (including any multimedia/digital): </strong></p>
-    <ul>
-    <li>Computer</li>
-    <li>Unit Organizer</li>
-    </ul>
-    <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
-    <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
-    <p>Teacher will lead a think/pair/share to recap the structure of the Legislative Branch. </p>
-    <p>Students will complete a Question, Stem, Signal, Share, Answer (QSSSA) with a question, “Why do you think it might be important to have two branches that have to pass laws instead of just one?” </p>
-    <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
-    <p>Students will watch a video played by the teacher by Schoolhouse Rock titled, “I’m Just a Bill.”</p>
-    <p>Students will complete an interactive learning game on how a law is made from iCivics on their computer, called LawCraft. When they finish, they will complete a short reflection with questions.</p>
-    <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
-    <p>Students will be led in a discussion to decide what important lawmaking steps should be cocreated and written down on the Unit Organizer. This will include a think/pair/share and guided, but cocreated, note-taking.</p>
-    <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable):</p>
-    <p>None.</p>
-    <p><strong>Scaffolds in Lesson: </strong></p>
-    <ul>
-    <li>guided discussion</li>
-    <li>visual computer game</li>
-    </ul>
-    <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
-    <ul>
-    <li>QSSSA question</li>
-    <li>Cocreating Unit Organizer</li>
-    </ul>
-    <p><strong>Formative Assessments in Lesson:</strong></p>
-    <ul>
-    <li>Unit organizer cocreation serves as a formative assessment for the teacher</li>
-    </ul>
-    <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
-    <ul>
-    <li>LawCraft is available in Spanish</li>
-    <li>Collaborative notes</li>
-    </ul>
-    <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 3</strong></p>
-    <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
-    <p><strong>Lesson Objective(s):</strong></p>
-    <p>Integrated Content and Language Objective: Students will analyze the lawmaking process and use key vocabulary to compose a hypothesis answering the CHQ</p>
-    <p><strong>Materials (including any multimedia/digital):</strong> </p>
-    <ul>
-    <li>graphic organizer</li>
-    <li>computer</li>
-    </ul>
-    <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
-    <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
-    <p>Teacher will recap the cocreated Unit Organizer from the day before.</p>
-    <p>Teacher will ask students to turn and quiz their neighbor on the structure of the Legislative Branch as well as the lawmaking process. </p>
-    <p>Finally, a think/pair/share will be completed, asking students to consider what they learned in yesterday’s game, LawCraft.</p>
-    <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
-    <p>Students will watch a video played by the teacher of a CNN10 student news clip detailing to what extent the government is interested in banning TikTok ()</p>
-    <p>Teacher will briefly recap the national security concerns portrayed by some politicians.</p>
-    <p>Students will complete a QSSSA prompt on the question, “What could happen if a foreign government went rogue with millions of Americans personal data from TikTok?” This is a difficult question to answer, so students will be guided to research this question on the internet with their table partner before completing the QSSSA. Students will receive a verbal and written reminder that they can use multiple languages in their written and spoken work. </p>
-    <p>Students will work in groups to research what bills have been created in the last year to attempt to ban TikTok. They will locate in what stage of the lawmaking process they are in on their Unit Organizer and write a summary of each bill’s status.</p>
-    <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
-    <p>Teacher will lead a discussion on the bills and their respective statuses. </p>
-    <p>Students will conclude class by writing and submitting their initial hypothesis sentence on the CHQ, “Should the United States government ban TikTok?” This can be done on paper or on FlipGrid.</p>
-    <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
-    <p><strong>Scaffolds in Lesson: </strong></p>
-    <ul>
-    <li>opportunity to write or do Flipgrid</li>
-    <li>QSSSA</li>
-    <li>think/pair/share</li>
-    </ul>
-    <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
-    <ul>
-    <li>QSSSA question</li>
-    </ul>
-    <p><strong>Formative Assessments in Lesson:</strong></p>
-    <ul>
-    <li>Students will turn in their hypothesis statement</li>
-    </ul>
-    <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
-    <ul>
-    <li>TikTok is culturally responsive to many teenage lives, but certainly not all</li>
-    <li>Translanguaging prompt</li>
-    </ul>
-    <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 4</strong></p>
-    <p class="center">(Adapted from SIOP Templates)</p>
-    <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
-    <p><strong>Lesson Objective(s):</strong></p>
-    <p>	Integrated Content and Language Objective: Students will evaluate different perspectives on the CHQ and use key vocabulary to revise and expand their hypothesis</p>
-    <p><strong>Materials (including any multimedia/digital):</strong> </p>
-    <ul>
-    <li>computer</li>
-    </ul>
-    <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
-    <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
-    <p>Teacher will review objective and quickly quiz students on the structure of the Legislative Branch.</p>
-    <p>Teacher will show two short videos: one YouTube short expressing Senator Warner and President Biden’s views on banning TikTok and another presenting former President Trump’s views on banning TikTok. </p>
-    <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
-    <p>Students will review an LA Times article detailing some benefits of TikTok to Gen Z persons and answer comprehension questions with their table partner (Amato, 2022)</p>
-    <p>Students will revise and add evidence to their hypothesis statement answering the CHQ. </p>
-    <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
-    <p>Students will share their hypothesis and evidence with their table partner and give feedback to one another.</p>
-    <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
-    <p><strong>Scaffolds in Lesson: </strong>(linguistic, visual, pair/group work, realia, etc.)</p>
-    <ul>
-    <li>Group reading</li>
-    <li>Scaffolded hypothesis and evidence graphic organizer</li>
-    </ul>
-    <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
-    <ul>
-    <li>Higher order questions regarding the LA Times article</li>
-    <li>Hypothesis statement and evidence gathering</li>
-    </ul>
-    <p><strong>Formative Assessments in Lesson:</strong></p>
-    <ul>
-    <li>Teacher check during peer feedback</li>
-    <li>Oral quiz at beginning of class</li>
-    </ul>
-    <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
-    <ul>
-    <li>Article is from Gen Z point of view</li>
-    </ul>
-    <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 5</strong></p>
-    <p class="center">(Adapted from SIOP Templates)</p>
-    <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
-    <p><strong>Lesson Objective(s):</strong></p>
-    <p>	Integrated Content and Language Objective: Students will utilize key vocabulary to complete a structured debate on the CHQ</p>
-    <p><strong>Materials (including any multimedia/digital):</strong> </p>
-    <ul>
-    <li>Notes</li>
-    <li>debate prep work</li>
-    </ul>
-    <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
-    <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
-    <p>Teacher will ask five students to share their hypothesis with the class.</p>
-    <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
-    <p>Students will take five minutes to review their hypothesis and their supporting evidence.</p>
-    <p>Students will have five more minutes to fill out a structured debate graphic organizer with fill-in-the-blank sentence starters. This also contains translanguaging encouragement and prompts. </p>
-    <p>Students will have a scaffolded debate over whether TikTok should be banned or not. </p>
-    <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
-    <p>Students will complete a brief reflection on the debate at the end of class.</p>
-    <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
-    <p><strong>Scaffolds in Lesson: </strong>(linguistic, visual, pair/group work, realia, etc.)</p>
-    <ul>
-    <li>Structured debate graphic organizer</li>
-    <li>Pair work</li>
-    </ul>
-    <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
-    <ul>
-    <li>Structured debate with responses</li>
-    </ul>
-    <p><strong>Formative Assessments in Lesson:</strong></p>
-    <ul>
-    <li>Structured debate</li>
-    </ul>
-    <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
-    <ul>
-    <li>Translanguaging opportunities and prompt</li>
-    </ul>
-    <p><strong>Part I</strong></p>
-    <p>	My Civics and Economics class is the only eighth grade class I teach. There are twenty-five students. Recently a multilingual student moved to a different school and another student moved here from Turkey. Fourteen of the twenty-five students are multilingual learners (MLs), with one having graduated out of the school’s English as a Second Language (ESL) program. The languages they speak include Amharic, Farsi, Krio, Pashto, Spanish, and Turkish. Eighteen of students in the class I taught as seventh graders, giving me additional background knowledge on learning preferences and capabilities, as well as language proficiencies. Further, I have excellent relationships with these students, making class an effective learning environment as well as a fun place to be. </p>
-    <p>	The MLs in this class lack background knowledge about the American Legislative Branch, however some had formal government class in their previous country. I noticed nearly all the Turkish students recall taking government class prior to moving to the United States. Regardless, there is room for growth in terms of content and vocabulary for all my students in this class. </p>
-    <p>	This class is in Ronald Reagan Middle School in Haymarket, Virginia, a suburb in western Prince William County. The school’s student population is comprised of 54.5% students who are Caucasian, 15.9% students who are Asian, 11% who are Hispanic, 10.5% who are black, multiple races comprise 7.5% of the student body, and 0.4% of students are Native Hawaiian. 10.2% of students at Ronald Reagan Middle School are classified as English Learners (VDOE, 2022).</p>
-    <p><strong>Part </strong><strong>II</strong></p>
-    <p>	My Unit Plan has several components which offer culturally and linguistically responsive elements to aid student comprehension. These include translanguaging prompts, which can be beneficial to meaning making for MLs (Walqui, 2006). Translanguaging is the process of using a student’s bilingualism to their advantage with the goal of improving meaning making and helping students to comprehend and thrive in a multilingual world (Lee, 2021). </p>
-    <p>I also incorporate a larger Central Historical Question (CHQ) that is engaging to students. The question is “Should the United States government ban TikTok?” The subject of TikTok, as well as the assignment to discuss the CHQ at home, bring student’s lived experiences into the classroom. Even if students are not on TikTok or social media themselves, an adolescent in public school cannot help but know that it impacts the lives of many of their peers. Lived experiences are vital components of the classroom and help give context to learning as students find ways to make meaning with each other (Thomas &amp; Carvajal-Regidor, 2021). It was also beneficial to share a positive source on TikTok in the LA Times article. It is important to me to demonstrate that nothing should be written off completely or labeled to the extent where there can be little to no redeeming value. </p>
-    <p>	I incorporated multiliteracies into this unit. The videos, graphic organizers, and computer game represent the diverse ways students can learn and present information in eclectic ways to deepen understanding (Rajendram, 2021). Learning has become multidimensional in the modern world; offering multimodal ways to present possible understanding in a classroom is a must. Multiliteracies should not be confused with multimodal activities, although multiple literacies in an activity or unit certainly present as a multimodal way of learning. Multimodal works in class keep students more engaged and improve meaning making. Further, multimodal works also decrease dropout rates over time (Lee, 2021). Multiliteracies serve as linguistically responsive pedagogical strategies. They repair the erroneous, long-term interpretation of L2 language acquisition being built around reception, such as reading and listening, and production, often thought of as writing (Rajendram, 2021).</p>
-    <p>	Practicing multiliteracies as a pedagogical strategy is an important step to linguistically and culturally responsive teaching. Multiliteracies also connect to other recent theories such as New Literacy Studies, or new literacies (Rajendram, 2021). New literacies theory is critical of the traditional “print-based” approach to text utilization and places an emphasis on training students to use all the tools available to them, and to use them in a well-disciplined way (Rajendram, 2021, p. 153). Long-term, this unit and others I teach will work to train students how to use a computer without getting distracted, an important discipline to developing an effective meaning making environment. </p>
-    <p>	New literacies and multiliteracies work well in the pedagogical strategy of Situated Practice (Rajendram, 2021). When I incorporate student experiences and identities into the learning environment, students are gaining practice at learning that is situated in their actual life context and discourse. This stands in contradiction to teaching that emphasizes ideas, events, or facts that are detached from relevancy to the student’s life. </p>
-    <p>The learning activities themselves emphasize speaking, listening, reading, and engaging with non-traditional literacies. These strategies, and the incorporating learning activities create a well-rounded culturally and linguistically responsive unit plan. </p>
-    <p><strong>Part III (1 – 2 pages)</strong></p>
-    <p>	Formative assessment is a key component of any adaptive classroom. A key tenet I incorporate into formative assessment in this unit plan is the ability for students to produce their work utilizing their bilingual repertoire, or translanguaging. Students can use one, both, or multiple languages on their work. There is still a systemic pressure for English acquisition, so I will ask students to explain concepts to me in mostly English at times. However, students can incorporate some words of their L1. Utilizing translanguaging in formative assessment gives me, the educator, a more accurate picture of student understanding (Ascenzi-Moreno, 2018). Allowing students to use their L1 also allows me to formatively assess their English Language Proficiency (ELP) or acquisition. This feedback allows me to tweak language goals in the lessons. </p>
-    <p>	The reflection activity after the LawCraft computer game is an important step for students in terms of formative assessment. It allows students to reflect on their own content acquisition, which is a form of self-assessment. After this activity I will gather student input on what should be assessed next, which is an important distributive assessment model that allows students to think about their own learning in a deeper way. This effectively puts the content acquisition at the forefront of student minds, especially as they engage in collaborative work and discussions with their table partners (Rajendram, 2021).</p>
-    <p>	The QSSSA strategy is a highly effective tool that gives the teacher plenty of formative assessment data (Seidlitz &amp; Perryman, 2022). As students complete these questions, the A in the QSSSA offers a key moment to assess a random sample size of students learning. When I perform this strategy in my classroom, I can also get further data by reading the work of students who are not randomly chosen to share their thoughts or answer. Not only does the QSSSA strategy offer content acquisition formative data, but because it emphasizes academic vocabulary the teacher can also formatively assess ELP and vocabulary development (Seidlitz &amp; Perryman, 2022). </p>
-    <p>	It can be difficult to perceive how content acquisition progresses in any classroom, as student abilities can vary greatly in a single class. Frequent formative assessment is critical. This is why I incorporated strategies such as the Fist of Five (Lemov, 2015), verbal checks while roaming the room, as well as produced work such as comprehension questions or partner discussions. </p>
-    <p><strong>Part IV</strong></p>
-    <p>	While many pedagogical strategies have been discussed above regarding cultural and linguistic responsiveness, here I will explain two simple strategies used that bring important student funds of knowledge to the forefront. It is important for educators to incorporate relevancy into their practice. Student funds of knowledge, or their cultural and linguistic backgrounds, as well as family history, are vital to understanding more about students in order to make learning more meaningful in the classroom (Esteban-Guitart &amp; Moll, 2013). For this reason, I chose to incorporate family discussions into this lesson, as seen on lesson day one. Asking students to have a conversation with their family sounds very simple, yet it instantly gives a depth to a learning topic that gives learning greater meaning. While I ask students to talk to their parents, many forget. To remedy this, I also send an email home encouraging parents to engage in the conversation with their students. </p>
-    <p>	Another strategy I use to incorporate funds of knowledge is making the learning relevant and personal. The specific CHQ in this unit plan is personal. Banning TikTok, or not banning TikTok, is a very personal decision to many students and this brings out relevancy. In addition, this incorporates family or personal beliefs about social media, which enhances learning as well. As I learn about each student’s views here, I can incorporate these funds of knowledge into further lessons as the year progresses. Interestingly, Estaban-Guitart and Moll (2014) describe the importance of discussing social and cultural factors to enhance what they call funds of identity. Beyond the known theory of funds of knowledge, funds of identity places an importance on utilizing funds of knowledge to assist identity formation, which is not static, but rather dynamic (Estaban-Guitart &amp; Moll, 2014). While TikTok may not apply to everyone’s lives, social media certainly does at some point, or at least the decision to use or not use it applies to all. Tying funds of knowledge to content learning about the Legislative Branch is an appropriate step to enhance meaning making. </p>
-    <p><strong>Part </strong><strong>V</strong></p>
-    <p>	I have delivered most of this unit so far and I can say with experience that the content acquisition is going generally well. However, some learners, including a couple of multilingual learners, are struggling to grasp the basic structure of the Legislative Branch and how it relates to their job to make laws. For example, two multilingual learners struggle with differentiating between the branch that makes laws and the branch that executes. I noticed this as these two students answered their questions on the first lesson’s reading, as well as when they began discussing whether the government should ban TikTok. There is an easy misconception in Civics that the president holds the power, despite many lessons on how limited that position is in terms of power, especially in regard to creating laws. </p>
-    <p>	I prefer remedying misconceptions or under-performing content acquisition via small group reteaching, especially when it is just a handful of students who need remediation. This typically goes well, especially when done in advisory before first period. If this occurs, I can check in again with those students in class. I added a Fist of Five on the first lesson day in the moment, and I was able to check in with the three students who held up ones and twos (Lemov, 2015). Lesson two’s review of the content also helped students improve learning. </p>
-    <p>	I imagine next year, if I teach this course again, I will tweak the first day’s reading to make it more engaging. I think a stations activity with laws that have been made, hung around the room might be better suited to students. I would like to add technology to this so that a couple of stations can be videos or other mediums that would add a multimodal dimension to this lesson. I would also like to find a way for students to participate in the day five debate in more ways than just speaking. Perhaps offering students the opportunity to pre-record an argument in FlipGrid could ease anxiety in some students and improve participation. </p>
-    <p><strong>Part VI </strong></p>
-    <p>	It is vital that teachers of language learners have proper training on language structures and development. Many ideas in social studies involve figurative language, and it is important to be able to decipher simple mistakes language learners might make because of semantic misunderstandings. A student, depending on their background and background knowledge, might have very different understandings of government and its workings. Further, words such as “execute” have many meanings, and it is easy to misunderstand them, even for native English speakers. Figurative language like this must be clarified (Rafzar &amp; Rumenapp, 2014). If teachers do not have knowledge of language acquisition and development, pedagogical mistakes like overlooking figurative language can be made, leading MLs to become confused. Beyond semantics, educators must recognize important steps to acquiring vocabulary. Vocabulary, for instance, is much better understood in context, instead of being pre-taught or front-loaded at the start of a unit (Llosa, 2023). </p>
-    <p><strong>Part VII</strong></p>
-    <p>	It is important for educators to choose diverse modalities when planning lessons. I wanted my students to learn the structure and powers of the Legislative Branch in multiple ways, including visually, textually, and with digital resources. Multiple modalities and multiliteracies are vital to improving relevancy and meaning making (Rajendram, 2021). I have used iCivics games prior times I taught Civics, and I knew their game called LawCraft would be an added digital asset to learning in this unit. It adds a fun dynamic and teaches the content well, which is important to have in unit plans. The TikTok question itself and resources were also an easy choice. A potential TikTok ban has been in the news for the better part of four years and has bipartisan support. It is important for me, in my context, to choose issues that are not strictly partisan, or to at least offer multiple arguments from varying perspectives. Following this approach, I searched for both Democratic and Republican points of view on the subject, including both text and video. I also wanted to offer something from a Generation Z perspective, and the LA Times article provided that. Multiple perspectives offer a culturally responsive way of teaching is beneficial to learning (Weng, McGuire, and Roose, 2021). </p>
-    <p>	Incorporating some form of critical pedagogy and situated practice is very important to me. Multiple perspectives allow students the chance to critique varying power structures and points of view. The TikTok debate and multiple perspectives allow students to engage with “cultural tension,” an important aspect of life and identify formation (Weng, McGuire, and Roose, 2021, p. 115). The news clip from CNN10 I chose is also a neutral perspective that offers students another way to understand the issues central to the TikTok debate.  </p>
-    <p><strong>Part VIII</strong></p>
-    <p>	As an educator and a life-long learner, I frequently practice self-assessment and think about my practice in contemplative ways. As someone who loves my job, I often find myself thinking about moments in class that could have been better, or moments of recognition I have where learning for individuals or groups of students can be improved. For example, when I noticed some students were struggling differentiating between the House of Representatives and the Senate, particularly why the Senate is often called the “upper chamber,” I realized that my explaining of this needed to be situated in a better context. There are many little things that make the Senate more prestigious than the House, and there is an analogy I could have made to the differences between seventh and eighth grade. There is not a significant on difference on paper, yet there are many things that make eighth grade feel more prestigious. This is an analogy I plan to add in if I teach this course again. </p>
-    <p>It is important for me to stay current in best teaching practices for all my students, including my multilingual students. In terms of English language acquisition and teaching, I hope to attend or even lead professional developments both in my school and throughout the county. I would like to pitch an idea I have about multiliteracies and critical pedagogy to county leadership in the hopes of presenting at next year’s Excellent and Equity in Education (EEE) conference that Prince William County puts on every year. I also plan to re-read my favorite critical pedagogy books by Paulo Freire and bell hooks, now that I have better training on teaching multilingual learners. I look forward to teaching only one subject next year and honing my practice even more as I add my new endorsement. I believe practicing reflection and focusing on continuous improvement is vital for educators, and a must for the flourishing of a public school system that promotes a multiracial, equitable democracy.</p>
-    <p class="center">References</p>
-    <p>Amato, M. (2022, January 5). <em>TikTok is helping gen Z with mental health. here’s what it can and can’t do</em>. Los Angeles Times. https://www.latimes.com/lifestyle/story/2022-01-05/those-struggling-with-mental-health-have-found-validation-on-tiktok-heres-how </p>
-    <p>Ascenzi-Moreno, L. (2018). Translanguaging and responsive assessment adaptations: Emergent bilingual readers through the lens of possibility. <em>Language Arts</em>, <em>95</em>(6), 355–369. https://doi.org/10.58680/la201829683 </p>
-    <p>Esteban-Guitart, M., &amp; Moll, L. C. (2014). Funds of identity: A new concept based on the funds of Knowledge Approach. <em>Culture &amp;amp; Psychology</em>, <em>20</em>(1), 31–48. https://doi.org/10.1177/1354067x13515934 </p>
-    <p>Lee, E. (2021). Chapter 5: Translingualism in the teaching of English: Theoretical considerations and pedagogical implications. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 121–130). Essay, Routledge. </p>
-    <p>Lemov, D. (2015). <em>Teach like a Champion 2.0: 62 techniques that put students on the path to college</em>. Jossey-Bass. </p>
-    <p>Llosa, L. (2023, March). <em>Supporting multilingual learners in the science classrooms</em>. <em>ACESTEM Saturday Session</em>. </p>
-    <p>Razfar, A., &amp; Rumenapp, J. C. (2014). <em>Applying linguistics in the classroom: A sociocultural approach</em>. Routledge. </p>
-    <p>Rajendram, S (2021). Chapter 6: A pedagogy of multiliteracies and its role in English language education. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 151 - 159). Essay, Routledge.</p>
-    <p>Seidlitz, J., &amp; Perryman, B. (2021). <em>7 steps to a language-rich interactive classroom</em> (2nd ed.). Seidlitz Education. </p>
-    <p>Thomas, M., &amp; Carvajal-Regidor, M. (2021) Chapter 4: Culturally responsive pedagogy in TESOL. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 91 - 99). Essay, Routledge.</p>
-    <p>Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180.  </p>
-    <p>Weng, Z., McGuire, M., and Roose, T. M. (2021). Chapter 4.3: Applying culturally responsive pedagogy to engage with cultural differences in an ESL composition course in the U.S. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 113 - 116). Essay, Routledge.</p>
-    <p>WIDA. (2020). <em>WIDA</em> English language development standards framework, 2020 edition: Kindergarten-grade 12. Board of Regents of the University of Wisconsin System.</p>
-    <p>Virginia Department of Education. (2016). <em>Civics &amp; Economics: History and social science standards of learning curriculum and framework 2015</em>. https://www.doe.virginia.gov/teaching-learning-assessment/k-12-standards-instruction/history-and-social-science/standards-of-learning </p>
-    <p>Virginia Department of Education. (2022). <em>Ronald Reagan Middle School - Virginia School Quality Profiles</em>. Virginia school quality profiles. https://schoolquality.virginia.gov/ </p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDCI 519 &middot; Fall 2023</div>
+    <h1>5-Lesson Unit Plan</h1>
+    <p class="hero-subtitle">Complete unit plan with five detailed lessons for culturally and linguistically diverse learners</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Methods of Teaching Culturally and Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center">Lesson Unit Plan Template</p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">George Mason University</p>
+      <p class="center">EDCI 519 – Methods of Teaching Culturally and Linguistically Diverse Learners</p>
+      <p class="center">Woomee Kim, Ph.D.; Manqian Zhao, Ph.D.</p>
+      <p class="center">December 5th, 2023</p>
+      <p class="center"><strong>EDCI 519 </strong><strong>5- </strong><strong>Lesson </strong><strong>Unit </strong><strong>Plan Template </strong></p>
+      <p><strong>EDCI 519 Student Name:</strong><strong> Matthew Walker</strong></p>
+      <p><strong>Unit Title:</strong> The Federal Government			</p>
+      <p><strong>Grade Level &amp; Content Area:</strong> 8th Grade Civics &amp; Economics</p>
+      <p><strong>Standards (VA SOLs and WIDA): </strong>STANDARD CE.6a</p>
+      <ul>
+      <li>The student will apply social science skills to understand the American constitutional government at the national level by</li>
+      <li>describing the structure and powers of the national government;</li>
+      <li>describing the roles and powers of the executive branch;</li>
+      <li>explaining and/or simulating the lawmaking process (VDOE, 2015);</li>
+      </ul>
+      <p><strong>WIDA Standards</strong></p>
+      <ul>
+      <li>Key Language Use: Identify, analyze, and give account for causal, consequential, or systems relationships;</li>
+      <li>Interpret multiple sources of information to develop claims and counterclaims;</li>
+      <li>Contextualize and evaluate primary and secondary sources (WIDA, 2020).</li>
+      </ul>
+      <p><strong>Unit Overview</strong> </p>
+      <p>This unit covers the structure and powers of the Federal Government, as well as Separation of Powers. It progresses through the three branches of government, starting with the Legislative Branch. The entire unit takes approximately three weeks. </p>
+      <p>I will use a Central Historical Question (CHQ) for this unit, exploring the powers of each branch and their role in a specific action against the social media platform TikTok. The question is: Should the United States government ban TikTok? The question can only be addressed after there is some background knowledge established. </p>
+      <p><strong>Unit Sequencing</strong></p>
+      <p>Lesson 1: Legislative Branch – Overview</p>
+      <p>This lesson introduces the Legislative Branch through a hook, introducing the CHQ from above. Then, students will explore a reading on the structure of the Legislative Branch. The goal of this lesson is for students to acquire a foundational knowledge of the branch’s structure and job.</p>
+      <p>Lesson 2: The Lawmaking Process</p>
+      <p>Students will explore the lawmaking process through the iCivics game LawCraft. This is a fun game that teaches students how laws are made and what needs to happen for a bill to pass. At the end of this lesson, the class will cocreate notes on the lawmaking process on our unit organizer. The goal of this lesson is to understand how a law is made and determine how a law succeeds or fails. </p>
+      <p>Lesson 3: Lawmaking Process Part II</p>
+      <p>This lesson will continue with the lawmaking process, with a structured review of how a law is made as well as other jobs of the Legislative Branch. Briefly, national security concerns some politicians have raised regarding TikTok will be reviewed with the class. Then, students will explore bills that have failed to become laws addressing TikTok as a national security concern. The goal is to determine in what stage of the lawmaking process these bills failed and begin making a pro and con list of banning the social media entity. </p>
+      <p>Lesson 4: Pros and Cons of banning TikTok. Strategy: Critical Pedagogy</p>
+      <p>Students will analyze diverse sources on whether TikTok should be banned and create a draft hypothesis statement. They will explore two videos and an article to accomplish this. The goal of this lesson is to analyze the power structures and motives behind banning TikTok while considering whether the ban should take place. </p>
+      <p>Lesson 5: Discussion. </p>
+      <p>Students will use their notes, class resources, and hypothesis statement to have a structured discussion in class about the CHQ. The goal here is for students to have an opportunity to make meaning as a class on what the United States government should do and how they can accomplish their goals. </p>
+      <p class="center"><strong>EDCI </strong><strong>519</strong><strong> Lesson Plan Template</strong><strong> – Day 1</strong></p>
+      <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
+      <p><strong>Lesson Objective(s):</strong></p>
+      <p>	Integrated Content and Language Objective: Students will analyze the Legislative Branch’s structure and powers using key legislative vocabulary</p>
+      <p><strong>Materials</strong><strong> (including any multimedia/digital)</strong><strong>:</strong></p>
+      <ul>
+      <li>graphic organizer</li>
+      <li>readings</li>
+      </ul>
+      <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
+      <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
+      <p>I will start this lesson with a quick hook—I will ask students to turn and talk to their neighbors and share whether they use social media or not. I will call on a couple of volunteers to share their experience with social media.  Then I will quickly recap recent attempts by various branches of government to ban TikTok, explaining the national security concerns of those individuals. </p>
+      <p>
+I will lastly introduce the learning target (objective), which is </p>
+      <p><strong><em>Detailed </em></strong><strong><em>Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
+      <p><strong>Hook</strong> – </p>
+      <p>Teacher will complete the opening hook described above, emphasizing the CHQ – Should the United States ban TikTok? </p>
+      <p>Students will turn and talk completing their teacher prompt regarding their social media experience.</p>
+      <p>Teacher will call on student volunteers to share their answer to the hook question. </p>
+      <p><strong>Activity – Legislative Branch Structure Reading</strong></p>
+      <p>Teacher will introduce the activity and explain the directions.</p>
+      <p>Teacher will pass out graphic organizer and differentiated readings. </p>
+      <p>Teacher will read the directions and model how to partner read the reading and collaborate to down answers in the graphic organizer. </p>
+      <p>Teacher will ask students to begin and roam the room to provide scaffolded assistance and prompts. </p>
+      <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
+      <p>Teacher will bring students back together as a class to review the content learned.</p>
+      <p>Teacher will review the brief answers regarding the composition and structure of the Legislative Branch. </p>
+      <p>Teacher will briefly introduce a Senate bill that has been initiated to ban TikTok. Teacher will guide students to write down the bill name and number under the Senate side of the graphic organizer. Teacher will guide students to draw a dotted arrow line from the bill to the House side to demonstrate what the bill must do to become a law (pass both houses). This anticipates the next day’s learning. </p>
+      <p><strong>Formative Assessment</strong></p>
+      <p>Finally, the teacher will ask students to cover their papers and quiz their table partner on the composition of the branch. Teacher will quickly roam the room to formatively assess student understanding. </p>
+      <p>Then, to end the class, teacher will complete a Fist of Five formative assessment (Lemov, 2015). </p>
+      <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable):</p>
+      <p>Teacher will direct students to ask their parents and siblings what they think should happen regarding the TikTok ban. </p>
+      <p><strong>Scaffolds in Lesson: </strong></p>
+      <ul>
+      <li>Partner reading</li>
+      <li>Pair work on graphic organizer and pair discussions</li>
+      <li>Verbal scaffolds provided by teacher as needed</li>
+      <li>Graphic organizer is a visual chart</li>
+      </ul>
+      <p><strong>Higher Order </strong><strong>Thinking (Reflected in Questions/</strong><strong>Tasks in Lesson</strong><strong>)</strong><strong>:</strong></p>
+      <ul>
+      <li>At the bottom of the graphic organizer is a question to answer with the table partner—&quot;why do you think the people who wrote the Constitution varied the term limits between 2 and 6 years instead of making them the same?”</li>
+      </ul>
+      <p><strong>Formative Assessments in Lesson:</strong></p>
+      <ul>
+      <li>Oral partner quiz at the end</li>
+      <li>Fist of five at close of lesson</li>
+      </ul>
+      <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
+      <ul>
+      <li>Students are tasked with asking family for input on a potential TikTok ban</li>
+      </ul>
+      <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 2</strong></p>
+      <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
+      <p><strong>Lesson Objective(s): </strong></p>
+      <p>	Integrated Content and Language Objective: Students will analyze the lawmaking process, while using key vocabulary such as bicameral and engaging with multimodal resources</p>
+      <p><strong>Materials (including any multimedia/digital): </strong></p>
+      <ul>
+      <li>Computer</li>
+      <li>Unit Organizer</li>
+      </ul>
+      <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
+      <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
+      <p>Teacher will lead a think/pair/share to recap the structure of the Legislative Branch. </p>
+      <p>Students will complete a Question, Stem, Signal, Share, Answer (QSSSA) with a question, “Why do you think it might be important to have two branches that have to pass laws instead of just one?” </p>
+      <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
+      <p>Students will watch a video played by the teacher by Schoolhouse Rock titled, “I’m Just a Bill.”</p>
+      <p>Students will complete an interactive learning game on how a law is made from iCivics on their computer, called LawCraft. When they finish, they will complete a short reflection with questions.</p>
+      <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
+      <p>Students will be led in a discussion to decide what important lawmaking steps should be cocreated and written down on the Unit Organizer. This will include a think/pair/share and guided, but cocreated, note-taking.</p>
+      <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable):</p>
+      <p>None.</p>
+      <p><strong>Scaffolds in Lesson: </strong></p>
+      <ul>
+      <li>guided discussion</li>
+      <li>visual computer game</li>
+      </ul>
+      <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
+      <ul>
+      <li>QSSSA question</li>
+      <li>Cocreating Unit Organizer</li>
+      </ul>
+      <p><strong>Formative Assessments in Lesson:</strong></p>
+      <ul>
+      <li>Unit organizer cocreation serves as a formative assessment for the teacher</li>
+      </ul>
+      <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
+      <ul>
+      <li>LawCraft is available in Spanish</li>
+      <li>Collaborative notes</li>
+      </ul>
+      <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 3</strong></p>
+      <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
+      <p><strong>Lesson Objective(s):</strong></p>
+      <p>Integrated Content and Language Objective: Students will analyze the lawmaking process and use key vocabulary to compose a hypothesis answering the CHQ</p>
+      <p><strong>Materials (including any multimedia/digital):</strong> </p>
+      <ul>
+      <li>graphic organizer</li>
+      <li>computer</li>
+      </ul>
+      <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
+      <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
+      <p>Teacher will recap the cocreated Unit Organizer from the day before.</p>
+      <p>Teacher will ask students to turn and quiz their neighbor on the structure of the Legislative Branch as well as the lawmaking process. </p>
+      <p>Finally, a think/pair/share will be completed, asking students to consider what they learned in yesterday’s game, LawCraft.</p>
+      <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
+      <p>Students will watch a video played by the teacher of a CNN10 student news clip detailing to what extent the government is interested in banning TikTok ()</p>
+      <p>Teacher will briefly recap the national security concerns portrayed by some politicians.</p>
+      <p>Students will complete a QSSSA prompt on the question, “What could happen if a foreign government went rogue with millions of Americans personal data from TikTok?” This is a difficult question to answer, so students will be guided to research this question on the internet with their table partner before completing the QSSSA. Students will receive a verbal and written reminder that they can use multiple languages in their written and spoken work. </p>
+      <p>Students will work in groups to research what bills have been created in the last year to attempt to ban TikTok. They will locate in what stage of the lawmaking process they are in on their Unit Organizer and write a summary of each bill’s status.</p>
+      <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
+      <p>Teacher will lead a discussion on the bills and their respective statuses. </p>
+      <p>Students will conclude class by writing and submitting their initial hypothesis sentence on the CHQ, “Should the United States government ban TikTok?” This can be done on paper or on FlipGrid.</p>
+      <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
+      <p><strong>Scaffolds in Lesson: </strong></p>
+      <ul>
+      <li>opportunity to write or do Flipgrid</li>
+      <li>QSSSA</li>
+      <li>think/pair/share</li>
+      </ul>
+      <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
+      <ul>
+      <li>QSSSA question</li>
+      </ul>
+      <p><strong>Formative Assessments in Lesson:</strong></p>
+      <ul>
+      <li>Students will turn in their hypothesis statement</li>
+      </ul>
+      <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
+      <ul>
+      <li>TikTok is culturally responsive to many teenage lives, but certainly not all</li>
+      <li>Translanguaging prompt</li>
+      </ul>
+      <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 4</strong></p>
+      <p class="center">(Adapted from SIOP Templates)</p>
+      <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
+      <p><strong>Lesson Objective(s):</strong></p>
+      <p>	Integrated Content and Language Objective: Students will evaluate different perspectives on the CHQ and use key vocabulary to revise and expand their hypothesis</p>
+      <p><strong>Materials (including any multimedia/digital):</strong> </p>
+      <ul>
+      <li>computer</li>
+      </ul>
+      <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
+      <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
+      <p>Teacher will review objective and quickly quiz students on the structure of the Legislative Branch.</p>
+      <p>Teacher will show two short videos: one YouTube short expressing Senator Warner and President Biden’s views on banning TikTok and another presenting former President Trump’s views on banning TikTok. </p>
+      <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
+      <p>Students will review an LA Times article detailing some benefits of TikTok to Gen Z persons and answer comprehension questions with their table partner (Amato, 2022)</p>
+      <p>Students will revise and add evidence to their hypothesis statement answering the CHQ. </p>
+      <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
+      <p>Students will share their hypothesis and evidence with their table partner and give feedback to one another.</p>
+      <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
+      <p><strong>Scaffolds in Lesson: </strong>(linguistic, visual, pair/group work, realia, etc.)</p>
+      <ul>
+      <li>Group reading</li>
+      <li>Scaffolded hypothesis and evidence graphic organizer</li>
+      </ul>
+      <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
+      <ul>
+      <li>Higher order questions regarding the LA Times article</li>
+      <li>Hypothesis statement and evidence gathering</li>
+      </ul>
+      <p><strong>Formative Assessments in Lesson:</strong></p>
+      <ul>
+      <li>Teacher check during peer feedback</li>
+      <li>Oral quiz at beginning of class</li>
+      </ul>
+      <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
+      <ul>
+      <li>Article is from Gen Z point of view</li>
+      </ul>
+      <p class="center"><strong>EDCI 519 Lesson Plan Template – Day 5</strong></p>
+      <p class="center">(Adapted from SIOP Templates)</p>
+      <p><strong>Standards (VA SOLs and WIDA):</strong> No changes</p>
+      <p><strong>Lesson Objective(s):</strong></p>
+      <p>	Integrated Content and Language Objective: Students will utilize key vocabulary to complete a structured debate on the CHQ</p>
+      <p><strong>Materials (including any multimedia/digital):</strong> </p>
+      <ul>
+      <li>Notes</li>
+      <li>debate prep work</li>
+      </ul>
+      <p><strong>Key Vocabulary</strong>: legislative, Congress, bill, senator, representative, law, bicameral</p>
+      <p><strong><em>Motivation/Lesson Opening </em></strong>(connection to prior learning, background building, engaging learners, presenting objectives):</p>
+      <p>Teacher will ask five students to share their hypothesis with the class.</p>
+      <p><strong><em>Detailed Lesson Sequence </em></strong>(learning tasks—what are <strong><em>learners</em></strong> doing? Interaction, practice/application, strategies, feedback, etc.):</p>
+      <p>Students will take five minutes to review their hypothesis and their supporting evidence.</p>
+      <p>Students will have five more minutes to fill out a structured debate graphic organizer with fill-in-the-blank sentence starters. This also contains translanguaging encouragement and prompts. </p>
+      <p>Students will have a scaffolded debate over whether TikTok should be banned or not. </p>
+      <p><strong><em>Review/Lesson Wrap-Up </em></strong>(review objectives, vocabulary, any additional assessment):</p>
+      <p>Students will complete a brief reflection on the debate at the end of class.</p>
+      <p><strong><em>Extension </em></strong>(learners’ home practice, preparation for next day, etc., IF applicable): None</p>
+      <p><strong>Scaffolds in Lesson: </strong>(linguistic, visual, pair/group work, realia, etc.)</p>
+      <ul>
+      <li>Structured debate graphic organizer</li>
+      <li>Pair work</li>
+      </ul>
+      <p><strong>Higher Order Thinking (Reflected in Questions/Tasks in Lesson):</strong></p>
+      <ul>
+      <li>Structured debate with responses</li>
+      </ul>
+      <p><strong>Formative Assessments in Lesson:</strong></p>
+      <ul>
+      <li>Structured debate</li>
+      </ul>
+      <p><strong>Culturally/Linguistically Responsive Elements in Lesson:</strong></p>
+      <ul>
+      <li>Translanguaging opportunities and prompt</li>
+      </ul>
+      <p><strong>Part I</strong></p>
+      <p>	My Civics and Economics class is the only eighth grade class I teach. There are twenty-five students. Recently a multilingual student moved to a different school and another student moved here from Turkey. Fourteen of the twenty-five students are multilingual learners (MLs), with one having graduated out of the school’s English as a Second Language (ESL) program. The languages they speak include Amharic, Farsi, Krio, Pashto, Spanish, and Turkish. Eighteen of students in the class I taught as seventh graders, giving me additional background knowledge on learning preferences and capabilities, as well as language proficiencies. Further, I have excellent relationships with these students, making class an effective learning environment as well as a fun place to be. </p>
+      <p>	The MLs in this class lack background knowledge about the American Legislative Branch, however some had formal government class in their previous country. I noticed nearly all the Turkish students recall taking government class prior to moving to the United States. Regardless, there is room for growth in terms of content and vocabulary for all my students in this class. </p>
+      <p>	This class is in Ronald Reagan Middle School in Haymarket, Virginia, a suburb in western Prince William County. The school’s student population is comprised of 54.5% students who are Caucasian, 15.9% students who are Asian, 11% who are Hispanic, 10.5% who are black, multiple races comprise 7.5% of the student body, and 0.4% of students are Native Hawaiian. 10.2% of students at Ronald Reagan Middle School are classified as English Learners (VDOE, 2022).</p>
+      <p><strong>Part </strong><strong>II</strong></p>
+      <p>	My Unit Plan has several components which offer culturally and linguistically responsive elements to aid student comprehension. These include translanguaging prompts, which can be beneficial to meaning making for MLs (Walqui, 2006). Translanguaging is the process of using a student’s bilingualism to their advantage with the goal of improving meaning making and helping students to comprehend and thrive in a multilingual world (Lee, 2021). </p>
+      <p>I also incorporate a larger Central Historical Question (CHQ) that is engaging to students. The question is “Should the United States government ban TikTok?” The subject of TikTok, as well as the assignment to discuss the CHQ at home, bring student’s lived experiences into the classroom. Even if students are not on TikTok or social media themselves, an adolescent in public school cannot help but know that it impacts the lives of many of their peers. Lived experiences are vital components of the classroom and help give context to learning as students find ways to make meaning with each other (Thomas &amp; Carvajal-Regidor, 2021). It was also beneficial to share a positive source on TikTok in the LA Times article. It is important to me to demonstrate that nothing should be written off completely or labeled to the extent where there can be little to no redeeming value. </p>
+      <p>	I incorporated multiliteracies into this unit. The videos, graphic organizers, and computer game represent the diverse ways students can learn and present information in eclectic ways to deepen understanding (Rajendram, 2021). Learning has become multidimensional in the modern world; offering multimodal ways to present possible understanding in a classroom is a must. Multiliteracies should not be confused with multimodal activities, although multiple literacies in an activity or unit certainly present as a multimodal way of learning. Multimodal works in class keep students more engaged and improve meaning making. Further, multimodal works also decrease dropout rates over time (Lee, 2021). Multiliteracies serve as linguistically responsive pedagogical strategies. They repair the erroneous, long-term interpretation of L2 language acquisition being built around reception, such as reading and listening, and production, often thought of as writing (Rajendram, 2021).</p>
+      <p>	Practicing multiliteracies as a pedagogical strategy is an important step to linguistically and culturally responsive teaching. Multiliteracies also connect to other recent theories such as New Literacy Studies, or new literacies (Rajendram, 2021). New literacies theory is critical of the traditional “print-based” approach to text utilization and places an emphasis on training students to use all the tools available to them, and to use them in a well-disciplined way (Rajendram, 2021, p. 153). Long-term, this unit and others I teach will work to train students how to use a computer without getting distracted, an important discipline to developing an effective meaning making environment. </p>
+      <p>	New literacies and multiliteracies work well in the pedagogical strategy of Situated Practice (Rajendram, 2021). When I incorporate student experiences and identities into the learning environment, students are gaining practice at learning that is situated in their actual life context and discourse. This stands in contradiction to teaching that emphasizes ideas, events, or facts that are detached from relevancy to the student’s life. </p>
+      <p>The learning activities themselves emphasize speaking, listening, reading, and engaging with non-traditional literacies. These strategies, and the incorporating learning activities create a well-rounded culturally and linguistically responsive unit plan. </p>
+      <p><strong>Part III (1 – 2 pages)</strong></p>
+      <p>	Formative assessment is a key component of any adaptive classroom. A key tenet I incorporate into formative assessment in this unit plan is the ability for students to produce their work utilizing their bilingual repertoire, or translanguaging. Students can use one, both, or multiple languages on their work. There is still a systemic pressure for English acquisition, so I will ask students to explain concepts to me in mostly English at times. However, students can incorporate some words of their L1. Utilizing translanguaging in formative assessment gives me, the educator, a more accurate picture of student understanding (Ascenzi-Moreno, 2018). Allowing students to use their L1 also allows me to formatively assess their English Language Proficiency (ELP) or acquisition. This feedback allows me to tweak language goals in the lessons. </p>
+      <p>	The reflection activity after the LawCraft computer game is an important step for students in terms of formative assessment. It allows students to reflect on their own content acquisition, which is a form of self-assessment. After this activity I will gather student input on what should be assessed next, which is an important distributive assessment model that allows students to think about their own learning in a deeper way. This effectively puts the content acquisition at the forefront of student minds, especially as they engage in collaborative work and discussions with their table partners (Rajendram, 2021).</p>
+      <p>	The QSSSA strategy is a highly effective tool that gives the teacher plenty of formative assessment data (Seidlitz &amp; Perryman, 2022). As students complete these questions, the A in the QSSSA offers a key moment to assess a random sample size of students learning. When I perform this strategy in my classroom, I can also get further data by reading the work of students who are not randomly chosen to share their thoughts or answer. Not only does the QSSSA strategy offer content acquisition formative data, but because it emphasizes academic vocabulary the teacher can also formatively assess ELP and vocabulary development (Seidlitz &amp; Perryman, 2022). </p>
+      <p>	It can be difficult to perceive how content acquisition progresses in any classroom, as student abilities can vary greatly in a single class. Frequent formative assessment is critical. This is why I incorporated strategies such as the Fist of Five (Lemov, 2015), verbal checks while roaming the room, as well as produced work such as comprehension questions or partner discussions. </p>
+      <p><strong>Part IV</strong></p>
+      <p>	While many pedagogical strategies have been discussed above regarding cultural and linguistic responsiveness, here I will explain two simple strategies used that bring important student funds of knowledge to the forefront. It is important for educators to incorporate relevancy into their practice. Student funds of knowledge, or their cultural and linguistic backgrounds, as well as family history, are vital to understanding more about students in order to make learning more meaningful in the classroom (Esteban-Guitart &amp; Moll, 2013). For this reason, I chose to incorporate family discussions into this lesson, as seen on lesson day one. Asking students to have a conversation with their family sounds very simple, yet it instantly gives a depth to a learning topic that gives learning greater meaning. While I ask students to talk to their parents, many forget. To remedy this, I also send an email home encouraging parents to engage in the conversation with their students. </p>
+      <p>	Another strategy I use to incorporate funds of knowledge is making the learning relevant and personal. The specific CHQ in this unit plan is personal. Banning TikTok, or not banning TikTok, is a very personal decision to many students and this brings out relevancy. In addition, this incorporates family or personal beliefs about social media, which enhances learning as well. As I learn about each student’s views here, I can incorporate these funds of knowledge into further lessons as the year progresses. Interestingly, Estaban-Guitart and Moll (2014) describe the importance of discussing social and cultural factors to enhance what they call funds of identity. Beyond the known theory of funds of knowledge, funds of identity places an importance on utilizing funds of knowledge to assist identity formation, which is not static, but rather dynamic (Estaban-Guitart &amp; Moll, 2014). While TikTok may not apply to everyone’s lives, social media certainly does at some point, or at least the decision to use or not use it applies to all. Tying funds of knowledge to content learning about the Legislative Branch is an appropriate step to enhance meaning making. </p>
+      <p><strong>Part </strong><strong>V</strong></p>
+      <p>	I have delivered most of this unit so far and I can say with experience that the content acquisition is going generally well. However, some learners, including a couple of multilingual learners, are struggling to grasp the basic structure of the Legislative Branch and how it relates to their job to make laws. For example, two multilingual learners struggle with differentiating between the branch that makes laws and the branch that executes. I noticed this as these two students answered their questions on the first lesson’s reading, as well as when they began discussing whether the government should ban TikTok. There is an easy misconception in Civics that the president holds the power, despite many lessons on how limited that position is in terms of power, especially in regard to creating laws. </p>
+      <p>	I prefer remedying misconceptions or under-performing content acquisition via small group reteaching, especially when it is just a handful of students who need remediation. This typically goes well, especially when done in advisory before first period. If this occurs, I can check in again with those students in class. I added a Fist of Five on the first lesson day in the moment, and I was able to check in with the three students who held up ones and twos (Lemov, 2015). Lesson two’s review of the content also helped students improve learning. </p>
+      <p>	I imagine next year, if I teach this course again, I will tweak the first day’s reading to make it more engaging. I think a stations activity with laws that have been made, hung around the room might be better suited to students. I would like to add technology to this so that a couple of stations can be videos or other mediums that would add a multimodal dimension to this lesson. I would also like to find a way for students to participate in the day five debate in more ways than just speaking. Perhaps offering students the opportunity to pre-record an argument in FlipGrid could ease anxiety in some students and improve participation. </p>
+      <p><strong>Part VI </strong></p>
+      <p>	It is vital that teachers of language learners have proper training on language structures and development. Many ideas in social studies involve figurative language, and it is important to be able to decipher simple mistakes language learners might make because of semantic misunderstandings. A student, depending on their background and background knowledge, might have very different understandings of government and its workings. Further, words such as “execute” have many meanings, and it is easy to misunderstand them, even for native English speakers. Figurative language like this must be clarified (Rafzar &amp; Rumenapp, 2014). If teachers do not have knowledge of language acquisition and development, pedagogical mistakes like overlooking figurative language can be made, leading MLs to become confused. Beyond semantics, educators must recognize important steps to acquiring vocabulary. Vocabulary, for instance, is much better understood in context, instead of being pre-taught or front-loaded at the start of a unit (Llosa, 2023). </p>
+      <p><strong>Part VII</strong></p>
+      <p>	It is important for educators to choose diverse modalities when planning lessons. I wanted my students to learn the structure and powers of the Legislative Branch in multiple ways, including visually, textually, and with digital resources. Multiple modalities and multiliteracies are vital to improving relevancy and meaning making (Rajendram, 2021). I have used iCivics games prior times I taught Civics, and I knew their game called LawCraft would be an added digital asset to learning in this unit. It adds a fun dynamic and teaches the content well, which is important to have in unit plans. The TikTok question itself and resources were also an easy choice. A potential TikTok ban has been in the news for the better part of four years and has bipartisan support. It is important for me, in my context, to choose issues that are not strictly partisan, or to at least offer multiple arguments from varying perspectives. Following this approach, I searched for both Democratic and Republican points of view on the subject, including both text and video. I also wanted to offer something from a Generation Z perspective, and the LA Times article provided that. Multiple perspectives offer a culturally responsive way of teaching is beneficial to learning (Weng, McGuire, and Roose, 2021). </p>
+      <p>	Incorporating some form of critical pedagogy and situated practice is very important to me. Multiple perspectives allow students the chance to critique varying power structures and points of view. The TikTok debate and multiple perspectives allow students to engage with “cultural tension,” an important aspect of life and identify formation (Weng, McGuire, and Roose, 2021, p. 115). The news clip from CNN10 I chose is also a neutral perspective that offers students another way to understand the issues central to the TikTok debate.  </p>
+      <p><strong>Part VIII</strong></p>
+      <p>	As an educator and a life-long learner, I frequently practice self-assessment and think about my practice in contemplative ways. As someone who loves my job, I often find myself thinking about moments in class that could have been better, or moments of recognition I have where learning for individuals or groups of students can be improved. For example, when I noticed some students were struggling differentiating between the House of Representatives and the Senate, particularly why the Senate is often called the “upper chamber,” I realized that my explaining of this needed to be situated in a better context. There are many little things that make the Senate more prestigious than the House, and there is an analogy I could have made to the differences between seventh and eighth grade. There is not a significant on difference on paper, yet there are many things that make eighth grade feel more prestigious. This is an analogy I plan to add in if I teach this course again. </p>
+      <p>It is important for me to stay current in best teaching practices for all my students, including my multilingual students. In terms of English language acquisition and teaching, I hope to attend or even lead professional developments both in my school and throughout the county. I would like to pitch an idea I have about multiliteracies and critical pedagogy to county leadership in the hopes of presenting at next year’s Excellent and Equity in Education (EEE) conference that Prince William County puts on every year. I also plan to re-read my favorite critical pedagogy books by Paulo Freire and bell hooks, now that I have better training on teaching multilingual learners. I look forward to teaching only one subject next year and honing my practice even more as I add my new endorsement. I believe practicing reflection and focusing on continuous improvement is vital for educators, and a must for the flourishing of a public school system that promotes a multiracial, equitable democracy.</p>
+      <div class="references">
+      <h3>References</h3>
+      <p class="ref">Amato, M. (2022, January 5). <em>TikTok is helping gen Z with mental health. here’s what it can and can’t do</em>. Los Angeles Times. https://www.latimes.com/lifestyle/story/2022-01-05/those-struggling-with-mental-health-have-found-validation-on-tiktok-heres-how </p>
+      </div>
+      <p>Ascenzi-Moreno, L. (2018). Translanguaging and responsive assessment adaptations: Emergent bilingual readers through the lens of possibility. <em>Language Arts</em>, <em>95</em>(6), 355–369. https://doi.org/10.58680/la201829683 </p>
+      <p>Esteban-Guitart, M., &amp; Moll, L. C. (2014). Funds of identity: A new concept based on the funds of Knowledge Approach. <em>Culture &amp;amp; Psychology</em>, <em>20</em>(1), 31–48. https://doi.org/10.1177/1354067x13515934 </p>
+      <p class="ref">Lee, E. (2021). Chapter 5: Translingualism in the teaching of English: Theoretical considerations and pedagogical implications. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 121–130). Essay, Routledge. </p>
+      <p class="ref">Lemov, D. (2015). <em>Teach like a Champion 2.0: 62 techniques that put students on the path to college</em>. Jossey-Bass. </p>
+      <p class="ref">Llosa, L. (2023, March). <em>Supporting multilingual learners in the science classrooms</em>. <em>ACESTEM Saturday Session</em>. </p>
+      <p class="ref">Razfar, A., &amp; Rumenapp, J. C. (2014). <em>Applying linguistics in the classroom: A sociocultural approach</em>. Routledge. </p>
+      <p>Rajendram, S (2021). Chapter 6: A pedagogy of multiliteracies and its role in English language education. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 151 - 159). Essay, Routledge.</p>
+      <p class="ref">Seidlitz, J., &amp; Perryman, B. (2021). <em>7 steps to a language-rich interactive classroom</em> (2nd ed.). Seidlitz Education. </p>
+      <p class="ref">Thomas, M., &amp; Carvajal-Regidor, M. (2021) Chapter 4: Culturally responsive pedagogy in TESOL. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 91 - 99). Essay, Routledge.</p>
+      <p class="ref">Walqui, A. (2006). Scaffolding instruction for English language learners: A conceptual framework. <em>International Journal of Bilingual Education and Bilingualism</em>, <em>9</em>(2), 159–180.  </p>
+      <p class="ref">Weng, Z., McGuire, M., and Roose, T. M. (2021). Chapter 4.3: Applying culturally responsive pedagogy to engage with cultural differences in an ESL composition course in the U.S. In P. Vinogradova &amp; J. K. Shin (Ed.), <em>Contemporary foundations for teaching English as an additional language pedagogical approaches and classroom applications</em> (pp. 113 - 116). Essay, Routledge.</p>
+      <p>WIDA. (2020). <em>WIDA</em> English language development standards framework, 2020 edition: Kindergarten-grade 12. Board of Regents of the University of Wisconsin System.</p>
+      <p>Virginia Department of Education. (2016). <em>Civics &amp; Economics: History and social science standards of learning curriculum and framework 2015</em>. https://www.doe.virginia.gov/teaching-learning-assessment/k-12-standards-instruction/history-and-social-science/standards-of-learning </p>
+      <p>Virginia Department of Education. (2022). <em>Ronald Reagan Middle School - Virginia School Quality Profiles</em>. Virginia school quality profiles. https://schoolquality.virginia.gov/ </p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

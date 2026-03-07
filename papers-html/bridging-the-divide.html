@@ -4,128 +4,373 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bridging the Divide | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#2563EB14;color:#2563EB}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #2563EB;
+  --accent-light: #2563EB18;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #0f1a2e 0%, #162844 50%, #0f1a2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #2563EB18 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #2563EB0d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #2563EB;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDUC 537</span>
-      <span class="semester">Fall 2022</span>
-    </div>
-    <p class="center"><strong>Bridging the Divide Paper</strong></p>
-    <p class="center">Matthew Walker</p>
-    <p class="center">College of Education and Human Development, George Mason University</p>
-    <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
-    <p class="center">Dr. Kathleen Ramos</p>
-    <p class="center">December 9th, 2022</p>
-    <p class="center"><strong>Section I: </strong><strong>Introduction &amp; Findings</strong></p>
-    <p>	For this paper, I had the pleasure of interviewing Aiza (mother) and her daughter, Fatima (their names have been altered to protect their identities). Fatima is in my seventh grade Social Studies class and is a level three English learner. Although I have met with Aiza in person at school for parent-teacher conferences, this interview took place via videoconference on the videoconference hosting platform, Zoom. I have gotten to know Aiza well this year through her proactive approach to Fatima’s education. After inquiring about their experience living in Western Prince William County, Aiza revealed her family lives in a single-family home in a neighborhood with a diverse ethnic makeup. </p>
-    <p>	Aiza and Fatima were chosen for this interview due to the relationship I have developed with the family this school year, as well as the unique situation Fatima is in at school. Fatima is a level three English learner as well as a student with a specific learning disability and an Individualized Education Program (IEP). Although their experience has been positive overall, Aiza shared they have had a difficult journey through public school as a result of Fatima being dually identified.  Fatima is in the seventh grade with two sisters: one in second grade at the nearby elementary school and the other a sophomore at George Mason University, studying Political Science. </p>
-    <p>Aiza, 51, and her husband, Ajay, 53, are Indians belonging to the Muslim faith. Growing up in India as Muslims placed them in the minority of their home country, a nation where 80% of the population are Hindu; only 14% of Indians are Muslim. Aiza and Ajay’s native language is Urdu, only spoken by 4% of Indians (Central Intelligence Agency, 2021). Aiza, and Ajay both immigrated to the United States after high school and attended university, studying Accounting, where they met. Aiza recently completed a Master’s in Business Administration. They briefly lived in Washington, DC, prior to moving to Prince William County. They actively practice their Muslim faith, attending a nearby Mosque. When asked about her family’s values, Aiza said “at the end of the day, it’s about being a good human being.” Aiza said her family strives to model their lives and actions after the Prophet Muhamad. Fatima attends Qur’an classes in Arabic during the week as her only extra-curricular activity. Fatima shared her family celebrated the recent holiday, Diwali, or the Festival of Lights, a holiday celebrated by both Hindus and Muslims. </p>
-    <p>	Aiza and Ajay both are both Financial Systems Administrators, working in what she called the “tech side of the finance industry.” Aiza expressed satisfaction with her job and is hopeful Fatima will gain an interest in coding in the future. Aiza also said she is happy with the educational opportunities provided in the United States. Aiza returned to school for her Master’s in Business Administration, which she said would have been frowned upon at her age in India. Aiza described her daughters K-12 education as challenging and said it prepared her oldest daughter well for university. Fatima was redistricted to a new elementary school in fourth grade, which presented challenges for the family adjusting to a new Individualized Education Program team. During this transition, the COVID-19 pandemic began, and an already difficult-to-navigate situation for Fatima’s parents became even more challenging. Aiza indicated communication problems were present during the initial phase of the pandemic and Fatima was recorded absent for a month in her math class despite attending. Aiza explained that because she attended university in the United States her English is proficient enough to communicate with the schools. However, Aiza did indicate navigating public schools in the United States as a parent has been challenging as she did not grow up attending schools “like the ones here.” A cultural barrier exists between the K-12 institutions and Aiza’s family, which has proven to be a burden on the family. </p>
-    <p>	In school, Fatima’s conversational English is excellent. Aiza explained that although she grew up speaking Urdu at home, Fatima has lost her Urdu proficiency due to lack of practice. Aiza began communicating in English with her daughters during primary school to help their English proficiency, which Aiza says contributed to her children’s decline in Urdu proficiency. </p>
-    <p>	Aiza praises her children’s experience at school, saying teachers clearly hope to “see your child succeed.” Her children have received extra instructional time through one-on-one time with teachers, summer school, and individualized reading assignments. Aiza said her and Ajay are pleased with the time given to her children by their teachers, drawing stark comparisons to her own education experience in India: “If you were doing really well back home, you tended to be the favorite of the teacher. The person who was not doing well would not get a lot of attention, so there was a lot of favoritism.” Aiza had special praise for Fatima’s Special Education teacher in elementary school, who took the time to provide “extra resources” in a way that Aiza described as above-and-beyond her job description. The teacher even invited Fatima and a friend to eat lunch in her classroom when they were uncomfortable in the cafeteria. </p>
-    <p>	In terms of aspirations and goals for her children, Aiza said she hopes her children “decide to do [a career] that they are happy with.”  Aiza described what she perceives as a strong expectation from her culture that Indians become “a doctor, engineer, a lawyer, or you are a failure.” She disagrees with that notion and wants her daughters to be able to “come home and be satisfied.” Aiza expressed hesitation with her daughters hypothetically choosing a field of study such as an art major, stating she would question them to make sure they have a career plan ready. Ultimately, she hopes her children all attend college and choose a career that will help them be successful.</p>
-    <p class="center"><strong>Section </strong><strong>I</strong><strong>I: </strong><strong>Analysis</strong></p>
-    <p>	Fatima is a thoughtful student who works hard in class and is welcoming toward her classmates. She earns Bs in most of her classes, while struggling with complex tasks or multiple-step questions. In a recent IEP team meeting, Fatima’s teachers explained that she can sometimes score poorly on assessments but improves after remediation and attempting her assessment again. Her favorite subject is math, and she expresses that Language Arts is her most difficult subject. It is encouraging Fatima’s favorite subject is math, as this likely indicates she is proficient enough in English to warrant success in math class, as math proficiency increases with English proficiency (Henry, et al., 2014, p. 11). Fatima expresses satisfaction in school, with her favorite part of the day being seeing her friends. </p>
-    <p>	Fatima is in a unique situation as a dually identified student, being both an English learner and a student with a specific learning disability. A student’s self-esteem is often impacted negatively from being identified as a learner with a specific learning disability (Cushner, et al., 2022, p. 92). It is difficult to say whether Fatima’s self-esteem has been impacted, but this is something that should be monitored by her parents and the IEP team. There is a broader institutional question whether a society should have the “specific learning disability” identification. Many countries do not use the identification, while those that do tend to have a social norm that values “bright individuals” (Cushner, et al., 2022, p. 92). Regardless, as an English learner and a student identified to have a specific learning disability, Fatima benefits from the accommodations afforded to her in her IEP. Recently, Fatima refused her read-aloud accommodation on an assessment in my class in which she earned a failing mark. I suggested to her that she retake the assessment so I could read her each question, she agreed and earned a B without any remediation. It is also quite likely that Fatima, as an English learner, has not developed Cognitive Academic Language Proficiency yet, the language proficiency that is necessary to process and answer complicated academic questions (Cushner et al., 2022, p. 124). </p>
-    <p>	Fatima likely succeeds in school in part due to her proactive parents, especially Aiza. Aiza takes an active role in Fatima’s education, advocating well for her as a dually identified student. Students with strong parent engagement tend to have better grades and assessment scores (American Psychological Association, 2014). At a recent IEP meeting, Aiza actively sought teacher feedback on Fatima’s performance in school, asking questions and earnestly looking for more ways to help her daughter. Aiza’s desire to help Fatima’s education was again evident during a humorous moment from our interview. I asked Fatima what her goals were in terms of education. She said she did not know what she wanted to do after high school, and her mom replied, “I thought you wanted to be a lawyer!” Fatima replied with earnest, “oh yeah.” Aiza quipped as we laughed, “does she do this in class with you?” In that moment, although Aiza was joking, she was again seeking to gain insights into her daughter’s academic life in the hopes of helping her. Aiza’s advocacy and active role in her daughter’s education is admirable on many levels, especially because navigating K-12 institutions in the United States is often an immense task for immigrants. In many cultures the expectation in schools is that professional educators know what is best for their child and parental involvement is actively discouraged and seen as a negative (Cushner, et al., 2022, p. 122). Aiza indicated that navigating American public schools has been an endeavor for her. Nonetheless, in the face of a cultural barrier, she continues to advocate for her children.</p>
-    <p>	Based on her reading scores, Fatima’s English proficiency has room for improvement. Prior to kindergarten, Urdu was the first and primary language (L1) used by Fatima daily. Aiza reports Fatima struggles to read and write in Urdu, as she usually only uses the language to converse with her father, Ajay. Fatima likely would have benefited academically from developing her L1 further. Students who continue development of their L1 are typically two to three years ahead of their peers in their second language (L2) proficiency (Collier &amp; Thomas, 2017, p. 209). Developing her L1 further is a near-impossible task for Fatima’s parents, as there is insufficient time outside of school for the necessary lessons and practice. Students who are allowed to continue their L1 development in school have improved cognitive abilities than their peers and develop a deeper English proficiency in the long-term (Collier &amp; Thomas, 2002, pp. 31 – 36). </p>
-    <p>	Fatima’s academic success can likely be attributed, in part, to her eight years of continued support from her schools’ English Learner programs. As a level three English learner, Fatima still receives English learner services, which ultimately means she has not tested high enough on the requisite English proficiency exam. As a result, Fatima’s core classes in middle school have a language or reading specialist to coteach and have been developed with English learners in mind, with an emphasis on academic vocabulary and English language development. Students who receive long-term support as English learners perform better in schools than their peers who exit language programs after one or two years (Collier &amp; Thomas, 2002, p. 34). </p>
-    <p>	Being an immigrant, or, in Fatima’s case, a child of immigrants, can be a challenging experience. Aiza said her family has not experienced anything like being “treated differently” because of their ethnicity at school, but lamented it happens occasionally out in public. It is important for Fatima’s teachers, and for teachers of multilingual learners, to see their culture and experience as an asset that is brought to the table in their learning environments. Children who adapt to a new culture have a strong ability to understand differences between others and are skilled in demonstrating empathy toward other worldviews (Cushner, et al., 2022, p. 163). </p>
-    <p class="center"><strong>Section </strong><strong>II</strong><strong>I: </strong><strong>Conclusions &amp; Recommendations</strong></p>
-    <p>Teachers of ethnically diverse learners like Fatima can construct learning tasks which further develop this strength while also developing empathy in native English speakers. Teachers of students like Fatima should include activities such as Global Thinking Routines, allowing students to consider other worldviews in empathetic ways. This will strengthen skills already had by many students while developing empathy in others. A Global Thinking Routine, such as the Step-in, Step-out, Step-back exercise would allow Fatima and her multilingual classmates to utilize their strengths, negotiating different worldviews (Cushner, et al., 2022, p. 163).</p>
-    <p>	Fatima’s teachers, and teachers of bilingual students, should give space for students to explore and create work in their native language. Time devoted to L1 language development pays dividends in terms of overall academic achievement down the road, aiding academic achievement and cognitive development (Collier &amp; Thomas, 2017). There is also the benefit of allowing a student to remain bicultural, as language is a critical component of culture. Teachers could occasionally permit projects and assignments to be completed in the student’s native language. Select readings for class could be chosen from authors of the native language and translated for native English speakers or translated by the students who know that language. There are many academically appropriate ways to incorporate native languages in content classes, which could improve overall L1 development, and consequently, English proficiency.  </p>
-    <p>	Fatima has the benefit of being the second child in her family to attend public schools. As a result, Aiza has had the opportunity to learn how to navigate the system as a parent. Aiza also has become proficient in English since immigrating into the United States, which has aided her journey as a parent of English learners. Unfortunately, language and culture remain a barrier for many other multilingual and immigrant families (Cushner, et al., 2022, p. 122). Aiza, as a parent with experience, could be given the opportunity in schools to serve as a parent liaison, offering support, language services, and instructional help for other parents of English learners trying to navigate the public school system. It is the school’s duty to facilitate this, and Aiza, or someone like her, can serve as a partner after the school initiates such an offering. Perhaps a “town hall” or other information night could be offered for families of English learners that could help facilitate their success. A tour of the school can also go a long way into giving immigrant families insight into what their child’s day is like. Invitations should be tailored to suitable times that fit the schedule and cultural demands of English learner families, and this can be accomplished through surveys and effective communications via mail, e-mail, and telephone. It should not be necessary for a family to have several children go through the school system in order to gain the experience needed to understand the school culture; schools can do much more to invite and educate families that are new to our nation’s K-12 institutions. </p>
-    <p>	Regarding educators, there should be more trainings and professional developments offered to teachers of English learners like Fatima. They would benefit to know strategies that work for English learners as well as dually identified students. For example, simple scaffolds often called accommodations are helpful for English learners as well as adolescents of all abilities. Most teachers in my building know that an emphasis on academic vocabulary is helpful for English learners, but they have not been trained on how to accomplish this well in a classroom. Global Competency training would also work well so teachers can introduce the Global Thinking Routines into their classrooms. Lastly, training teachers on how to learn and utilize students’ funds of knowledge would go a long way in creating effective learning environments. Teachers should be trained on the funds of knowledge theory and should be given time in their content teams to brainstorm ways to utilize the funds of knowledge in the subjects they teach. This is an ongoing practice that should be revisited in team meetings as teachers learn more about their students throughout the year. </p>
-    <p class="center"><strong>Section </strong><strong>I</strong><strong>V</strong><strong>: </strong><strong>Personal Reflection</strong><strong>s</strong></p>
-    <p>	I really enjoyed this project as it allowed me to get to know an Indian-American family, a culture I know little about. I had an assumption that Indian families were nearly all Hindu, I had little idea that Islam is a major religion in the south Asian nation. I enjoyed learning the values Aiza and Fatima have derived both from their personal ethic and from their religion. I have known families who are Muslim previously in my career, but I rarely have the opportunity to have personal conversations with them. It was an enlightening and rewarding experience. It is clear Fatima would do well with an empathy-based exercise like a Global Thinking Routine, her attitude toward others is positive and welcoming. </p>
-    <p>	I learned a lot from Aiza’s experience with career-oriented pressure in India, and I appreciate her frankness. I have strong feelings about my own children’s educational goals and career outcomes, and I hope I can learn to be as open minded as Aiza has become regarding her children’s futures. I come from a rural county in the American South, but my family certainly had an expectation to attend college. I was the fourth child in my family to attend college, but the first to choose a major (History) outside of healthcare or computer science. I remember my dad pleading with me to add a math minor. Will I be happy, like Aiza, if my children something not to my liking? I hope so.</p>
-    <p>	Through this project, and through relationships I have developed this year with a couple of other Indian students, I have been moved by their empathy toward their classmates and their desire to get along with others. If I am honest, and upon deep reflection, I likely did not notice this hospitality toward others from Indians, specifically, as I unfairly categorized them together with other Asian cultures. This was on a subconscious level and this paper has helped bring it to the surface to be confronted. I have enjoyed seeing a couple of students, including Fatima, care for their peers. Another one of my students whose family is from India, a seventh grader, has built a friendship with a sixth grader, which is relatively rare in my experience. She helped her navigate the hall at the beginning of the year and introduced her to her friends. I thought this was great, and after talking to Aiza, I learned hospitality is a major cultural value in India. </p>
-    <p>	As someone who has experienced significant cultural intelligence training, I had the idea that most or all my assumptions had been thrown out the window through maturation and awareness. Writing this paper has shown me that we will <em>always</em> have room to grow in terms what subconscious categorizations or assumptions we might have. I look forward to many years of pausing and reflecting on my practice as an educator and how I can improve my disposition toward all. My future students deserve it.</p>
-    <p class="center">References</p>
-    <p>American Psychological Association. (2014). <em>Parent engagement in schools</em>. American Psychological Association. Retrieved December 6, 2022, from https://www.apa.org/pi/lgbt/programs/safe-supportive/parental-engagement </p>
-    <p>Central Intelligence Agency. (2021). <em>India</em>. Central Intelligence Agency. Retrieved December 5, 2022, from https://www.cia.gov/the-world-factbook/countries/india/#people-and-society </p>
-    <p>Collier, V. P., &amp; Thomas, W. P. (2002). Reforming education policies for English learners. <em>The State Education Standard</em>, 31–36. </p>
-    <p>Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
-    <p>Cushner, K., McClelland, A., Cushner, H., &amp; Safford, P. L. (2022). <em>Human diversity in education: An intercultural approach</em> (Tenth). McGraw Hill LLC. </p>
-    <p>Henry, D. L., Nistor, N., &amp; Baltes, B. (2014). Examining the relationship between math scores and English language proficiency. <em>Journal of Educational Research and Practice</em>, <em>4</em>(1), 11–29. </p>
-    <p class="center">Appendix I - Interview Protocol</p>
-    <p>Utilize secondary and follow-up questions to develop insights into these main areas:</p>
-    <p>Backgrounds</p>
-    <p>Values
-</p>
-    <p>Dreams
-</p>
-    <p>Perspectives
-</p>
-    <p>Experience in school system - PWCS</p>
-    <p>*Some questions below have been adapted from Lisa Dormer’s family questionnaire form. </p>
-    <p><strong>Family Background</strong></p>
-    <p>Can you tell me about your children?</p>
-    <p>What grades?</p>
-    <p>What schools do they attend?</p>
-    <p>What languages do you and your child(ren) speak at home? </p>
-    <p>First language for children? </p>
-    <p><strong>What do you consider your most important values as a family?</strong></p>
-    <p><strong>Can you tell me about schooling/schools in your home country?</strong></p>
-    <p>[If nationality comes up] Did you live in that country</p>
-    <p>What was your educational experience there? your experience here? (K-12?)</p>
-    <p>What is parental involvement like there?</p>
-    <p><strong>What do you and your husband do for work? </strong>
-</p>
-    <p><strong>Please tell me about your aspirations (dreams) for your child(ren) and their education. </strong></p>
-    <p><strong>When you think about your child’s education here in the US, what comes to mind? How do you feel about their education? </strong>
-</p>
-    <p><strong>How do you communicate with the school and your student’s teachers? How does the school communicate with you? What is your preference? </strong></p>
-    <p>Do you feel PWCS/RMS values your family and your culture?</p>
-    <p><strong>For what kind of things do you visit your child’s school?</strong></p>
-    <p>How do you feel when you visit? </p>
-    <p>Can you give an example?  </p>
-    <p>Tell me whether you ever had a challenge with attending school events? </p>
-    <p>What staff at the school (any school) has had a profound impact on your child?</p>
-    <p>For Fatima:</p>
-    <p>Do you speak Urdu?</p>
-    <p>As someone who is learning English, have you enjoyed school?</p>
-    <p>What parts of school do you enjoy?</p>
-    <p>What have you found challenging?</p>
-    <p>Extra-curriculars / clubs?</p>
-    <p>What did you enjoy about elementary school? What do you enjoy about your middle school experience so far? </p>
-    <p class="center">Appendix II – Selected Transcript</p>
-    <p><strong>Me: </strong>When you think about your children, what are your aspirations for their education?</p>
-    <p><strong>Aiza:</strong> “Whatever they decide to do that they are happy with, I think, you know?  We have learned that in our culture that mostly when you are coming from Indian, Pakistan, or other southeast Asian countries, most of the time it is pretty much parallel that you are a doctor, engineer, lawyer, or you are a failure. No other professions are ok, at least that's what I’ve grown up with. But for these people, I found when I came to the US, I found a lot of things were, how do I put it? I saw a lot of opportunities. For instance, me going back to school would be frowned upon. Here, it’s age is no bar– you can go back to university. Doesn’t matter if it is your first freshman class or you are doing a PHD– there are no [age] barriers. I find here there is a lot of logical thinking that I wish we had back home. Instead of just [at home] the theory and aspects and having to memorize all of that. So having said that, I find that whatever they want to do at the end of the day they should come home and be satisfied; they have a good field versus them being stressed out. At least for me, personally, do whatever you are happy with. Whether you want to do teaching, or, at least think about logically, you don’t want to, based off what my husband had seen, a few years back, there were English or math majors, or are in healthcare, they would have to switch their lines in order to get a job. If you are spending that money, college is not cheap, then you want to pick something that is going to help you develop into a good career. Oh you want to be an art major? How do you plan on incorporating that into a career? As long as they come home and are satisfied at the end of the day.</p>
-    <p><strong>Me: </strong>When you think about your experience with your children’s education, what comes to mind, how do you feel about their education?</p>
-    <p><strong>Aiza</strong>: Generally speaking, I feel like the teachers do care…. Personally, I haven’t seen that many teachers, teachers who were like “I could care less” kind of attitude. Most of the times when I have reached out, I have gotten nothing but [a] positive response. Compared back home to India, when I would study, what these people are getting [here], it is a huge change in culture, it is very different. In that sense, if you were doing really well back home, you tended to be the favorite of the teacher. The person who was not doing well would not get a lot of attention. So there was a lot of favoritism or partiality ongoing back home. Here I don’t see that. I am sure you might have your own favorites and stuff, like someone who is always well behaved, but I feel like that has not affected someone else’s education to where she has failed more. </p>
-    <p><strong>Me: </strong>Has K-12 schools been difficult to navigate here in the United States?</p>
-    <p><strong>Aiza: </strong>Sure, definitely it was, when you did not have the tools in hand to help you figure out how you want to go to your own college. It has become a mission for me and my husband [to help our kids navigate college], since we did not have that help to get through college here. No one told us you could take a minor [in college] for the same price of money that we were paying. It all comes down to the amount of money spent on education for college. We felt like, I felt cheated out because I did not have that guidance with me. I wish I had known, or I wish someone could have guided me, saying “hey listen you can do a minor or a double major. Instead of going through the core classes that are not essential,” I could have done something else when I was in college. </p>
-    <p><strong>Me:</strong> Do you feel like Prince William County values your family and your culture?  </p>
-    <p><strong>Aiza:</strong> I never felt like I was treated differently. All of children have been ESOL students. I felt like the teachers – they all, they wanted to see your child succeed. It didn’t matter, whether it was summer school, or if it was in the form of extra reading, or them taking the extra time out. Sure, it is part of their job at the end of the day, but at the same time, they have several different children, so for them to take that time out, and to give them more and more attention– I will give you an example. A Special Education teacher at [our elementary school], she would make sure that Fatima had all her resources. To the point where it wasn’t part of her job, or me approaching her and asking her for help– but she needed help with math, and it was hard to email the math teacher. There was an issue with attendance [accuracy] during COVID-19, but she was able to help Fatima sort it out and fix her attendance and grade. </p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDUC 537 &middot; Fall 2022</div>
+    <h1>Bridging the Divide</h1>
+    <p class="hero-subtitle">Research paper on bridging cultural and linguistic divides in diverse classroom settings</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center"><strong>Bridging the Divide Paper</strong></p>
+      <p class="center">Matthew Walker</p>
+      <p class="center">College of Education and Human Development, George Mason University</p>
+      <p class="center">EDUC 537: Introduction to Teaching Culturally &amp; Linguistically Diverse Learners</p>
+      <p class="center">Dr. Kathleen Ramos</p>
+      <p class="center">December 9th, 2022</p>
+      <p class="center"><strong>Section I: </strong><strong>Introduction &amp; Findings</strong></p>
+      <p>	For this paper, I had the pleasure of interviewing Aiza (mother) and her daughter, Fatima (their names have been altered to protect their identities). Fatima is in my seventh grade Social Studies class and is a level three English learner. Although I have met with Aiza in person at school for parent-teacher conferences, this interview took place via videoconference on the videoconference hosting platform, Zoom. I have gotten to know Aiza well this year through her proactive approach to Fatima’s education. After inquiring about their experience living in Western Prince William County, Aiza revealed her family lives in a single-family home in a neighborhood with a diverse ethnic makeup. </p>
+      <p>	Aiza and Fatima were chosen for this interview due to the relationship I have developed with the family this school year, as well as the unique situation Fatima is in at school. Fatima is a level three English learner as well as a student with a specific learning disability and an Individualized Education Program (IEP). Although their experience has been positive overall, Aiza shared they have had a difficult journey through public school as a result of Fatima being dually identified.  Fatima is in the seventh grade with two sisters: one in second grade at the nearby elementary school and the other a sophomore at George Mason University, studying Political Science. </p>
+      <p>Aiza, 51, and her husband, Ajay, 53, are Indians belonging to the Muslim faith. Growing up in India as Muslims placed them in the minority of their home country, a nation where 80% of the population are Hindu; only 14% of Indians are Muslim. Aiza and Ajay’s native language is Urdu, only spoken by 4% of Indians (Central Intelligence Agency, 2021). Aiza, and Ajay both immigrated to the United States after high school and attended university, studying Accounting, where they met. Aiza recently completed a Master’s in Business Administration. They briefly lived in Washington, DC, prior to moving to Prince William County. They actively practice their Muslim faith, attending a nearby Mosque. When asked about her family’s values, Aiza said “at the end of the day, it’s about being a good human being.” Aiza said her family strives to model their lives and actions after the Prophet Muhamad. Fatima attends Qur’an classes in Arabic during the week as her only extra-curricular activity. Fatima shared her family celebrated the recent holiday, Diwali, or the Festival of Lights, a holiday celebrated by both Hindus and Muslims. </p>
+      <p>	Aiza and Ajay both are both Financial Systems Administrators, working in what she called the “tech side of the finance industry.” Aiza expressed satisfaction with her job and is hopeful Fatima will gain an interest in coding in the future. Aiza also said she is happy with the educational opportunities provided in the United States. Aiza returned to school for her Master’s in Business Administration, which she said would have been frowned upon at her age in India. Aiza described her daughters K-12 education as challenging and said it prepared her oldest daughter well for university. Fatima was redistricted to a new elementary school in fourth grade, which presented challenges for the family adjusting to a new Individualized Education Program team. During this transition, the COVID-19 pandemic began, and an already difficult-to-navigate situation for Fatima’s parents became even more challenging. Aiza indicated communication problems were present during the initial phase of the pandemic and Fatima was recorded absent for a month in her math class despite attending. Aiza explained that because she attended university in the United States her English is proficient enough to communicate with the schools. However, Aiza did indicate navigating public schools in the United States as a parent has been challenging as she did not grow up attending schools “like the ones here.” A cultural barrier exists between the K-12 institutions and Aiza’s family, which has proven to be a burden on the family. </p>
+      <p>	In school, Fatima’s conversational English is excellent. Aiza explained that although she grew up speaking Urdu at home, Fatima has lost her Urdu proficiency due to lack of practice. Aiza began communicating in English with her daughters during primary school to help their English proficiency, which Aiza says contributed to her children’s decline in Urdu proficiency. </p>
+      <p>	Aiza praises her children’s experience at school, saying teachers clearly hope to “see your child succeed.” Her children have received extra instructional time through one-on-one time with teachers, summer school, and individualized reading assignments. Aiza said her and Ajay are pleased with the time given to her children by their teachers, drawing stark comparisons to her own education experience in India: “If you were doing really well back home, you tended to be the favorite of the teacher. The person who was not doing well would not get a lot of attention, so there was a lot of favoritism.” Aiza had special praise for Fatima’s Special Education teacher in elementary school, who took the time to provide “extra resources” in a way that Aiza described as above-and-beyond her job description. The teacher even invited Fatima and a friend to eat lunch in her classroom when they were uncomfortable in the cafeteria. </p>
+      <p>	In terms of aspirations and goals for her children, Aiza said she hopes her children “decide to do [a career] that they are happy with.”  Aiza described what she perceives as a strong expectation from her culture that Indians become “a doctor, engineer, a lawyer, or you are a failure.” She disagrees with that notion and wants her daughters to be able to “come home and be satisfied.” Aiza expressed hesitation with her daughters hypothetically choosing a field of study such as an art major, stating she would question them to make sure they have a career plan ready. Ultimately, she hopes her children all attend college and choose a career that will help them be successful.</p>
+      <p class="center"><strong>Section </strong><strong>I</strong><strong>I: </strong><strong>Analysis</strong></p>
+      <p>	Fatima is a thoughtful student who works hard in class and is welcoming toward her classmates. She earns Bs in most of her classes, while struggling with complex tasks or multiple-step questions. In a recent IEP team meeting, Fatima’s teachers explained that she can sometimes score poorly on assessments but improves after remediation and attempting her assessment again. Her favorite subject is math, and she expresses that Language Arts is her most difficult subject. It is encouraging Fatima’s favorite subject is math, as this likely indicates she is proficient enough in English to warrant success in math class, as math proficiency increases with English proficiency (Henry, et al., 2014, p. 11). Fatima expresses satisfaction in school, with her favorite part of the day being seeing her friends. </p>
+      <p>	Fatima is in a unique situation as a dually identified student, being both an English learner and a student with a specific learning disability. A student’s self-esteem is often impacted negatively from being identified as a learner with a specific learning disability (Cushner, et al., 2022, p. 92). It is difficult to say whether Fatima’s self-esteem has been impacted, but this is something that should be monitored by her parents and the IEP team. There is a broader institutional question whether a society should have the “specific learning disability” identification. Many countries do not use the identification, while those that do tend to have a social norm that values “bright individuals” (Cushner, et al., 2022, p. 92). Regardless, as an English learner and a student identified to have a specific learning disability, Fatima benefits from the accommodations afforded to her in her IEP. Recently, Fatima refused her read-aloud accommodation on an assessment in my class in which she earned a failing mark. I suggested to her that she retake the assessment so I could read her each question, she agreed and earned a B without any remediation. It is also quite likely that Fatima, as an English learner, has not developed Cognitive Academic Language Proficiency yet, the language proficiency that is necessary to process and answer complicated academic questions (Cushner et al., 2022, p. 124). </p>
+      <p>	Fatima likely succeeds in school in part due to her proactive parents, especially Aiza. Aiza takes an active role in Fatima’s education, advocating well for her as a dually identified student. Students with strong parent engagement tend to have better grades and assessment scores (American Psychological Association, 2014). At a recent IEP meeting, Aiza actively sought teacher feedback on Fatima’s performance in school, asking questions and earnestly looking for more ways to help her daughter. Aiza’s desire to help Fatima’s education was again evident during a humorous moment from our interview. I asked Fatima what her goals were in terms of education. She said she did not know what she wanted to do after high school, and her mom replied, “I thought you wanted to be a lawyer!” Fatima replied with earnest, “oh yeah.” Aiza quipped as we laughed, “does she do this in class with you?” In that moment, although Aiza was joking, she was again seeking to gain insights into her daughter’s academic life in the hopes of helping her. Aiza’s advocacy and active role in her daughter’s education is admirable on many levels, especially because navigating K-12 institutions in the United States is often an immense task for immigrants. In many cultures the expectation in schools is that professional educators know what is best for their child and parental involvement is actively discouraged and seen as a negative (Cushner, et al., 2022, p. 122). Aiza indicated that navigating American public schools has been an endeavor for her. Nonetheless, in the face of a cultural barrier, she continues to advocate for her children.</p>
+      <p>	Based on her reading scores, Fatima’s English proficiency has room for improvement. Prior to kindergarten, Urdu was the first and primary language (L1) used by Fatima daily. Aiza reports Fatima struggles to read and write in Urdu, as she usually only uses the language to converse with her father, Ajay. Fatima likely would have benefited academically from developing her L1 further. Students who continue development of their L1 are typically two to three years ahead of their peers in their second language (L2) proficiency (Collier &amp; Thomas, 2017, p. 209). Developing her L1 further is a near-impossible task for Fatima’s parents, as there is insufficient time outside of school for the necessary lessons and practice. Students who are allowed to continue their L1 development in school have improved cognitive abilities than their peers and develop a deeper English proficiency in the long-term (Collier &amp; Thomas, 2002, pp. 31 – 36). </p>
+      <p>	Fatima’s academic success can likely be attributed, in part, to her eight years of continued support from her schools’ English Learner programs. As a level three English learner, Fatima still receives English learner services, which ultimately means she has not tested high enough on the requisite English proficiency exam. As a result, Fatima’s core classes in middle school have a language or reading specialist to coteach and have been developed with English learners in mind, with an emphasis on academic vocabulary and English language development. Students who receive long-term support as English learners perform better in schools than their peers who exit language programs after one or two years (Collier &amp; Thomas, 2002, p. 34). </p>
+      <p>	Being an immigrant, or, in Fatima’s case, a child of immigrants, can be a challenging experience. Aiza said her family has not experienced anything like being “treated differently” because of their ethnicity at school, but lamented it happens occasionally out in public. It is important for Fatima’s teachers, and for teachers of multilingual learners, to see their culture and experience as an asset that is brought to the table in their learning environments. Children who adapt to a new culture have a strong ability to understand differences between others and are skilled in demonstrating empathy toward other worldviews (Cushner, et al., 2022, p. 163). </p>
+      <p class="center"><strong>Section </strong><strong>II</strong><strong>I: </strong><strong>Conclusions &amp; Recommendations</strong></p>
+      <p>Teachers of ethnically diverse learners like Fatima can construct learning tasks which further develop this strength while also developing empathy in native English speakers. Teachers of students like Fatima should include activities such as Global Thinking Routines, allowing students to consider other worldviews in empathetic ways. This will strengthen skills already had by many students while developing empathy in others. A Global Thinking Routine, such as the Step-in, Step-out, Step-back exercise would allow Fatima and her multilingual classmates to utilize their strengths, negotiating different worldviews (Cushner, et al., 2022, p. 163).</p>
+      <p>	Fatima’s teachers, and teachers of bilingual students, should give space for students to explore and create work in their native language. Time devoted to L1 language development pays dividends in terms of overall academic achievement down the road, aiding academic achievement and cognitive development (Collier &amp; Thomas, 2017). There is also the benefit of allowing a student to remain bicultural, as language is a critical component of culture. Teachers could occasionally permit projects and assignments to be completed in the student’s native language. Select readings for class could be chosen from authors of the native language and translated for native English speakers or translated by the students who know that language. There are many academically appropriate ways to incorporate native languages in content classes, which could improve overall L1 development, and consequently, English proficiency.  </p>
+      <p>	Fatima has the benefit of being the second child in her family to attend public schools. As a result, Aiza has had the opportunity to learn how to navigate the system as a parent. Aiza also has become proficient in English since immigrating into the United States, which has aided her journey as a parent of English learners. Unfortunately, language and culture remain a barrier for many other multilingual and immigrant families (Cushner, et al., 2022, p. 122). Aiza, as a parent with experience, could be given the opportunity in schools to serve as a parent liaison, offering support, language services, and instructional help for other parents of English learners trying to navigate the public school system. It is the school’s duty to facilitate this, and Aiza, or someone like her, can serve as a partner after the school initiates such an offering. Perhaps a “town hall” or other information night could be offered for families of English learners that could help facilitate their success. A tour of the school can also go a long way into giving immigrant families insight into what their child’s day is like. Invitations should be tailored to suitable times that fit the schedule and cultural demands of English learner families, and this can be accomplished through surveys and effective communications via mail, e-mail, and telephone. It should not be necessary for a family to have several children go through the school system in order to gain the experience needed to understand the school culture; schools can do much more to invite and educate families that are new to our nation’s K-12 institutions. </p>
+      <p>	Regarding educators, there should be more trainings and professional developments offered to teachers of English learners like Fatima. They would benefit to know strategies that work for English learners as well as dually identified students. For example, simple scaffolds often called accommodations are helpful for English learners as well as adolescents of all abilities. Most teachers in my building know that an emphasis on academic vocabulary is helpful for English learners, but they have not been trained on how to accomplish this well in a classroom. Global Competency training would also work well so teachers can introduce the Global Thinking Routines into their classrooms. Lastly, training teachers on how to learn and utilize students’ funds of knowledge would go a long way in creating effective learning environments. Teachers should be trained on the funds of knowledge theory and should be given time in their content teams to brainstorm ways to utilize the funds of knowledge in the subjects they teach. This is an ongoing practice that should be revisited in team meetings as teachers learn more about their students throughout the year. </p>
+      <p class="center"><strong>Section </strong><strong>I</strong><strong>V</strong><strong>: </strong><strong>Personal Reflection</strong><strong>s</strong></p>
+      <p>	I really enjoyed this project as it allowed me to get to know an Indian-American family, a culture I know little about. I had an assumption that Indian families were nearly all Hindu, I had little idea that Islam is a major religion in the south Asian nation. I enjoyed learning the values Aiza and Fatima have derived both from their personal ethic and from their religion. I have known families who are Muslim previously in my career, but I rarely have the opportunity to have personal conversations with them. It was an enlightening and rewarding experience. It is clear Fatima would do well with an empathy-based exercise like a Global Thinking Routine, her attitude toward others is positive and welcoming. </p>
+      <p>	I learned a lot from Aiza’s experience with career-oriented pressure in India, and I appreciate her frankness. I have strong feelings about my own children’s educational goals and career outcomes, and I hope I can learn to be as open minded as Aiza has become regarding her children’s futures. I come from a rural county in the American South, but my family certainly had an expectation to attend college. I was the fourth child in my family to attend college, but the first to choose a major (History) outside of healthcare or computer science. I remember my dad pleading with me to add a math minor. Will I be happy, like Aiza, if my children something not to my liking? I hope so.</p>
+      <p>	Through this project, and through relationships I have developed this year with a couple of other Indian students, I have been moved by their empathy toward their classmates and their desire to get along with others. If I am honest, and upon deep reflection, I likely did not notice this hospitality toward others from Indians, specifically, as I unfairly categorized them together with other Asian cultures. This was on a subconscious level and this paper has helped bring it to the surface to be confronted. I have enjoyed seeing a couple of students, including Fatima, care for their peers. Another one of my students whose family is from India, a seventh grader, has built a friendship with a sixth grader, which is relatively rare in my experience. She helped her navigate the hall at the beginning of the year and introduced her to her friends. I thought this was great, and after talking to Aiza, I learned hospitality is a major cultural value in India. </p>
+      <p>	As someone who has experienced significant cultural intelligence training, I had the idea that most or all my assumptions had been thrown out the window through maturation and awareness. Writing this paper has shown me that we will <em>always</em> have room to grow in terms what subconscious categorizations or assumptions we might have. I look forward to many years of pausing and reflecting on my practice as an educator and how I can improve my disposition toward all. My future students deserve it.</p>
+      <div class="references">
+      <h3>References</h3>
+      </div>
+      <p>American Psychological Association. (2014). <em>Parent engagement in schools</em>. American Psychological Association. Retrieved December 6, 2022, from https://www.apa.org/pi/lgbt/programs/safe-supportive/parental-engagement </p>
+      <p>Central Intelligence Agency. (2021). <em>India</em>. Central Intelligence Agency. Retrieved December 5, 2022, from https://www.cia.gov/the-world-factbook/countries/india/#people-and-society </p>
+      <p class="ref">Collier, V. P., &amp; Thomas, W. P. (2002). Reforming education policies for English learners. <em>The State Education Standard</em>, 31–36. </p>
+      <p class="ref">Collier, V. P., &amp; Thomas, W. P. (2017). Validating the power of bilingual schooling: Thirty-two years of large-scale, Longitudinal Research. <em>Annual Review of Applied Linguistics</em>, <em>37</em>, 203–217. https://doi.org/10.1017/s0267190517000034 </p>
+      <p class="ref">Cushner, K., McClelland, A., Cushner, H., &amp; Safford, P. L. (2022). <em>Human diversity in education: An intercultural approach</em> (Tenth). McGraw Hill LLC. </p>
+      <p class="ref">Henry, D. L., Nistor, N., &amp; Baltes, B. (2014). Examining the relationship between math scores and English language proficiency. <em>Journal of Educational Research and Practice</em>, <em>4</em>(1), 11–29. </p>
+      <p class="center">Appendix I - Interview Protocol</p>
+      <p>Utilize secondary and follow-up questions to develop insights into these main areas:</p>
+      <p>Backgrounds</p>
+      <p>Values
+</p>
+      <p>Dreams
+</p>
+      <p>Perspectives
+</p>
+      <p>Experience in school system - PWCS</p>
+      <p>*Some questions below have been adapted from Lisa Dormer’s family questionnaire form. </p>
+      <p><strong>Family Background</strong></p>
+      <p>Can you tell me about your children?</p>
+      <p>What grades?</p>
+      <p>What schools do they attend?</p>
+      <p>What languages do you and your child(ren) speak at home? </p>
+      <p>First language for children? </p>
+      <p><strong>What do you consider your most important values as a family?</strong></p>
+      <p><strong>Can you tell me about schooling/schools in your home country?</strong></p>
+      <p>[If nationality comes up] Did you live in that country</p>
+      <p>What was your educational experience there? your experience here? (K-12?)</p>
+      <p>What is parental involvement like there?</p>
+      <p><strong>What do you and your husband do for work? </strong>
+</p>
+      <p><strong>Please tell me about your aspirations (dreams) for your child(ren) and their education. </strong></p>
+      <p><strong>When you think about your child’s education here in the US, what comes to mind? How do you feel about their education? </strong>
+</p>
+      <p><strong>How do you communicate with the school and your student’s teachers? How does the school communicate with you? What is your preference? </strong></p>
+      <p>Do you feel PWCS/RMS values your family and your culture?</p>
+      <p><strong>For what kind of things do you visit your child’s school?</strong></p>
+      <p>How do you feel when you visit? </p>
+      <p>Can you give an example?  </p>
+      <p>Tell me whether you ever had a challenge with attending school events? </p>
+      <p>What staff at the school (any school) has had a profound impact on your child?</p>
+      <p>For Fatima:</p>
+      <p>Do you speak Urdu?</p>
+      <p>As someone who is learning English, have you enjoyed school?</p>
+      <p>What parts of school do you enjoy?</p>
+      <p>What have you found challenging?</p>
+      <p>Extra-curriculars / clubs?</p>
+      <p>What did you enjoy about elementary school? What do you enjoy about your middle school experience so far? </p>
+      <p class="center">Appendix II – Selected Transcript</p>
+      <p><strong>Me: </strong>When you think about your children, what are your aspirations for their education?</p>
+      <p><strong>Aiza:</strong> “Whatever they decide to do that they are happy with, I think, you know?  We have learned that in our culture that mostly when you are coming from Indian, Pakistan, or other southeast Asian countries, most of the time it is pretty much parallel that you are a doctor, engineer, lawyer, or you are a failure. No other professions are ok, at least that's what I’ve grown up with. But for these people, I found when I came to the US, I found a lot of things were, how do I put it? I saw a lot of opportunities. For instance, me going back to school would be frowned upon. Here, it’s age is no bar– you can go back to university. Doesn’t matter if it is your first freshman class or you are doing a PHD– there are no [age] barriers. I find here there is a lot of logical thinking that I wish we had back home. Instead of just [at home] the theory and aspects and having to memorize all of that. So having said that, I find that whatever they want to do at the end of the day they should come home and be satisfied; they have a good field versus them being stressed out. At least for me, personally, do whatever you are happy with. Whether you want to do teaching, or, at least think about logically, you don’t want to, based off what my husband had seen, a few years back, there were English or math majors, or are in healthcare, they would have to switch their lines in order to get a job. If you are spending that money, college is not cheap, then you want to pick something that is going to help you develop into a good career. Oh you want to be an art major? How do you plan on incorporating that into a career? As long as they come home and are satisfied at the end of the day.</p>
+      <p><strong>Me: </strong>When you think about your experience with your children’s education, what comes to mind, how do you feel about their education?</p>
+      <p><strong>Aiza</strong>: Generally speaking, I feel like the teachers do care…. Personally, I haven’t seen that many teachers, teachers who were like “I could care less” kind of attitude. Most of the times when I have reached out, I have gotten nothing but [a] positive response. Compared back home to India, when I would study, what these people are getting [here], it is a huge change in culture, it is very different. In that sense, if you were doing really well back home, you tended to be the favorite of the teacher. The person who was not doing well would not get a lot of attention. So there was a lot of favoritism or partiality ongoing back home. Here I don’t see that. I am sure you might have your own favorites and stuff, like someone who is always well behaved, but I feel like that has not affected someone else’s education to where she has failed more. </p>
+      <p><strong>Me: </strong>Has K-12 schools been difficult to navigate here in the United States?</p>
+      <p><strong>Aiza: </strong>Sure, definitely it was, when you did not have the tools in hand to help you figure out how you want to go to your own college. It has become a mission for me and my husband [to help our kids navigate college], since we did not have that help to get through college here. No one told us you could take a minor [in college] for the same price of money that we were paying. It all comes down to the amount of money spent on education for college. We felt like, I felt cheated out because I did not have that guidance with me. I wish I had known, or I wish someone could have guided me, saying “hey listen you can do a minor or a double major. Instead of going through the core classes that are not essential,” I could have done something else when I was in college. </p>
+      <p><strong>Me:</strong> Do you feel like Prince William County values your family and your culture?  </p>
+      <p><strong>Aiza:</strong> I never felt like I was treated differently. All of children have been ESOL students. I felt like the teachers – they all, they wanted to see your child succeed. It didn’t matter, whether it was summer school, or if it was in the form of extra reading, or them taking the extra time out. Sure, it is part of their job at the end of the day, but at the same time, they have several different children, so for them to take that time out, and to give them more and more attention– I will give you an example. A Special Education teacher at [our elementary school], she would make sure that Fatima had all her resources. To the point where it wasn’t part of her job, or me approaching her and asking her for help– but she needed help with math, and it was hard to email the math teacher. There was an issue with attendance [accuracy] during COVID-19, but she was able to help Fatima sort it out and fix her attendance and grade. </p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>

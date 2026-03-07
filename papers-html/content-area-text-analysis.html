@@ -4,200 +4,445 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Content Area Text Analysis | Matt Walker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px;color:#2a2a3a}
-.container{max-width:720px;margin:0 auto}
-.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
-.back:hover{color:#C4880D}
-.paper{background:#fff;border-radius:16px;border:1px solid #e8e8e8;padding:48px 52px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-@media(max-width:600px){.paper{padding:28px 20px}}
-.paper-meta{margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #f0f0f0}
-.paper-meta .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:12px;background:#4F46E514;color:#4F46E5}
-.paper-meta .semester{font-size:12px;color:#999;font-weight:500;margin-left:8px}
-.paper h2{font-family:'DM Serif Display',serif;font-size:26px;color:#1a1a2e;margin:20px 0 12px;line-height:1.3}
-.paper h3{font-size:19px;font-weight:800;color:#1a1a2e;margin:28px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
-.paper h4{font-size:16px;font-weight:700;color:#444;margin:20px 0 8px}
-.paper p{font-size:14.5px;line-height:1.85;color:#3a3a4a;margin-bottom:14px}
-.paper p.center{text-align:center}
-.paper ul{margin:8px 0 16px 24px;font-size:14.5px;line-height:1.85;color:#3a3a4a}
-.paper li{margin-bottom:6px}
-.paper strong{color:#1a1a2e}
-.paper em{color:#555}
-.footer{text-align:center;margin-top:32px;font-size:11px;color:#ccc}
+:root {
+  --ink: #1a1612;
+  --warm-white: #faf6f0;
+  --cream: #f2ebe0;
+  --sand: #e6ddd0;
+  --accent: #4F46E5;
+  --accent-light: #4F46E518;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  font-family: 'Source Sans 3', Georgia, serif;
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(160deg, #14142e 0%, #1e1e44 50%, #14142e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background:
+    radial-gradient(ellipse at 25% 35%, #4F46E518 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #4F46E50d 0%, transparent 50%);
+  animation: drift 25s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(0.5deg); }
+  66% { transform: translate(-1%, 1.5%) rotate(-0.3deg); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--warm-white), transparent);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #4F46E5;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BACK LINK ===== */
+.back-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+}
+.back-bar a {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 3rem 0 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.8rem;
+  color: var(--ink);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.content h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #3a3530;
+  font-size: 1rem;
+}
+
+.content p.center {
+  text-align: center;
+}
+
+.content strong { color: var(--ink); }
+.content em { color: #5a5550; }
+
+.content ul {
+  margin: 0.5rem 0 1.2rem 1.5rem;
+  color: #3a3530;
+}
+.content li { margin-bottom: 0.4rem; }
+
+/* ===== BLOCKQUOTE / CALLOUT ===== */
+blockquote {
+  background: var(--cream);
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+
+blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  opacity: 0.25;
+  position: absolute;
+  top: -0.2rem;
+  left: 0.8rem;
+  line-height: 1;
+}
+
+blockquote p {
+  margin-bottom: 0.4rem;
+  color: #5a5550;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding-left: 0.5rem;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== REFERENCES ===== */
+.references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--sand);
+}
+
+.references h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.references .ref {
+  font-size: 0.88rem;
+  color: #5a5550;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+/* ===== FOOTER ===== */
+.paper-footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .content { padding: 2rem 1.2rem 4rem; }
+  blockquote { padding: 1rem 1.2rem; }
+  .hero { min-height: 40vh; padding: 3rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <a class="back" href="/papers.html">&larr; Back to Papers</a>
-  <article class="paper">
-    <div class="paper-meta">
-      <span class="tag">EDCI 510</span>
-      <span class="semester">Summer 2023</span>
-    </div>
-    <p class="center">Content Area Text Analysis </p>
-    <p class="center">Michelle Collier-Menezes, Dorothy Jones, and Matthew Walker</p>
-    <p class="center">George Mason University</p>
-    <p class="center">Linguistics for PreK-12 ESOL Teachers</p>
-    <p class="center">Sujin Kim, Ph. D.</p>
-    <p class="center">July 28, 2023</p>
-    <p class="center"><strong>Introduction &amp; Background</strong></p>
-    <p>Are the texts and textbooks used in schools today accessible to multilingual learners (MLs)? This analysis will look at a text titled The U.S. Constitution and how accessible it is for multilingual learners. The text is in a third-grade textbook by Houghton Mifflin Harcourt Publishing (HMH) Company called <em>My Book.</em> All elementary schools in Prince William County use <em>My Book</em> for English Language Arts instruction. These lessons were taught in a third-grade classroom, at Kerrydale Elementary (KDES) in Woodbridge, Virginia. </p>
-    <p>Kerrydale Elementary is a public school located in a suburban setting. KDES has a student population of 352 according to U.S. News and World Reports. The school offers PK-5 programs, and the school serves PK-5. Of 352 students, 18 are in preschool, 54 in kindergarten, 43 first graders, 46 second graders, 46 third graders, 65 fourth graders and 68 fifth graders. Students with disabilities account for 17% of the student population. Students with an economic disadvantage account for 54% of KDES students. Testing data shows 76% of students scored at or above the proficient level for math, and 65% scored at or above proficient in reading (<em>Kerrydale</em><em> Elementary in Virginia - U.S. news education</em> 2021).</p>
-    <p>Kerrydale has a ninety percent minority student enrollment rate. Hispanic students make up the largest part at sixty-four percent of the students’ body. Students from Pakistan, Iraq, China, and Vietnam account for eight percent of the student population. African American students account for twelve percent of KDES’s student population. White students make up ten percent of the KDES students. Forty-seven percent of KDES’ population is female, and fifty-three percent are male students. The number of students who are multilingual is seventy-two percent. KDES has six full-time teaching assistants, thirty full-time teachers and one full-time counselor. Kerrydale’s student-teacher ratio is twelve, which is better than that of the district. This data is based on the 2018-2019, 2019-2020 and 2020-2021 school years and retrieved from U.S. News and world reports. </p>
-    <p>In the most recent school years, Kerrydale has increased its testing scores in both reading and math. Additionally, the National ESEA Association of State Program Administrators has named Kerrydale Elementary School a Distinguished School. Kerrydale elementary is one of up to 100 schools in the country, and two schools in Virginia, being nationally recognized for extraordinary student achievement in 2022. KDES successfully closed achievement gaps between student groups.  (&quot;2022 National ESEA Distinguished School&quot;, 2023). </p>
-    <p>The U.S. Constitution created struggle and confusion for multilingual learners over the past the last two years. Choosing this text to analyze may uncover new strategies to help students comprehend the text.  Additionally, our group was able to access this text and one member of our group has taught this lesson twice. Through this analysis we hope to gain insight on why MLs are having difficulty and most importantly how instruction can be scaffolded to improve student outcomes. </p>
-    <p>Mrs. Kording is an extraordinary 3rd grade teacher. She builds strong bonds with her students and always has their best interest in mind during planning and delivery. She is not strict and allows her students to get up if they need something they can stand at their desks or use alternative seating if they wish. Classroom discussion is encouraged, and students typically stay on topic. This lesson was co-taught with a teacher for multilingual learners and co-planned with the third-grade team (see appendix C). The classroom consists of 19 students in total, 12 multilingual learners, one is dully identified special education and one newcomer.</p>
-    <p class="center"><strong>Analysis</strong><strong> &amp; Discussion</strong></p>
-    <p><strong>Language as </strong><strong>a System Overview</strong></p>
-    <p>It is important to recognize the variety of factors that contribute to the system of language and any subsequent understanding or meaning making. Language is a system of grammar, rules, and composition used for communication between humans (Rafzar &amp; Rumenapp, 2014).  Phonology, morphology, syntax, semantics, inflection, physical body language, and tone all contribute to the meaning and ultimate interpretation of any given communication. Further, all language use is situated in a culture and a context, or a discourse. Specific understanding of a subject area’s culture or context is required in order for someone to be fluent in that discourse (Scott, 2014). For example, the discourse required for customer car maintenance might require a consumer to state, “my car is ready for an oil change, don’t forget to rotate the tires, please.” This customer is fluent in the discourse of basic consumer car maintenance. The customer would know that this language would not be appropriately utilized in a mortgage-closure meeting; this would need an entirely new discourse. </p>
-    <p>These two discourse examples, the car-maintenance discourse and mortgage-closure discourse are examples of secondary discourses, which are utilized in a specific setting. A primary discourse is the language used in one’s home or culture (Scott, 2014). Further, secondary discourses can become a dominant discourse, one that is understood by all of those who participate in the given context. School is an example of a dominant discourse. The students who attend a public school will all eventually learn the school discourse, how to get from class to class, how to talk to a teacher, and what procedures to use to see the nurse or use the restroom. (Scott, 2014). </p>
-    <p>For multilingual learners, the discourse found in academic subjects provide a unique set of challenges which are not easily overcome. Academic discourses are secondary discourses and take years to learn for multilingual learners (Baker &amp; Wright, 2021). For our case, a text about the United States Constitution provides a specific set of linguistic challenges for a multilingual classroom that will be addressed in the pages that follow. </p>
-    <p><strong>Specific Challenges Faced by Multilingual Learners</strong></p>
-    <p>In general, challenges faced by multilingual learners approaching a new text vary greatly. For the subject class, it can be presumed that many multilingual learners in the subject class lack any previous encounter with the opening sections of the Constitution and will have to build their specific academic knowledge and discourse from scratch. The selected passage contains many grammatical hurdles for multilingual learners, including challenging word structures (e.g., delegates, strong national government, convention, preamble, tranquility, posterity, ordain) and figurative meanings, or idiomatic language (e.g., headquartered, balance of power). Without specific content knowledge, these content-specific words are an instant barrier for multilingual learners. This is just a sampling of the linguistic challenges faced by a class with 12 multilingual learners who will read this text, with a thorough linguistic analysis below. </p>
-    <p><strong>Readability Analysis</strong></p>
-    <p>            Our group chose the book, <em>The US Constitution, </em>written by Norman Pearl in 2006.  It is part of the third grade Houghton Mifflin Harcourt (HMH) Core 5 reading program for third grade. The HMH reading program is approved by Prince William County and is expected to be used by teachers. The text we will use for this analysis is in Module 3: Let Freedom Ring! If the program is delivered in sequential order students will read this particular text somewhere near the end of the first quarter. The selected passage contains 500 words chosen from pages 2-6. This section was selected due to the fact that in previous years it had been difficult for MLs. Three readability text analysis results are located in the Appendix. The first analysis uses the Fry Readability Test, the second uses the Linsear Write Test and the third analysis uses the Raygor Test. These readability tests use factors of word length, sentence length, and numbers of syllables in words to provide a readability level. This is based on the idea that as reading skills advance as the words get harder to decode.</p>
-    <p>The first text analysis is the Fry Readability Test which is considered to be one of the most accurate tests. This particular text uses the number of syllables per 100 words versus the number of sentences per 100 words. The analysis results are shown in the Fry Readability Test graph (Appendix D). The results show that the readability for the article selected, <em>The US Constitution,</em> is at an eighth-grade reading level. The passage includes 155 syllables per 100 words and an average sentence length of 9.5 words per 100 words. The sentence length was typical for third grade reading level, but the number of multisyllabic words increases the text to 12th-grade reading level. The two projected lines indicating the number of syllables and the number of sentences per 100 words intersect at the eighth-grade level indicator.</p>
-    <p>            The second test uses the same 500-word article titled <em>The US Constitution</em> with the Linsear Write Readability Test. The Linsear Write formula utilizes the number of syllables in a word as a gauge. Words with one or two syllables are awarded one point and words with three or more syllables are awarded two points. The formula compares this count with the number of words in a sentence per 100 words. <em>The US Constitution </em>scored a 5.6 which, according to the chart, places the readability level of this text at a sixth-grade reading level. The Linsear Write test does not include a graph containing its data.</p>
-    <p>            The final readability test uses the same 500-word text segment as the Raygor Readability Test formula. The Raygor Readability Formula compares the word length of each sentence and the number of six or more lettered words within each sentence. The average number of six lettered words or higher per 100 words is 13. The average length of the sentences is 11.1 words. The analysis chart intersection using those two data points is at the third-grade reading level. See Appendix E for test result’s graph.</p>
-    <p>            The three readability tests provide widely varying results. The Raygor Readability Test results demonstrate that the selected text within the third-grade reader is indeed at the third-grade level. The Linsear Write’s Readability Test results indicate that the same text is written at a sixth-grade reading level. Finally, the Fry Readability Test indicates that the text is written at an eighth-grade reading level. How is a teacher to clearly know which result is accurate and therefore whether this text is appropriately written for students to decode and comprehend. Teachers may choose to examine the Lexile level of this text which, according to the Capstone website (), is 620. A Lexile score of 620 is typically considered to be on level for a beginning third grader. According to a guide parents may use such as Amazon the readability level of this text is ages five to seven, which is kindergarten to second grade.  </p>
-    <p>For teachers, figuring out the readability level of a written text can be frustrating. It can vary depending on the source of information or analysis tool used. Other factors must be used for analysis and considered before a decision of appropriateness can be made. Considerations should include students’ background knowledge of United States history, the vocabulary being used and how to decode multisyllabic words. The group of teachers with whom I am working in this course believe that this text is higher than a third-grade readability level. The danger is that since this story is included in the HMH series at a third-grade level that is appropriate for most third grades to read independently toward the end of the first quarter. Many teachers trust the publishers to provide appropriate leveled texts for students. The teachers assume this text is written on a level for most third graders. The other facts such as background knowledge, vocabulary, and number of multisyllabic words makes this book hard to understand, especially for our MLs. However, appropriate support can be provided through pre-reading building of vocabulary, appropriate decoding techniques and ways of organizing information. If teachers understand these are needs to be developed before this challenging text is read all students will be more successful but for students with language or learning challenges, it will provide stepping stones toward long term success.</p>
-    <p><strong>Phonology</strong></p>
-    <p>In Chapter three, Razfar and Rumenapp (2014) define phonology as the study of how speech sounds are structured based on rules in a given language. Phonology and its rules are often how linguists explain the many differences between human languages. Phonology looks at the smallest sounds in language and uses that as a tool in decoding.</p>
-    <p>            The text used in this exercise is a Houghton Mifflin Hough (HMH) module designed for use with third grade students. In the lesson plans provided by HMH the phonemic lessons for the week have to do with three letter blends found at the beginning of the words. The lessons do not directly connect to the text because those three letter blends are not found in the specific text for this lesson, so the phonic lessons are independent of the text. That disconnect can create confusion and struggle.</p>
-    <p>            There are several reasons why MLs would struggle with the phonics skills needed to succeed with this text. First, HMH provides definitions for only five vocabulary terms within the text. Second, there are no pronunciation guidelines for any of the terms in the text. However, if students access the text online, they can hear the pronunciation of the word. Third, new phonics skills are assumed to be at mastery level for students. Students might not be aware of is the digraph /ph/ sounding like an /f/ in “Philadelphia”. Both the words “judicial” and “ensure” sound like they would have the digraph /sh/, but do not. No support is provided for students who are multilingual. </p>
-    <p>            The two additional struggles that multilingual students may encounter with phonetics are multisyllabic words and vowel teams. There is a strong possibility that students may not be familiar with either of these or are not at a proficient level. Multisyllabic words are hard for ML students because the words must be broken into many small pieces and then each piece must be solved before decoding the entire word. For example, the word “revolutionary” is broken down into rev-o-lu-tion-ary. Students need to decode those 5 syllables and then put them in order to create the word. And then they must recognize and understand the new term. There are also words like “c<em>ou</em>ntry” where students need to know that they vowel team “ou” say /u/. There are major assumptions being made about the phonetic understandings of our language which may or may not relate in any way to a ML student’s native language. </p>
-    <p><strong>Morphology</strong></p>
-    <p>Morphology is the study of a language’s morphemes or smallest meaningful units of language and the rules governing the transformation of those units for communicative purposes (Razfar &amp; Rumenapp, 2014). Morphology consists of words, affixes, intonation, and stress. Morphemes can be either free or bound. Free morphemes are traditionally known as root words. Bound phonemes are root words with either prefixes or suffixes added to change the number, meaning, or tense of the root word.</p>
-    <p>            In our text, the author shows the plural of a word by adding “-es” to the root word branch to create the word “branches” meaning more than one branch. The addition of the suffix should typically be known by 3rd grade multilingual (ML) students. However, the multiple meanings of the word “branches” might be confusing for ML students.  </p>
-    <p>            The author also includes, as examples, many words with the suffix “-tion.” The suffix “tion” when added to a root word means a process, a state, or a result. The text uses the words “constitution,” “convention,” “revolution,” and “confederation,” but no instruction is provided in how to relate the suffix use to these particular words. Students need to not only understand the suffix, but that “tion” sounds like /shun/ in order to pronounce the word correctly and recognize it. It sounds like the digraph /sh/, but it is not written that way. These nuances of our language are challenging for ML students.</p>
-    <p>            The author also includes prefixes in the study of morphology. The main prefix used is “pre” such as in the word “preamble.” Pre- is a prefix that means “before”. In our text the preamble section comes before the Bill of Rights section. It is the beginning, opening statement before the main section, the Constitution.</p>
-    <p>            Cognates are words that have the same linguistic derivation as another word and are useful in transferring understanding from a word in one language to a word in another language. The Houghton Mifflin (HMH) series presents two Spanish-English cognates to help students understand better: domestic/ domestico and convention/ convencion. Spanish speaking students who understand these terms can use them to understand the ideas in English.</p>
-    <p><strong>Lexicon</strong></p>
-    <p>A lexicon is a specific vocabulary used by a group of people when discussing a certain subject with meanings impacted by the subject matter (Rafzar &amp; Rumenapp, 2014). In this case our text uses the lexicon of history and United States government. There are terms and phrases used to describe our government: phrases such as “3 branches of government,” “3 sections of the constitution,” “judicial branch,” “executive branch” and “legislative branch” all describe parts of our government today under the terminology of branches. Phrases like “Constitutional Convention,” “Revolutionary War,” “delegates,” and “articles” are more historical terms and have a meaning contextualized by their use in the study of history and government. In addition, lexicons often use words that have one meaning in one discourse but take on a new meaning in a specific academic discourse. “Balance,” as used in “balance of power,” is an example here. In an ordinary discourse the meaning of “balance” will often conjure an image of one person’s balance or that of a scale, whereas in a social studies lexicon it can take on a new semantic meaning, referring to maintaining equal power between different parts of government. It’s difficult to comprehend words and phrases in a specific history lexicon if these terms and meanings are unfamiliar. </p>
-    <p>            One example of lexemes in our text is “America,” “American,” and “Americans.” All three words are very similar and relate to the country, the United States of America. The word “America” is the people, land and government that make up our country. “American” can mean one person who is from “America”, or it could describe something that has to do with America. “Americans” means it is more than one person from America. These are subtle differences that have a major impact on meaning and comprehension. </p>
-    <p><strong>Syntax</strong></p>
-    <p>Syntax is concerned with how languages build sentences (Razfar &amp; Rumenapp, 2014). For example, Syntax is used to determine word order. In English, our word order is subject-vowel-object or SVO. Syntax is also about the components of a sentence, including grammar components and phrase structure. There are many reasons why MLs have difficulty with this text at the sentence level (Rafzar &amp; Rumenapp, 2014). </p>
-    <p>Sentence structure and vocabulary can also lessen an MLs understanding of the text. There are sentences where the author tried to keep the text simple. For example, “My name is James Madison. I was the fourth president of the United States.” Those sentences should be easy for a third grader to read. When the author introduces historical terms and vocabulary like “preamble,” “delegates,” “amendments” and “articles,” these words make the sentences more difficult to understand. The author also includes the original preamble to the Constitution which is a 52-word sentence which contains at least eleven vocabulary terms. Many factors may contribute to MLs struggling with this text.</p>
-    <p>Verb tense varies in the text in order to communicate a historical order to events. The author changes tense with phrases like “the last [state] did so in 1790” followed by “The Constitution has three main parts” in the next section. This can cause confusion for a language learner who will have to navigate timelines between events. Modifying clauses also frequently follow an ordinary clause, such as “This branch is made up of Congress, <em>which</em> is divided into two parts.” This can present challenges for MLs as they will have to decide what is exactly made up of two parts. </p>
-    <p><strong>Semantics</strong><strong> &amp; Pragmatics</strong>	</p>
-    <p>Semantics delves into the meaning-making side of linguistics; it is the study of the connection between language and the objects referenced (Rafzar &amp; Rumenapp, 2014). Pragmatics is the how meaning is understood in specific contexts, and may often be non-literal (Pinker, 2011). Take, for example, the phrase “I’m so hungry I could eat a horse!” A semantic understanding would interpret this claim literally, that the speaker could eat an entire horse, or at least the speaker believes they can. A pragmatic meaning, as understood by someone who is familiar with the idiom, would indicate that this person is very hungry. Therein lies the challenge for multilingual learners. Learners of a new language who have acquired basic word meaning will miss the meaning of a context-based idiom like the one above (Rafzar &amp; Rumenapp, 2014). When it comes to the Constitution text used for this paper, multilingual learners may struggle with idiomatic, figurative language, such as “headquartered” and “balance of power,” among others. There are also several context-specific words and phrases, such as government terms labeling the three branches. Cultural references in the text, such as references to the American Revolutionary War, may be new concepts for multilingual learners.</p>
-    <p>       The author uses figurative language in the text which can cause MLs to have difficulty interpreting it. The book uses words that have multiple meanings. In the sentence, “There are 3 <em>branches </em>of government,” “branches” could mean tree limbs, to be a part of something larger, or to divide into one or more subdivisions. MLs need to know which definition fits the sentence in order to comprehend it. Another example is, “James Madison <em>played </em>a part in making our government.” In this sentence, MLs need to know that “played” means to take part in and not having fun.</p>
-    <p><strong>Background Information</strong></p>
-    <p> 	The social studies curriculum in Prince William County Schools spirals in the sense that each year students build their knowledge of American history. For example, in kindergarten students learn in standard K.1g about the past and present and how communities are built. With that foundation, first grade students learn standard 1.2 b in which they learn about Famous Americans George Washington and Thomas Jefferson and how they helped build a new nation.  They also learn standard 1.11 which is to recognize US symbols like the flag. In second grade students learn standard 2.4 b, c, which teach students about Benjamin Franklin and Abraham Lincoln. Third grade students learn standard 3.12 a, b, c, which involves learning about the purpose of laws, the basic forms of government, and about the basic rights of individuals. There is also standard 3.3 where students learned how Greece and Rome influenced the formation of our government.  </p>
-    <p>            If MLs entered the PWCS system after the start of kindergarten, they might have gaps in their foundation which may be confusing for them. Even with the foundation, this text expects students to have a large amount of background history on the formation of the US government, its parts, and the Constitution. Students would benefit from understanding about the Revolutionary War, 13 delegates, Constitutional Convention, Bill of Rights, 3 branches of government, and the 3 sections of the Constitution. There is a significant amount of background knowledge needed to be successful in understanding this book.</p>
-    <p><strong>Critical Discourse Analysis</strong><strong> &amp; Cultural Bias</strong></p>
-    <p>There are several connections between the text and its expressed power, ideologies, and values. The text opens as if written by President James Madison, the fourth president of the United States, who did author much of the United States Constitution. The text also opens explaining the importance of the United States Constitution. Both of these text features utilized by the author assert power. The entire text is framed as a set of values held by a singular people; especially noteworthy is the Preamble to the Constitution, which sets out six goals of the nation, including establishing justice and “promoting the general welfare.” The text also calls the Constitution a “symbol of democracy.” While the text does not explain democracy, its assertion as authoritative is clear to the reader. </p>
-    <p>While the text is certainly optimistic in its values, it is guilty of cultural biases, such as A Tale Half Told and Rose-Colored Glasses (Sadker, n.d.). The text presents itself as authoritative and values-driven, however, it omits glaring sociopolitical problems, such as the Three-Fifths Clause found in Article I of the Constitution which declares Africans as three fifths of a person, and there is no mention that women are entirely left out of the Constitution until the passage of the 19th Amendment in 1920. 	</p>
-    <p class="center"><strong>Recommendations</strong></p>
-    <p>The U.S. Constitution is something all our students need to know. However, a text of this rigor requires a great deal of scaffolding to make it accessible to multilingual learners. Building background knowledge on the branches of government and the founding fathers is vital. Multilingual learners will need support with all aspects of linguistics to fully comprehend this text. Upcoming sections will highlight some strategies and activities needed to help multilingual learners internalize the text.           </p>
-    <p><strong>Phonology Teaching Implications</strong></p>
-    <p>To set students up for success with the phonology aspects of this text, performing a contrastive analysis prior to reading gives teachers information on what words may be difficult for multilingual learners. Pre-teaching some phonic skills before reading this text will make the extensive number of multisyllabic words more accessible to MLs.  Phonics Instruction on digraphs, vowel teams, and 3 letter blends (see appendix H) will enable students to decode multisyllabic words they may encounter while reading. However, time spent providing these essential skills will cut into the time allotted in the pacing guide. Explicitly, teach text vocabulary and invite students to create a word card with a student created definition and any cognates available (see appendix G). Students can then post their word cards to a word wall for future reference. Allowing students to turn and talk about their definition will give students a chance to verbalize their definition and to hear the definitions of their peers. Finally, students will listen and celebrate how each of us says the words a little differently. Celebrating accents gives students pride and confidence when speaking (Razfar &amp; Rumenapp, 2014).</p>
-    <p><strong>Teaching Implications of Morphology</strong></p>
-    <p>For this text, students will need an understanding of morphing words. Several of the multisyllabic words in The U.S. Constitution contain affixes. Students can build an understanding of these multisyllabic words by learning the parts of the words, such as prefixes, suffixes, and root words. Using sentence strips, with words such as subheadings written on them, and then cutting the sentence strips apart, dividing roots, suffixes, and prefixes, will give students a visual of the chunking of words. Have students place the word parts into the correct column prefix, suffix, or root word to ensure they comprehend the difference. Have students place the word parts into the correct column prefix, suffix, or root word to ensure they comprehend the difference. Discuss how the prefix or suffix changes the meaning of the root word (see appendix I).</p>
-    <p>Teaching lexemes to students can be a lot of fun and incredibly beneficial. Students' vocabulary can grow substantially as they become aware of how words relate to each other (ex. medical, medicine, medic). Students enjoy working together to create “3rd grade word families.” Given a large sheet of bulletin board paper folded in fourths with base words written in each of the four sections, students work in groups to write all the lexemes they can identify for their base words. They may use technology, dictionaries, or any textbook to help them locate lexemes. Using the Think, Pair, Share model, students will discuss their findings with their peers.</p>
-    <p>Multisyllabic words can be intimidating for students as they come across these long seemingly impossible words. The Virginia Department of Education (VDOE) has a lesson plan to help students with this struggle. In this lesson, teachers provide direct instruction on how to decode multisyllabic words (see appendix D). After several demonstrations, students must work with partners to chunk up given words. At the end of the lesson, students will conduct reflection groups to share how they deciphered words. </p>
-    <p><strong>Syntax Teaching</strong><strong>,</strong><strong> Implications</strong></p>
-    <p>A challenging text like The U.S. Constitution requires extended teaching time. Stopping often to explain the meaning of the read aloud provides the scaffold students will need to comprehend the text. To keep students engaged and speaking, they should turn and talk about how they understand what the teacher has said and what information they understand or don’t understand in the text. Each section will require a thorough discussion with students showing their understanding by writing a sentence, creating a sketch, or talking with a partner. As mentioned above, explicitly teaching and practicing vocabulary in a meaningful way helps students recall their meaning.</p>
-    <p><strong>Semantics &amp; Pragmatics</strong><strong>,</strong><strong> Teaching Implications</strong></p>
-    <p>Multilingual learners find idiomatic expressions difficult. Idiomatic expressions are multisyllabic words, containing other complete words with differing meanings. Through breaking up the word and discussing all its parts and the meaning of those parts, it provides students a strategy for identifying meaning. The word <em>headquarters, </em>for example: head means body part that holds your brain, the head of the company, the head of the table. Quarters are money/coin, a place you live or work, one part of four equal sections. Students' discussion of all possible meanings empowers them with critical thinking skills and speaking practice.  The teacher will list the student's statements for them to reference. Next, they will turn and talk about which one would make the most sense with this text.  Repeat the process a few times as idiomatic expressions come up. As students become comfortable with the process invite them to do it with a partner and share their findings.</p>
-    <p class="center"><strong>Personal Reflection</strong></p>
-    <p>	I enjoyed working with Dorothy and Michelle on this paper. They are thoughtful in their work and hard-working. For my part, I completed a good part of the Analysis and Discussion section, including the following sections or subsections: Language as a System Overview, Specific Challenges Faced by Multilingual Learners, and Semantics and Pragmatics. I also completed the Critical Discourse Analysis &amp; Cultural Bias section. Further, I added chunks or paragraphs to the Syntax and Lexicon sections. Further, I helped my group clarify some APA-7 rules, such as when to hyphenate a phrase like “third grade.” In APA-7, it is hyphenated when it is used as an adjective, but not when it is used as a noun. </p>
-    <p>I have always loved being proficient at grammar but did not necessarily enjoy learning it throughout my life. This passion of mine led me to add an English Language Arts endorsement to my teaching license, which I used to teach Language Arts to seventh graders this summer at summer school. As such, providing grammar and syntax feedback to my partners was a natural fit. I spent some time time reading and making small edits and improvements to the entire paper. </p>
-    <p>	In the Semantics &amp; Pragmatics section, I enjoyed learning how to clarify semantic and pragmatic meanings. I liked thinking about how the MLs I had in my class this year would approach different idiomatic expressions or metaphors. While our text did not have many metaphors, I tried to imagine the level one and level two MLs trying to interpret phrases like “balance of power” or “headquartered.” Both phrases have complex, content-specific meanings and as such are not easily understood by any young child, regardless of their status as an ML. Trying to picture the students I know well and how they might perform in understanding something was a strategy that brought significant meaning to linguistics for me. </p>
-    <p>	I also enjoyed reviewing the early chapters of the class text, as well as Gee’s Discourse. I find the concept of Discourse very helpful in thinking about the language used in my classroom. It should come to be that a district would think of a student’s K-12 experience in social studies classes as a thirteen-year course in the “social studies discourse.” Ideally, content-specific words and phrases like “evidence,” “corroborate,” “cause and effect,” and “context” will become part of a student’s primary discourse they use in their everyday life. This is a big task, but one that is worth pursuing not just in social studies but the other contents as well. A worthy goal of our K-12 education systems would be to recognize and treat each content like its own discourse, with the hopes of each discourse becoming a primary discourse in the lives of our students. </p>
-    <p>	As I wrote my parts of this paper, I was struck by the considerable, somewhat vague overlap of different areas of linguistics. For instance, figurative language is rightly discussed in the Semantics section of the paper, but non-literal academic words in the Lexicon section could also be considered figurative. Further, our lexeme example, “America,” “American,” and “Americans,” illustrates how different suffixes to a word can significantly alter meaning, which is morphology. Despite its possible confusion, this led me to grow fonder of linguistics, as its structure is clearly intertwined in meaningful ways. The intertwining makes the different parts of linguistics more like a fascinating puzzle, waiting for someone to solve it. Overall, this paper clarified some confusion I had coming into the paper on certain parts of linguistics and cemented the knowledge of concepts I had acquired throughout this course. I will clearly be a better teacher having learned linguistics this summer and hope to offer intentional steps to my students to improve their language development and proficiency. </p>
-    <p class="center">References</p>
-    <p>Flor Ada, A., Beers, K., Campy, I., Carroll, J., Clemens, N., Cunningham, A., &amp; Hougen, M.C.
-(2020). <em>HMH into reading. </em>Houghton Mifflin Harcourt. </p>
-    <p>FloatingUniversity. (2011). <em>Steven Pinker on language pragmatics</em>. <em>YouTube</em>. Retrieved from .</p>
-    <p><em>“</em><em>Kerrydale</em><em> Elementary in Virginia - U.S. news education.”</em> U.S. and World Report. (2023).  </p>
-    <p>Pearl, N. (2006). <em>The U.S. Constitution.</em> Houghton Mifflin Harcourt.  </p>
-    <p>PWCS. (2023, July 3). <em>“2022 national ESEA Distinguished School.”</em> Kerrydale Elementary School. </p>
-    <p>Razfar, A., &amp; Rumenapp, J. C. (2014a). <em>Applying linguistics in the classroom: A sociocultural approach</em>. Routledge.</p>
-    <p>Sadker, D. (n.d.). <em>Some practical ideas for confronting curricular bias</em>. David M. Sadker, Ed.D.. </p>
-    <p>VDOE. (2022). <em>Comprehensive literacy: English instructional plans</em>. Virginia Department of Education. </p>
-    <p class="center"><strong>Appendix A</strong></p>
-    <p class="center"><strong><em>The US Constitution</em></strong><strong>, HMH </strong></p>
-    <p class="center"><strong>Appendix B</strong> </p>
-    <p class="center"><strong>Supports for English Learners from Textbook</strong></p>
-    <p class="center">Appendix C</p>
-    <p class="center">Lesson Plan for the U.S. Constitution for HMH.</p>
-    <p class="center"> Appendix D </p>
-    <p class="center">Morphology Lesson</p>
-    <p><strong>English Instructional Plan – Decoding Multisyllabic </strong><strong>W</strong><strong>ords and Context Clues: Grade 3</strong></p>
-    <p>Primary Strand: Reading - Word Knowledge and Vocabulary 3.3, 3.4</p>
-    <p>● understand the need to apply word-analysis skills to decode words</p>
-    <p>● understand that roots, affixes, synonyms, and antonyms can be used to determine the meaning of unfamiliar words.</p>
-    <p>● understand that the content and structure of a sentence, paragraph, or reading selection can be used to help demonstrate the meaning of unfamiliar words</p>
-    <p>Sentence Starters:</p>
-    <p>● As I was reading, I came across a word I do not know how to pronounce. Do I recognize any part of the word? Can I break the word into syllables?</p>
-    <p>● To help me understand ___ (unfamiliar word) I will reread the text</p>
-    <p>● I notice the following prefix or suffix that I already know in the unknown word.</p>
-    <p>Materials</p>
-    <p>1. Anchor chart with strategies when decoding a word (example below)</p>
-    <p>2. Decoding graphic organizer (example below) or scissors, highlighter, highlighter tape/wax sticks for chunking words</p>
-    <p>3. List of words to help student learn how to decode (examples below)</p>
-    <p>4. Using context clues graphic organizer (example below)</p>
-    <p>5. Suggested texts or text of choice including fiction or nonfiction</p>
-    <p>o Baloney (Henry B.) by Jon Sciezka and Lane Smith</p>
-    <p>▪ paragraph 3: ironically o A School Trip to the Aquarium ()</p>
-    <p>1. Think-Pair-Share. Ask students, “Think about a time you came across a word you either did not know how to pronounce or you were unsure of the meaning as you were reading. What did you do? How did you figure out unfamiliar word(s)?” Take a moment to reflect and then share your experiences with a partner. Listen for similarities and differences. Optional introduction: Post a piece of text with a “tricky” (possibly unknown) word underlined. Use the same questions as above to discuss the text and strategies for figuring out the unknown word.</p>
-    <p>2. Direct instruction: Remind students that all readers come across words they cannot pronounce and/or understand. When this happens, good readers must go into their “strategy tool bags” to figure out the unfamiliar word. Students must be taught specific strategies for both decoding and comprehending the unknown word. The first step is often figuring out how to pronounce an unknown word; therefore, the first strategies readers should use involve chunking and/or decoding strategies. Creating an anchor chart may help provide a visual for students about decoding/chunking strategies. It is important to note this instruction may require several days and an anchor chart should be created as concepts are presented. Furthermore, students will have greater understanding and ownership if they help to create the anchor chart. Teachers should pace the lesson based on their students’ needs, attention spans, and abilities.</p>
-    <p>3. There are multiple ways a student can decode an unknown word. See the anchor chart below for several decoding strategies. The teacher will want to model using a think-aloud each of the decoding strategies. For example:</p>
-    <p>● look for familiar chunks: exercising</p>
-    <p>● look for vowel patterns -exercising</p>
-    <p>● flip the sounds -exercising - Does the i make a long or short vowel sound? Does the c make a hard or soft sound?</p>
-    <p>● look for common endings- exercising</p>
-    <p>● prefix/suffix patterns within words- exercising (ex = “off”), exercise (root)</p>
-    <p>● syllable chunking- ex-er-cis-ing</p>
-    <p>4. Further syllable instruction will support students’ decoding abilities. Background: The English language is based on syllable chunks focused around vowel units. Syllables provide a powerful means for readers to determine how to pronounce a word. A syllable is a word part including a vowel sound. A word could have one or multiple syllables. Breaking down words into syllable chunks often helps in pronunciation and sometimes meaning. There are different types of syllables:</p>
-    <p>o Open syllable, Closed syllable, Vowel-consonant-e, Vowel-r syllable, Vowel pair syllable, Vowel-Consonant-Consonant-Vowel.... </p>
-    <p>5. Model these decoding, chunking, and syllable strategies with many words. Consider using a graphic organizer or cut the chunks or syllables of the word apart to help with visualization. One could also use highlighters, highlighter tape, or wax sticks to chunk words. Students should be encouraged to be flexible in their chunking/decoding strategies. An over-reliance on one chunking strategy often leads to errors.</p>
-    <p>6. Have students work with a partner or independently to decode words using the graphic organizer below. (Optional: have students find their own words within their independent reading texts).</p>
-    <p>7. After students have decoded words, direct instruction must be focused on identifying the meaning of the word using context clues. Often when trying to figure out the unfamiliar word, readers use the text around the word to help them infer meaning. Text-dependent vocabulary can be inferred by reading it in context.</p>
-    <p>6. Direct instruction: “After we determine how to pronounce a word, sometimes we understand the meaning. Other times, we need additional strategies to figure out the unknown word’s meaning. The dictionary or glossary are great resources to help us determine meaning; however, they are not always available and/or could take a long time to use. Good readers typically use context clues, the text around the unknown word, to help determine the meaning.”</p>
-    <p>Assessment (Diagnostic, Formative, Summative)</p>
-    <p>● Think-Pair-Share: Have students independently think about how they decoded the word and determined the meaning. Next, they will pair with a partner and share their word, how they decoded it and its meaning.</p>
-    <p>● Give students a copy of the graphic organizer, give students an unfamiliar word in text or have them pick their own text example. Complete the graphic organizer to analyze decoding and comprehension.</p>
-    <p>● During independent reading, have students select unfamiliar words to decode and determine the meaning. Students can create their own graphic organizers to identify newly learned words in a reading journal.</p>
-    <p class="center">Appendix E</p>
-    <p class="center">Fry Readability Graph</p>
-    <p class="center">Appendix F</p>
-    <p class="center">Raygor Readability Graph</p>
-    <p class="center">Appendix G</p>
-    <p class="center">Student made vocabulary cards.</p>
-    <p class="center">Appendix H</p>
-    <p class="center">Vowel Teams Lesson</p>
-    <p class="center">English Instructional Plan – Syllable Generalizations: Vowel Teams Grades 2-3</p>
-    <p class="center">3.9j Use correct spelling including irregular plurals.</p>
-    <p class="center">Academic Background/Language: Students should know that words can be broken into segments of sounds called syllables. Syllables must include a vowel and usually include consonants. Students should be able to identify and explain open, closed, and VCE syllables.</p>
-    <p class="center"><strong>Materials</strong></p>
-    <p class="center">● Vowel team sort for teacher</p>
-    <p class="center">● Vowel team word cards that can be cut apart – 2 of each word.</p>
-    <p class="center">● Scissors and Tape</p>
-    <p class="center">● Reading Passage – 1 per student and a large copy for the teacher</p>
-    <p class="center">● Highlighters, markers, or crayons</p>
-    <p class="center">● Optional – vowel team sort of individual students</p>
-    <p class="center">Student/Teacher Actions: What should students be doing? What should teachers be doing?</p>
-    <p class="center">1. Tell students that you will be sorting words into groups based on a pattern and they should try to figure out how you are sorting them. Model sorting the words by vowel teams. Make sure to read the words out loud so students can hear the vowel sounds, not just see the spelling patterns. Allow students to guess after you have sorted about half of</p>
-    <p class="center">the words. If students do not see the pattern, explain it to them. Lead a discussion about vowel teams (two vowels together making the long sound). Students should notice that vowel teams can be found in single syllable or multi-syllable words. When students are ready, allow them to help you place the remaining cards into the correct groups. This sort can be used as an anchor chart for vowel teams.</p>
-    <p class="center">2. Tell the students that now they will get the opportunity to identify syllables with vowel teams. Demonstrate cutting a word such as frighten into syllables and identifying the vowel team. Pass out word cards and tell students to cut the word apart where they think the syllables should be split. Tell them to find their partner with the same word to see if they split their word the same way. Tell students they should be able to identify the vowel team in their word and explain how they knew how to split the word into the correct syllable.</p>
-    <p class="center">3. After students have found their partners and agreed that they are correct, have them tape 1 set of the correctly cut word onto the vowel team anchor chart. When most students are finished, go over the chart together and discuss what vowel teams are present and how the students knew how to split the words. You may want students to use hand signals to show if they agree or disagree with how the words are split for whole class participation.</p>
-    <p class="center">4. Lead a class discussion about how readers can use vowel teams to decode some unknown words. Then give students practice decoding nonsense words with vowel teams such as “cheadpit” and “mepglait” so that they must use this strategy to decode the words.</p>
-    <p class="center">Strategies for Differentiation</p>
-    <p class="center">● Do this lesson in small group first if most students in the class do not have a firm concept of other common long vowels.</p>
-    <p class="center">● Use sentence starters such as: I see the vowel team _______ in the word _____________. I will divide this word into syllables between the letters ________ and ________ because ____________.</p>
-    <p class="center">.</p>
-    <p class="center"><strong>Vowel Team Open Sort</strong></p>
-    <p class="center">goat season soap paintbrush</p>
-    <p class="center">lightning right mistreats oatmeal</p>
-    <p class="center">upload remain sight daydream</p>
-    <p class="center">Appendix I</p>
-    <p class="center">Prefix, Root Word, Suffix</p>
-  </article>
-  <p class="footer">Matthew Walker &mdash; George Mason University</p>
+
+<div class="back-bar">
+  <a href="/papers.html">&larr; Back to Papers</a>
 </div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">EDCI 510 &middot; Summer 2023</div>
+    <h1>Content Area Text Analysis</h1>
+    <p class="hero-subtitle">Collaborative linguistic analysis of content-area texts for ESOL instruction</p>
+    <p class="hero-meta">Matthew Walker &middot; George Mason University &middot; Linguistics for PreK-12 ESOL Teachers</p>
+  </div>
+</header>
+
+<main class="content">
+      <p class="center">Content Area Text Analysis </p>
+      <p class="center">Michelle Collier-Menezes, Dorothy Jones, and Matthew Walker</p>
+      <p class="center">George Mason University</p>
+      <p class="center">Linguistics for PreK-12 ESOL Teachers</p>
+      <p class="center">Sujin Kim, Ph. D.</p>
+      <p class="center">July 28, 2023</p>
+      <p class="center"><strong>Introduction &amp; Background</strong></p>
+      <p>Are the texts and textbooks used in schools today accessible to multilingual learners (MLs)? This analysis will look at a text titled The U.S. Constitution and how accessible it is for multilingual learners. The text is in a third-grade textbook by Houghton Mifflin Harcourt Publishing (HMH) Company called <em>My Book.</em> All elementary schools in Prince William County use <em>My Book</em> for English Language Arts instruction. These lessons were taught in a third-grade classroom, at Kerrydale Elementary (KDES) in Woodbridge, Virginia. </p>
+      <p>Kerrydale Elementary is a public school located in a suburban setting. KDES has a student population of 352 according to U.S. News and World Reports. The school offers PK-5 programs, and the school serves PK-5. Of 352 students, 18 are in preschool, 54 in kindergarten, 43 first graders, 46 second graders, 46 third graders, 65 fourth graders and 68 fifth graders. Students with disabilities account for 17% of the student population. Students with an economic disadvantage account for 54% of KDES students. Testing data shows 76% of students scored at or above the proficient level for math, and 65% scored at or above proficient in reading (<em>Kerrydale</em><em> Elementary in Virginia - U.S. news education</em> 2021).</p>
+      <p>Kerrydale has a ninety percent minority student enrollment rate. Hispanic students make up the largest part at sixty-four percent of the students’ body. Students from Pakistan, Iraq, China, and Vietnam account for eight percent of the student population. African American students account for twelve percent of KDES’s student population. White students make up ten percent of the KDES students. Forty-seven percent of KDES’ population is female, and fifty-three percent are male students. The number of students who are multilingual is seventy-two percent. KDES has six full-time teaching assistants, thirty full-time teachers and one full-time counselor. Kerrydale’s student-teacher ratio is twelve, which is better than that of the district. This data is based on the 2018-2019, 2019-2020 and 2020-2021 school years and retrieved from U.S. News and world reports. </p>
+      <p>In the most recent school years, Kerrydale has increased its testing scores in both reading and math. Additionally, the National ESEA Association of State Program Administrators has named Kerrydale Elementary School a Distinguished School. Kerrydale elementary is one of up to 100 schools in the country, and two schools in Virginia, being nationally recognized for extraordinary student achievement in 2022. KDES successfully closed achievement gaps between student groups.  (&quot;2022 National ESEA Distinguished School&quot;, 2023). </p>
+      <p>The U.S. Constitution created struggle and confusion for multilingual learners over the past the last two years. Choosing this text to analyze may uncover new strategies to help students comprehend the text.  Additionally, our group was able to access this text and one member of our group has taught this lesson twice. Through this analysis we hope to gain insight on why MLs are having difficulty and most importantly how instruction can be scaffolded to improve student outcomes. </p>
+      <p>Mrs. Kording is an extraordinary 3rd grade teacher. She builds strong bonds with her students and always has their best interest in mind during planning and delivery. She is not strict and allows her students to get up if they need something they can stand at their desks or use alternative seating if they wish. Classroom discussion is encouraged, and students typically stay on topic. This lesson was co-taught with a teacher for multilingual learners and co-planned with the third-grade team (see appendix C). The classroom consists of 19 students in total, 12 multilingual learners, one is dully identified special education and one newcomer.</p>
+      <p class="center"><strong>Analysis</strong><strong> &amp; Discussion</strong></p>
+      <p><strong>Language as </strong><strong>a System Overview</strong></p>
+      <p>It is important to recognize the variety of factors that contribute to the system of language and any subsequent understanding or meaning making. Language is a system of grammar, rules, and composition used for communication between humans (Rafzar &amp; Rumenapp, 2014).  Phonology, morphology, syntax, semantics, inflection, physical body language, and tone all contribute to the meaning and ultimate interpretation of any given communication. Further, all language use is situated in a culture and a context, or a discourse. Specific understanding of a subject area’s culture or context is required in order for someone to be fluent in that discourse (Scott, 2014). For example, the discourse required for customer car maintenance might require a consumer to state, “my car is ready for an oil change, don’t forget to rotate the tires, please.” This customer is fluent in the discourse of basic consumer car maintenance. The customer would know that this language would not be appropriately utilized in a mortgage-closure meeting; this would need an entirely new discourse. </p>
+      <p>These two discourse examples, the car-maintenance discourse and mortgage-closure discourse are examples of secondary discourses, which are utilized in a specific setting. A primary discourse is the language used in one’s home or culture (Scott, 2014). Further, secondary discourses can become a dominant discourse, one that is understood by all of those who participate in the given context. School is an example of a dominant discourse. The students who attend a public school will all eventually learn the school discourse, how to get from class to class, how to talk to a teacher, and what procedures to use to see the nurse or use the restroom. (Scott, 2014). </p>
+      <p>For multilingual learners, the discourse found in academic subjects provide a unique set of challenges which are not easily overcome. Academic discourses are secondary discourses and take years to learn for multilingual learners (Baker &amp; Wright, 2021). For our case, a text about the United States Constitution provides a specific set of linguistic challenges for a multilingual classroom that will be addressed in the pages that follow. </p>
+      <p><strong>Specific Challenges Faced by Multilingual Learners</strong></p>
+      <p>In general, challenges faced by multilingual learners approaching a new text vary greatly. For the subject class, it can be presumed that many multilingual learners in the subject class lack any previous encounter with the opening sections of the Constitution and will have to build their specific academic knowledge and discourse from scratch. The selected passage contains many grammatical hurdles for multilingual learners, including challenging word structures (e.g., delegates, strong national government, convention, preamble, tranquility, posterity, ordain) and figurative meanings, or idiomatic language (e.g., headquartered, balance of power). Without specific content knowledge, these content-specific words are an instant barrier for multilingual learners. This is just a sampling of the linguistic challenges faced by a class with 12 multilingual learners who will read this text, with a thorough linguistic analysis below. </p>
+      <p><strong>Readability Analysis</strong></p>
+      <p>            Our group chose the book, <em>The US Constitution, </em>written by Norman Pearl in 2006.  It is part of the third grade Houghton Mifflin Harcourt (HMH) Core 5 reading program for third grade. The HMH reading program is approved by Prince William County and is expected to be used by teachers. The text we will use for this analysis is in Module 3: Let Freedom Ring! If the program is delivered in sequential order students will read this particular text somewhere near the end of the first quarter. The selected passage contains 500 words chosen from pages 2-6. This section was selected due to the fact that in previous years it had been difficult for MLs. Three readability text analysis results are located in the Appendix. The first analysis uses the Fry Readability Test, the second uses the Linsear Write Test and the third analysis uses the Raygor Test. These readability tests use factors of word length, sentence length, and numbers of syllables in words to provide a readability level. This is based on the idea that as reading skills advance as the words get harder to decode.</p>
+      <p>The first text analysis is the Fry Readability Test which is considered to be one of the most accurate tests. This particular text uses the number of syllables per 100 words versus the number of sentences per 100 words. The analysis results are shown in the Fry Readability Test graph (Appendix D). The results show that the readability for the article selected, <em>The US Constitution,</em> is at an eighth-grade reading level. The passage includes 155 syllables per 100 words and an average sentence length of 9.5 words per 100 words. The sentence length was typical for third grade reading level, but the number of multisyllabic words increases the text to 12th-grade reading level. The two projected lines indicating the number of syllables and the number of sentences per 100 words intersect at the eighth-grade level indicator.</p>
+      <p>            The second test uses the same 500-word article titled <em>The US Constitution</em> with the Linsear Write Readability Test. The Linsear Write formula utilizes the number of syllables in a word as a gauge. Words with one or two syllables are awarded one point and words with three or more syllables are awarded two points. The formula compares this count with the number of words in a sentence per 100 words. <em>The US Constitution </em>scored a 5.6 which, according to the chart, places the readability level of this text at a sixth-grade reading level. The Linsear Write test does not include a graph containing its data.</p>
+      <p>            The final readability test uses the same 500-word text segment as the Raygor Readability Test formula. The Raygor Readability Formula compares the word length of each sentence and the number of six or more lettered words within each sentence. The average number of six lettered words or higher per 100 words is 13. The average length of the sentences is 11.1 words. The analysis chart intersection using those two data points is at the third-grade reading level. See Appendix E for test result’s graph.</p>
+      <p>            The three readability tests provide widely varying results. The Raygor Readability Test results demonstrate that the selected text within the third-grade reader is indeed at the third-grade level. The Linsear Write’s Readability Test results indicate that the same text is written at a sixth-grade reading level. Finally, the Fry Readability Test indicates that the text is written at an eighth-grade reading level. How is a teacher to clearly know which result is accurate and therefore whether this text is appropriately written for students to decode and comprehend. Teachers may choose to examine the Lexile level of this text which, according to the Capstone website (), is 620. A Lexile score of 620 is typically considered to be on level for a beginning third grader. According to a guide parents may use such as Amazon the readability level of this text is ages five to seven, which is kindergarten to second grade.  </p>
+      <p>For teachers, figuring out the readability level of a written text can be frustrating. It can vary depending on the source of information or analysis tool used. Other factors must be used for analysis and considered before a decision of appropriateness can be made. Considerations should include students’ background knowledge of United States history, the vocabulary being used and how to decode multisyllabic words. The group of teachers with whom I am working in this course believe that this text is higher than a third-grade readability level. The danger is that since this story is included in the HMH series at a third-grade level that is appropriate for most third grades to read independently toward the end of the first quarter. Many teachers trust the publishers to provide appropriate leveled texts for students. The teachers assume this text is written on a level for most third graders. The other facts such as background knowledge, vocabulary, and number of multisyllabic words makes this book hard to understand, especially for our MLs. However, appropriate support can be provided through pre-reading building of vocabulary, appropriate decoding techniques and ways of organizing information. If teachers understand these are needs to be developed before this challenging text is read all students will be more successful but for students with language or learning challenges, it will provide stepping stones toward long term success.</p>
+      <p><strong>Phonology</strong></p>
+      <p>In Chapter three, Razfar and Rumenapp (2014) define phonology as the study of how speech sounds are structured based on rules in a given language. Phonology and its rules are often how linguists explain the many differences between human languages. Phonology looks at the smallest sounds in language and uses that as a tool in decoding.</p>
+      <p>            The text used in this exercise is a Houghton Mifflin Hough (HMH) module designed for use with third grade students. In the lesson plans provided by HMH the phonemic lessons for the week have to do with three letter blends found at the beginning of the words. The lessons do not directly connect to the text because those three letter blends are not found in the specific text for this lesson, so the phonic lessons are independent of the text. That disconnect can create confusion and struggle.</p>
+      <p>            There are several reasons why MLs would struggle with the phonics skills needed to succeed with this text. First, HMH provides definitions for only five vocabulary terms within the text. Second, there are no pronunciation guidelines for any of the terms in the text. However, if students access the text online, they can hear the pronunciation of the word. Third, new phonics skills are assumed to be at mastery level for students. Students might not be aware of is the digraph /ph/ sounding like an /f/ in “Philadelphia”. Both the words “judicial” and “ensure” sound like they would have the digraph /sh/, but do not. No support is provided for students who are multilingual. </p>
+      <p>            The two additional struggles that multilingual students may encounter with phonetics are multisyllabic words and vowel teams. There is a strong possibility that students may not be familiar with either of these or are not at a proficient level. Multisyllabic words are hard for ML students because the words must be broken into many small pieces and then each piece must be solved before decoding the entire word. For example, the word “revolutionary” is broken down into rev-o-lu-tion-ary. Students need to decode those 5 syllables and then put them in order to create the word. And then they must recognize and understand the new term. There are also words like “c<em>ou</em>ntry” where students need to know that they vowel team “ou” say /u/. There are major assumptions being made about the phonetic understandings of our language which may or may not relate in any way to a ML student’s native language. </p>
+      <p><strong>Morphology</strong></p>
+      <p>Morphology is the study of a language’s morphemes or smallest meaningful units of language and the rules governing the transformation of those units for communicative purposes (Razfar &amp; Rumenapp, 2014). Morphology consists of words, affixes, intonation, and stress. Morphemes can be either free or bound. Free morphemes are traditionally known as root words. Bound phonemes are root words with either prefixes or suffixes added to change the number, meaning, or tense of the root word.</p>
+      <p>            In our text, the author shows the plural of a word by adding “-es” to the root word branch to create the word “branches” meaning more than one branch. The addition of the suffix should typically be known by 3rd grade multilingual (ML) students. However, the multiple meanings of the word “branches” might be confusing for ML students.  </p>
+      <p>            The author also includes, as examples, many words with the suffix “-tion.” The suffix “tion” when added to a root word means a process, a state, or a result. The text uses the words “constitution,” “convention,” “revolution,” and “confederation,” but no instruction is provided in how to relate the suffix use to these particular words. Students need to not only understand the suffix, but that “tion” sounds like /shun/ in order to pronounce the word correctly and recognize it. It sounds like the digraph /sh/, but it is not written that way. These nuances of our language are challenging for ML students.</p>
+      <p>            The author also includes prefixes in the study of morphology. The main prefix used is “pre” such as in the word “preamble.” Pre- is a prefix that means “before”. In our text the preamble section comes before the Bill of Rights section. It is the beginning, opening statement before the main section, the Constitution.</p>
+      <p>            Cognates are words that have the same linguistic derivation as another word and are useful in transferring understanding from a word in one language to a word in another language. The Houghton Mifflin (HMH) series presents two Spanish-English cognates to help students understand better: domestic/ domestico and convention/ convencion. Spanish speaking students who understand these terms can use them to understand the ideas in English.</p>
+      <p><strong>Lexicon</strong></p>
+      <p>A lexicon is a specific vocabulary used by a group of people when discussing a certain subject with meanings impacted by the subject matter (Rafzar &amp; Rumenapp, 2014). In this case our text uses the lexicon of history and United States government. There are terms and phrases used to describe our government: phrases such as “3 branches of government,” “3 sections of the constitution,” “judicial branch,” “executive branch” and “legislative branch” all describe parts of our government today under the terminology of branches. Phrases like “Constitutional Convention,” “Revolutionary War,” “delegates,” and “articles” are more historical terms and have a meaning contextualized by their use in the study of history and government. In addition, lexicons often use words that have one meaning in one discourse but take on a new meaning in a specific academic discourse. “Balance,” as used in “balance of power,” is an example here. In an ordinary discourse the meaning of “balance” will often conjure an image of one person’s balance or that of a scale, whereas in a social studies lexicon it can take on a new semantic meaning, referring to maintaining equal power between different parts of government. It’s difficult to comprehend words and phrases in a specific history lexicon if these terms and meanings are unfamiliar. </p>
+      <p>            One example of lexemes in our text is “America,” “American,” and “Americans.” All three words are very similar and relate to the country, the United States of America. The word “America” is the people, land and government that make up our country. “American” can mean one person who is from “America”, or it could describe something that has to do with America. “Americans” means it is more than one person from America. These are subtle differences that have a major impact on meaning and comprehension. </p>
+      <p><strong>Syntax</strong></p>
+      <p>Syntax is concerned with how languages build sentences (Razfar &amp; Rumenapp, 2014). For example, Syntax is used to determine word order. In English, our word order is subject-vowel-object or SVO. Syntax is also about the components of a sentence, including grammar components and phrase structure. There are many reasons why MLs have difficulty with this text at the sentence level (Rafzar &amp; Rumenapp, 2014). </p>
+      <p>Sentence structure and vocabulary can also lessen an MLs understanding of the text. There are sentences where the author tried to keep the text simple. For example, “My name is James Madison. I was the fourth president of the United States.” Those sentences should be easy for a third grader to read. When the author introduces historical terms and vocabulary like “preamble,” “delegates,” “amendments” and “articles,” these words make the sentences more difficult to understand. The author also includes the original preamble to the Constitution which is a 52-word sentence which contains at least eleven vocabulary terms. Many factors may contribute to MLs struggling with this text.</p>
+      <p>Verb tense varies in the text in order to communicate a historical order to events. The author changes tense with phrases like “the last [state] did so in 1790” followed by “The Constitution has three main parts” in the next section. This can cause confusion for a language learner who will have to navigate timelines between events. Modifying clauses also frequently follow an ordinary clause, such as “This branch is made up of Congress, <em>which</em> is divided into two parts.” This can present challenges for MLs as they will have to decide what is exactly made up of two parts. </p>
+      <p><strong>Semantics</strong><strong> &amp; Pragmatics</strong>	</p>
+      <p>Semantics delves into the meaning-making side of linguistics; it is the study of the connection between language and the objects referenced (Rafzar &amp; Rumenapp, 2014). Pragmatics is the how meaning is understood in specific contexts, and may often be non-literal (Pinker, 2011). Take, for example, the phrase “I’m so hungry I could eat a horse!” A semantic understanding would interpret this claim literally, that the speaker could eat an entire horse, or at least the speaker believes they can. A pragmatic meaning, as understood by someone who is familiar with the idiom, would indicate that this person is very hungry. Therein lies the challenge for multilingual learners. Learners of a new language who have acquired basic word meaning will miss the meaning of a context-based idiom like the one above (Rafzar &amp; Rumenapp, 2014). When it comes to the Constitution text used for this paper, multilingual learners may struggle with idiomatic, figurative language, such as “headquartered” and “balance of power,” among others. There are also several context-specific words and phrases, such as government terms labeling the three branches. Cultural references in the text, such as references to the American Revolutionary War, may be new concepts for multilingual learners.</p>
+      <p>       The author uses figurative language in the text which can cause MLs to have difficulty interpreting it. The book uses words that have multiple meanings. In the sentence, “There are 3 <em>branches </em>of government,” “branches” could mean tree limbs, to be a part of something larger, or to divide into one or more subdivisions. MLs need to know which definition fits the sentence in order to comprehend it. Another example is, “James Madison <em>played </em>a part in making our government.” In this sentence, MLs need to know that “played” means to take part in and not having fun.</p>
+      <p><strong>Background Information</strong></p>
+      <p> 	The social studies curriculum in Prince William County Schools spirals in the sense that each year students build their knowledge of American history. For example, in kindergarten students learn in standard K.1g about the past and present and how communities are built. With that foundation, first grade students learn standard 1.2 b in which they learn about Famous Americans George Washington and Thomas Jefferson and how they helped build a new nation.  They also learn standard 1.11 which is to recognize US symbols like the flag. In second grade students learn standard 2.4 b, c, which teach students about Benjamin Franklin and Abraham Lincoln. Third grade students learn standard 3.12 a, b, c, which involves learning about the purpose of laws, the basic forms of government, and about the basic rights of individuals. There is also standard 3.3 where students learned how Greece and Rome influenced the formation of our government.  </p>
+      <p>            If MLs entered the PWCS system after the start of kindergarten, they might have gaps in their foundation which may be confusing for them. Even with the foundation, this text expects students to have a large amount of background history on the formation of the US government, its parts, and the Constitution. Students would benefit from understanding about the Revolutionary War, 13 delegates, Constitutional Convention, Bill of Rights, 3 branches of government, and the 3 sections of the Constitution. There is a significant amount of background knowledge needed to be successful in understanding this book.</p>
+      <p><strong>Critical Discourse Analysis</strong><strong> &amp; Cultural Bias</strong></p>
+      <p>There are several connections between the text and its expressed power, ideologies, and values. The text opens as if written by President James Madison, the fourth president of the United States, who did author much of the United States Constitution. The text also opens explaining the importance of the United States Constitution. Both of these text features utilized by the author assert power. The entire text is framed as a set of values held by a singular people; especially noteworthy is the Preamble to the Constitution, which sets out six goals of the nation, including establishing justice and “promoting the general welfare.” The text also calls the Constitution a “symbol of democracy.” While the text does not explain democracy, its assertion as authoritative is clear to the reader. </p>
+      <p>While the text is certainly optimistic in its values, it is guilty of cultural biases, such as A Tale Half Told and Rose-Colored Glasses (Sadker, n.d.). The text presents itself as authoritative and values-driven, however, it omits glaring sociopolitical problems, such as the Three-Fifths Clause found in Article I of the Constitution which declares Africans as three fifths of a person, and there is no mention that women are entirely left out of the Constitution until the passage of the 19th Amendment in 1920. 	</p>
+      <p class="center"><strong>Recommendations</strong></p>
+      <p>The U.S. Constitution is something all our students need to know. However, a text of this rigor requires a great deal of scaffolding to make it accessible to multilingual learners. Building background knowledge on the branches of government and the founding fathers is vital. Multilingual learners will need support with all aspects of linguistics to fully comprehend this text. Upcoming sections will highlight some strategies and activities needed to help multilingual learners internalize the text.           </p>
+      <p><strong>Phonology Teaching Implications</strong></p>
+      <p>To set students up for success with the phonology aspects of this text, performing a contrastive analysis prior to reading gives teachers information on what words may be difficult for multilingual learners. Pre-teaching some phonic skills before reading this text will make the extensive number of multisyllabic words more accessible to MLs.  Phonics Instruction on digraphs, vowel teams, and 3 letter blends (see appendix H) will enable students to decode multisyllabic words they may encounter while reading. However, time spent providing these essential skills will cut into the time allotted in the pacing guide. Explicitly, teach text vocabulary and invite students to create a word card with a student created definition and any cognates available (see appendix G). Students can then post their word cards to a word wall for future reference. Allowing students to turn and talk about their definition will give students a chance to verbalize their definition and to hear the definitions of their peers. Finally, students will listen and celebrate how each of us says the words a little differently. Celebrating accents gives students pride and confidence when speaking (Razfar &amp; Rumenapp, 2014).</p>
+      <p><strong>Teaching Implications of Morphology</strong></p>
+      <p>For this text, students will need an understanding of morphing words. Several of the multisyllabic words in The U.S. Constitution contain affixes. Students can build an understanding of these multisyllabic words by learning the parts of the words, such as prefixes, suffixes, and root words. Using sentence strips, with words such as subheadings written on them, and then cutting the sentence strips apart, dividing roots, suffixes, and prefixes, will give students a visual of the chunking of words. Have students place the word parts into the correct column prefix, suffix, or root word to ensure they comprehend the difference. Have students place the word parts into the correct column prefix, suffix, or root word to ensure they comprehend the difference. Discuss how the prefix or suffix changes the meaning of the root word (see appendix I).</p>
+      <p>Teaching lexemes to students can be a lot of fun and incredibly beneficial. Students' vocabulary can grow substantially as they become aware of how words relate to each other (ex. medical, medicine, medic). Students enjoy working together to create “3rd grade word families.” Given a large sheet of bulletin board paper folded in fourths with base words written in each of the four sections, students work in groups to write all the lexemes they can identify for their base words. They may use technology, dictionaries, or any textbook to help them locate lexemes. Using the Think, Pair, Share model, students will discuss their findings with their peers.</p>
+      <p>Multisyllabic words can be intimidating for students as they come across these long seemingly impossible words. The Virginia Department of Education (VDOE) has a lesson plan to help students with this struggle. In this lesson, teachers provide direct instruction on how to decode multisyllabic words (see appendix D). After several demonstrations, students must work with partners to chunk up given words. At the end of the lesson, students will conduct reflection groups to share how they deciphered words. </p>
+      <p><strong>Syntax Teaching</strong><strong>,</strong><strong> Implications</strong></p>
+      <p>A challenging text like The U.S. Constitution requires extended teaching time. Stopping often to explain the meaning of the read aloud provides the scaffold students will need to comprehend the text. To keep students engaged and speaking, they should turn and talk about how they understand what the teacher has said and what information they understand or don’t understand in the text. Each section will require a thorough discussion with students showing their understanding by writing a sentence, creating a sketch, or talking with a partner. As mentioned above, explicitly teaching and practicing vocabulary in a meaningful way helps students recall their meaning.</p>
+      <p><strong>Semantics &amp; Pragmatics</strong><strong>,</strong><strong> Teaching Implications</strong></p>
+      <p>Multilingual learners find idiomatic expressions difficult. Idiomatic expressions are multisyllabic words, containing other complete words with differing meanings. Through breaking up the word and discussing all its parts and the meaning of those parts, it provides students a strategy for identifying meaning. The word <em>headquarters, </em>for example: head means body part that holds your brain, the head of the company, the head of the table. Quarters are money/coin, a place you live or work, one part of four equal sections. Students' discussion of all possible meanings empowers them with critical thinking skills and speaking practice.  The teacher will list the student's statements for them to reference. Next, they will turn and talk about which one would make the most sense with this text.  Repeat the process a few times as idiomatic expressions come up. As students become comfortable with the process invite them to do it with a partner and share their findings.</p>
+      <p class="center"><strong>Personal Reflection</strong></p>
+      <p>	I enjoyed working with Dorothy and Michelle on this paper. They are thoughtful in their work and hard-working. For my part, I completed a good part of the Analysis and Discussion section, including the following sections or subsections: Language as a System Overview, Specific Challenges Faced by Multilingual Learners, and Semantics and Pragmatics. I also completed the Critical Discourse Analysis &amp; Cultural Bias section. Further, I added chunks or paragraphs to the Syntax and Lexicon sections. Further, I helped my group clarify some APA-7 rules, such as when to hyphenate a phrase like “third grade.” In APA-7, it is hyphenated when it is used as an adjective, but not when it is used as a noun. </p>
+      <p>I have always loved being proficient at grammar but did not necessarily enjoy learning it throughout my life. This passion of mine led me to add an English Language Arts endorsement to my teaching license, which I used to teach Language Arts to seventh graders this summer at summer school. As such, providing grammar and syntax feedback to my partners was a natural fit. I spent some time time reading and making small edits and improvements to the entire paper. </p>
+      <p>	In the Semantics &amp; Pragmatics section, I enjoyed learning how to clarify semantic and pragmatic meanings. I liked thinking about how the MLs I had in my class this year would approach different idiomatic expressions or metaphors. While our text did not have many metaphors, I tried to imagine the level one and level two MLs trying to interpret phrases like “balance of power” or “headquartered.” Both phrases have complex, content-specific meanings and as such are not easily understood by any young child, regardless of their status as an ML. Trying to picture the students I know well and how they might perform in understanding something was a strategy that brought significant meaning to linguistics for me. </p>
+      <p>	I also enjoyed reviewing the early chapters of the class text, as well as Gee’s Discourse. I find the concept of Discourse very helpful in thinking about the language used in my classroom. It should come to be that a district would think of a student’s K-12 experience in social studies classes as a thirteen-year course in the “social studies discourse.” Ideally, content-specific words and phrases like “evidence,” “corroborate,” “cause and effect,” and “context” will become part of a student’s primary discourse they use in their everyday life. This is a big task, but one that is worth pursuing not just in social studies but the other contents as well. A worthy goal of our K-12 education systems would be to recognize and treat each content like its own discourse, with the hopes of each discourse becoming a primary discourse in the lives of our students. </p>
+      <p>	As I wrote my parts of this paper, I was struck by the considerable, somewhat vague overlap of different areas of linguistics. For instance, figurative language is rightly discussed in the Semantics section of the paper, but non-literal academic words in the Lexicon section could also be considered figurative. Further, our lexeme example, “America,” “American,” and “Americans,” illustrates how different suffixes to a word can significantly alter meaning, which is morphology. Despite its possible confusion, this led me to grow fonder of linguistics, as its structure is clearly intertwined in meaningful ways. The intertwining makes the different parts of linguistics more like a fascinating puzzle, waiting for someone to solve it. Overall, this paper clarified some confusion I had coming into the paper on certain parts of linguistics and cemented the knowledge of concepts I had acquired throughout this course. I will clearly be a better teacher having learned linguistics this summer and hope to offer intentional steps to my students to improve their language development and proficiency. </p>
+      <div class="references">
+      <h3>References</h3>
+      </div>
+      <p>Flor Ada, A., Beers, K., Campy, I., Carroll, J., Clemens, N., Cunningham, A., &amp; Hougen, M.C.
+(2020). <em>HMH into reading. </em>Houghton Mifflin Harcourt. </p>
+      <p>FloatingUniversity. (2011). <em>Steven Pinker on language pragmatics</em>. <em>YouTube</em>. Retrieved from .</p>
+      <blockquote><p><em>“</em><em>Kerrydale</em><em> Elementary in Virginia - U.S. news education.”</em> U.S. and World Report. (2023).  </p></blockquote>
+      <p class="ref">Pearl, N. (2006). <em>The U.S. Constitution.</em> Houghton Mifflin Harcourt.  </p>
+      <p>PWCS. (2023, July 3). <em>“2022 national ESEA Distinguished School.”</em> Kerrydale Elementary School. </p>
+      <p class="ref">Razfar, A., &amp; Rumenapp, J. C. (2014a). <em>Applying linguistics in the classroom: A sociocultural approach</em>. Routledge.</p>
+      <p class="ref">Sadker, D. (n.d.). <em>Some practical ideas for confronting curricular bias</em>. David M. Sadker, Ed.D.. </p>
+      <p>VDOE. (2022). <em>Comprehensive literacy: English instructional plans</em>. Virginia Department of Education. </p>
+      <p class="center"><strong>Appendix A</strong></p>
+      <p class="center"><strong><em>The US Constitution</em></strong><strong>, HMH </strong></p>
+      <p class="center"><strong>Appendix B</strong> </p>
+      <p class="center"><strong>Supports for English Learners from Textbook</strong></p>
+      <p class="center">Appendix C</p>
+      <p class="center">Lesson Plan for the U.S. Constitution for HMH.</p>
+      <p class="center"> Appendix D </p>
+      <p class="center">Morphology Lesson</p>
+      <p><strong>English Instructional Plan – Decoding Multisyllabic </strong><strong>W</strong><strong>ords and Context Clues: Grade 3</strong></p>
+      <p>Primary Strand: Reading - Word Knowledge and Vocabulary 3.3, 3.4</p>
+      <p>● understand the need to apply word-analysis skills to decode words</p>
+      <p>● understand that roots, affixes, synonyms, and antonyms can be used to determine the meaning of unfamiliar words.</p>
+      <p>● understand that the content and structure of a sentence, paragraph, or reading selection can be used to help demonstrate the meaning of unfamiliar words</p>
+      <p>Sentence Starters:</p>
+      <p>● As I was reading, I came across a word I do not know how to pronounce. Do I recognize any part of the word? Can I break the word into syllables?</p>
+      <p>● To help me understand ___ (unfamiliar word) I will reread the text</p>
+      <p>● I notice the following prefix or suffix that I already know in the unknown word.</p>
+      <p>Materials</p>
+      <p>1. Anchor chart with strategies when decoding a word (example below)</p>
+      <p>2. Decoding graphic organizer (example below) or scissors, highlighter, highlighter tape/wax sticks for chunking words</p>
+      <p>3. List of words to help student learn how to decode (examples below)</p>
+      <p>4. Using context clues graphic organizer (example below)</p>
+      <p>5. Suggested texts or text of choice including fiction or nonfiction</p>
+      <p>o Baloney (Henry B.) by Jon Sciezka and Lane Smith</p>
+      <p>▪ paragraph 3: ironically o A School Trip to the Aquarium ()</p>
+      <p>1. Think-Pair-Share. Ask students, “Think about a time you came across a word you either did not know how to pronounce or you were unsure of the meaning as you were reading. What did you do? How did you figure out unfamiliar word(s)?” Take a moment to reflect and then share your experiences with a partner. Listen for similarities and differences. Optional introduction: Post a piece of text with a “tricky” (possibly unknown) word underlined. Use the same questions as above to discuss the text and strategies for figuring out the unknown word.</p>
+      <p>2. Direct instruction: Remind students that all readers come across words they cannot pronounce and/or understand. When this happens, good readers must go into their “strategy tool bags” to figure out the unfamiliar word. Students must be taught specific strategies for both decoding and comprehending the unknown word. The first step is often figuring out how to pronounce an unknown word; therefore, the first strategies readers should use involve chunking and/or decoding strategies. Creating an anchor chart may help provide a visual for students about decoding/chunking strategies. It is important to note this instruction may require several days and an anchor chart should be created as concepts are presented. Furthermore, students will have greater understanding and ownership if they help to create the anchor chart. Teachers should pace the lesson based on their students’ needs, attention spans, and abilities.</p>
+      <p>3. There are multiple ways a student can decode an unknown word. See the anchor chart below for several decoding strategies. The teacher will want to model using a think-aloud each of the decoding strategies. For example:</p>
+      <p>● look for familiar chunks: exercising</p>
+      <p>● look for vowel patterns -exercising</p>
+      <p>● flip the sounds -exercising - Does the i make a long or short vowel sound? Does the c make a hard or soft sound?</p>
+      <p>● look for common endings- exercising</p>
+      <p>● prefix/suffix patterns within words- exercising (ex = “off”), exercise (root)</p>
+      <p>● syllable chunking- ex-er-cis-ing</p>
+      <p>4. Further syllable instruction will support students’ decoding abilities. Background: The English language is based on syllable chunks focused around vowel units. Syllables provide a powerful means for readers to determine how to pronounce a word. A syllable is a word part including a vowel sound. A word could have one or multiple syllables. Breaking down words into syllable chunks often helps in pronunciation and sometimes meaning. There are different types of syllables:</p>
+      <p>o Open syllable, Closed syllable, Vowel-consonant-e, Vowel-r syllable, Vowel pair syllable, Vowel-Consonant-Consonant-Vowel.... </p>
+      <p>5. Model these decoding, chunking, and syllable strategies with many words. Consider using a graphic organizer or cut the chunks or syllables of the word apart to help with visualization. One could also use highlighters, highlighter tape, or wax sticks to chunk words. Students should be encouraged to be flexible in their chunking/decoding strategies. An over-reliance on one chunking strategy often leads to errors.</p>
+      <p>6. Have students work with a partner or independently to decode words using the graphic organizer below. (Optional: have students find their own words within their independent reading texts).</p>
+      <p>7. After students have decoded words, direct instruction must be focused on identifying the meaning of the word using context clues. Often when trying to figure out the unfamiliar word, readers use the text around the word to help them infer meaning. Text-dependent vocabulary can be inferred by reading it in context.</p>
+      <p>6. Direct instruction: “After we determine how to pronounce a word, sometimes we understand the meaning. Other times, we need additional strategies to figure out the unknown word’s meaning. The dictionary or glossary are great resources to help us determine meaning; however, they are not always available and/or could take a long time to use. Good readers typically use context clues, the text around the unknown word, to help determine the meaning.”</p>
+      <p>Assessment (Diagnostic, Formative, Summative)</p>
+      <p>● Think-Pair-Share: Have students independently think about how they decoded the word and determined the meaning. Next, they will pair with a partner and share their word, how they decoded it and its meaning.</p>
+      <p>● Give students a copy of the graphic organizer, give students an unfamiliar word in text or have them pick their own text example. Complete the graphic organizer to analyze decoding and comprehension.</p>
+      <p>● During independent reading, have students select unfamiliar words to decode and determine the meaning. Students can create their own graphic organizers to identify newly learned words in a reading journal.</p>
+      <p class="center">Appendix E</p>
+      <p class="center">Fry Readability Graph</p>
+      <p class="center">Appendix F</p>
+      <p class="center">Raygor Readability Graph</p>
+      <p class="center">Appendix G</p>
+      <p class="center">Student made vocabulary cards.</p>
+      <p class="center">Appendix H</p>
+      <p class="center">Vowel Teams Lesson</p>
+      <p class="center">English Instructional Plan – Syllable Generalizations: Vowel Teams Grades 2-3</p>
+      <p class="center">3.9j Use correct spelling including irregular plurals.</p>
+      <p class="center">Academic Background/Language: Students should know that words can be broken into segments of sounds called syllables. Syllables must include a vowel and usually include consonants. Students should be able to identify and explain open, closed, and VCE syllables.</p>
+      <p class="center"><strong>Materials</strong></p>
+      <p class="center">● Vowel team sort for teacher</p>
+      <p class="center">● Vowel team word cards that can be cut apart – 2 of each word.</p>
+      <p class="center">● Scissors and Tape</p>
+      <p class="center">● Reading Passage – 1 per student and a large copy for the teacher</p>
+      <p class="center">● Highlighters, markers, or crayons</p>
+      <p class="center">● Optional – vowel team sort of individual students</p>
+      <p class="center">Student/Teacher Actions: What should students be doing? What should teachers be doing?</p>
+      <p class="center">1. Tell students that you will be sorting words into groups based on a pattern and they should try to figure out how you are sorting them. Model sorting the words by vowel teams. Make sure to read the words out loud so students can hear the vowel sounds, not just see the spelling patterns. Allow students to guess after you have sorted about half of</p>
+      <p class="center">the words. If students do not see the pattern, explain it to them. Lead a discussion about vowel teams (two vowels together making the long sound). Students should notice that vowel teams can be found in single syllable or multi-syllable words. When students are ready, allow them to help you place the remaining cards into the correct groups. This sort can be used as an anchor chart for vowel teams.</p>
+      <p class="center">2. Tell the students that now they will get the opportunity to identify syllables with vowel teams. Demonstrate cutting a word such as frighten into syllables and identifying the vowel team. Pass out word cards and tell students to cut the word apart where they think the syllables should be split. Tell them to find their partner with the same word to see if they split their word the same way. Tell students they should be able to identify the vowel team in their word and explain how they knew how to split the word into the correct syllable.</p>
+      <p class="center">3. After students have found their partners and agreed that they are correct, have them tape 1 set of the correctly cut word onto the vowel team anchor chart. When most students are finished, go over the chart together and discuss what vowel teams are present and how the students knew how to split the words. You may want students to use hand signals to show if they agree or disagree with how the words are split for whole class participation.</p>
+      <p class="center">4. Lead a class discussion about how readers can use vowel teams to decode some unknown words. Then give students practice decoding nonsense words with vowel teams such as “cheadpit” and “mepglait” so that they must use this strategy to decode the words.</p>
+      <p class="center">Strategies for Differentiation</p>
+      <p class="center">● Do this lesson in small group first if most students in the class do not have a firm concept of other common long vowels.</p>
+      <p class="center">● Use sentence starters such as: I see the vowel team _______ in the word _____________. I will divide this word into syllables between the letters ________ and ________ because ____________.</p>
+      <p class="center">.</p>
+      <p class="center"><strong>Vowel Team Open Sort</strong></p>
+      <p class="center">goat season soap paintbrush</p>
+      <p class="center">lightning right mistreats oatmeal</p>
+      <p class="center">upload remain sight daydream</p>
+      <p class="center">Appendix I</p>
+      <p class="center">Prefix, Root Word, Suffix</p>
+</main>
+
+<footer class="paper-footer">
+  Matthew Walker &middot; George Mason University
+</footer>
+
 </body>
 </html>
