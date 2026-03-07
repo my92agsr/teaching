@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Walker | Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f4f5f9;min-height:100vh;padding:40px 20px}
+.container{max-width:800px;margin:0 auto}
+.header{text-align:center;margin-bottom:40px}
+.header .label{font-size:10px;font-weight:800;letter-spacing:2.5px;color:#C4880D;text-transform:uppercase;margin-bottom:6px}
+.header h1{font-size:28px;font-weight:800;color:#1a1a2e;margin-bottom:6px}
+.header p{font-size:14px;color:#888;max-width:500px;margin:0 auto;line-height:1.6}
+.back{display:inline-block;font-size:13px;color:#888;text-decoration:none;margin-bottom:24px;transition:color 0.2s}
+.back:hover{color:#C4880D}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+a.card{display:block;text-decoration:none;color:inherit;background:#fff;border-radius:14px;border:1px solid #e8e8e8;overflow:hidden;transition:all 0.25s ease;position:relative}
+a.card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08);border-color:#ddd}
+.card-preview{height:180px;overflow:hidden;position:relative;border-bottom:1px solid #eee}
+.card-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:top left;pointer-events:none;border:none}
+.card-preview .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(255,255,255,0.9));z-index:1}
+.card-body{padding:16px 20px}
+.card-body .tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:8px}
+.card-body h2{font-size:17px;font-weight:800;color:#1a1a2e;margin-bottom:4px}
+.card-body p{font-size:12px;color:#888;line-height:1.5}
+.card-body .arrow{position:absolute;bottom:16px;right:20px;font-size:18px;color:#ccc;transition:all 0.2s}
+a.card:hover .arrow{color:#C4880D;transform:translateX(3px)}
+.footer{text-align:center;margin-top:40px;font-size:11px;color:#ccc}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="/">&larr; Back to Teaching Tools</a>
+  <div class="header">
+    <p class="label">mattwalker.education</p>
+    <h1>Interview Prep</h1>
+    <p>Philosophy frameworks, practice questions, and flashcards for teaching interviews</p>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="/tools/interview-prep.html">
+      <div class="card-preview">
+        <iframe src="/tools/interview-prep.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#B85C3818;color:#B85C38">Interview Prep</span>
+        <h2>Teaching Philosophy Framework</h2>
+        <p>Meaning-making framework synthesized from 17 graduate papers &mdash; theorist connections, classroom evidence &amp; interview-ready quotes</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a class="card" href="/tools/interview-prep-2.html">
+      <div class="card-preview">
+        <iframe src="/tools/interview-prep-2.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#2a6b6b18;color:#2a6b6b">Interview Prep</span>
+        <h2>Secondary Interview Questions</h2>
+        <p>35 additional questions answered through the meaning-making framework &mdash; behavior, DEI, collaboration, classroom culture &amp; more</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a class="card" href="/tools/interview_flashcards.html">
+      <div class="card-preview">
+        <iframe src="/tools/interview_flashcards.html" tabindex="-1" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <span class="tag" style="background:#0a162818;color:#1B4F72">Flashcards</span>
+        <h2>Interview Prep Flashcards</h2>
+        <p>27 flip cards with condensed talking points for every interview question &mdash; tap to flip, swipe to navigate</p>
+        <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+  </div>
+
+  <p class="footer">Interview preparation resources</p>
+</div>
+<script src="/auth.js"></script>
+</body>
+</html>
