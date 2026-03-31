@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screens Should Earn Their Place in Virginia Classrooms | Third Period Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --forest-light: #e8f0eb;
+            --cream: #faf8f5;
+            --warm-gray: #6b6b6b;
+            --text: #1a1a1a;
+            --border: #e0ddd8;
+            --red: #c53030;
+            --red-light: #fff5f5;
+            --yellow: #b7791f;
+            --yellow-light: #fffff0;
+            --green: #276749;
+            --green-light: #f0fff4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            background: var(--forest);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header .org {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        section { margin-bottom: 2.5rem; }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest-light);
+        }
+
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        strong { font-weight: 600; }
+
+        .executive-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--forest);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .executive-summary h2 {
+            border: none;
+            padding-bottom: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .three-claims { margin-top: 1.25rem; }
+
+        .claim {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .claim-number {
+            background: var(--forest);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .claim-text { flex: 1; }
+
+        .core-claim {
+            background: var(--forest-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .core-claim p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .effect-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.25rem;
+        }
+
+        .effect-weak { background: var(--red-light); color: var(--red); }
+        .effect-moderate { background: var(--yellow-light); color: var(--yellow); }
+        .effect-strong { background: var(--green-light); color: var(--green); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--forest);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) { background: white; }
+        tr:last-child td { border-bottom: none; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        .stat-number.negative { color: var(--red); }
+        .stat-number.positive { color: var(--green); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-top: 0.25rem;
+        }
+
+        ul { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .callout {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left: 4px solid var(--yellow);
+            background: var(--yellow-light);
+        }
+
+        .callout.insight {
+            border-left: 4px solid var(--forest);
+        }
+
+        .contradiction {
+            background: var(--yellow-light);
+            border: 1px solid #d69e2e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .contradiction h3 {
+            color: var(--yellow);
+            margin-top: 0;
+        }
+
+        .pro-edtech {
+            background: var(--green-light);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pro-edtech h3 {
+            color: var(--green);
+            margin-top: 0;
+        }
+
+        .framework {
+            background: var(--forest);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .framework h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .framework-question {
+            margin-bottom: 1.25rem;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .framework-question:last-child { margin-bottom: 0; }
+
+        .framework-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: white;
+            color: var(--forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .framework-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .framework-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .framework-standard {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        .stakeholder-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stakeholder-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .stakeholder-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .stakeholder-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .stakeholder-card li {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .precedent-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .precedent-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .precedent-flag {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .precedent-content h4 {
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .precedent-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .conclusion p:last-child { margin-bottom: 0; }
+
+        .conclusion .tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            opacity: 1;
+        }
+
+        .sources {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .sources h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .sources p {
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            color: var(--warm-gray);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer .version {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { font-size: 11pt; background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header { padding: 1.5rem; }
+            .framework, .conclusion { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .meta { flex-direction: column; gap: 0.5rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .precedent-card { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="org">Third Period Labs</div>
+        <div class="tagline">Teacher-led Education Policy</div>
+        <h1>Screens Should Earn Their Place in Virginia Classrooms</h1>
+        <p class="subtitle">Why Virginia Should Adopt a Purpose-First Standard for Classroom Technology</p>
+        <div class="meta">
+            <span>Policy Brief #001</span>
+            <span>March 2026</span>
+            <span>EdTech Analysis</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Virginia should stop treating educational technology as presumptively beneficial.</p>
+
+            <p>The evidence does not support a blanket rejection of digital tools. But it does support a strong presumption against indiscriminate device use, especially when screens displace deep reading, handwriting, sustained discussion, and teacher-guided instruction.</p>
+
+            <div class="three-claims">
+                <div class="claim">
+                    <div class="claim-number">1</div>
+                    <div class="claim-text"><strong>Broad 1:1 device initiatives produce weak academic gains.</strong> A major meta-analysis found an overall achievement effect around <span class="effect-badge effect-weak">d = 0.16</span> for one-to-one laptop programs. That is not catastrophic harm, but it is also not evidence for a high-yield strategy.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">2</div>
+                    <div class="claim-text"><strong>Some core classroom activities suffer on screens.</strong> Meta-analyses find consistent comprehension advantages for paper reading over screen reading, with larger penalties for expository text. Electronic note-taking is associated with lower outcomes.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">3</div>
+                    <div class="claim-text"><strong>The evidence is highly conditional.</strong> Structured tools that provide guided practice, feedback, or adaptive tutoring show moderate positive effects (CAI <span class="effect-badge effect-moderate">d = 0.47</span>, ITS <span class="effect-badge effect-moderate">d = 0.48</span>). The question is "generic devices or evidence-based tools."</div>
+                </div>
+            </div>
+
+            <div class="core-claim">
+                <p><strong>The policy direction:</strong> Virginia should adopt a purpose-first standard. Digital tools should be used only when they clearly support specific learning outcomes better than lower-tech alternatives.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Core Claim</h2>
+            <p>Virginia does not need an anti-technology crusade. It needs a <strong>higher burden of proof</strong>.</p>
+
+            <p>For too long, educational technology has been treated as a modernization strategy instead of an instructional strategy. That is backwards. Schools should not begin with the question, "How do we get more devices into more classrooms?" They should begin with the question, "What learning problem are we trying to solve, and what evidence suggests this tool will solve it?"</p>
+
+            <div class="callout insight">
+                <p><strong>The policy problem in Virginia is not whether some digital tools work.</strong> Many do. The problem is that schools have often treated device access itself as the intervention.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>What the Evidence Says About 1:1 Devices</h2>
+            <p>The research on broad 1:1 laptop initiatives is much less impressive than the rhetoric that has surrounded them.</p>
+
+            <p>A major meta-analysis found an overall achievement effect around <span class="effect-badge effect-weak">d = 0.16</span>. Hattie's synthesis lands in the same place.</p>
+
+            <p>That is not catastrophic harm. But it is also not evidence for a high-yield strategy, especially once districts account for hardware costs, software subscriptions, management burdens, teacher training time, and the opportunity cost of not investing in more effective interventions.</p>
+
+            <div class="core-claim">
+                <p><strong>The sharper conclusion:</strong> General device provision is a weak intervention.</p>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0.16</div>
+                    <div class="stat-label">1:1 Laptops (General)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number positive">0.47</div>
+                    <div class="stat-label">Computer-Assisted Instruction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number positive">0.48</div>
+                    <div class="stat-label">Intelligent Tutoring Systems</div>
+                </div>
+            </div>
+
+            <p>When technology is tightly linked to a specific learning function, results look better. The question is not "technology or no technology," but "generic devices or evidence-based tools."</p>
+        </section>
+
+        <section>
+            <h2>Screens, Reading, and Cognitive Friction</h2>
+            <p>Any serious Virginia literacy agenda has to reckon with a now substantial literature on screen reading.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">-0.25</div>
+                    <div class="stat-label">Overall Screen Reading Penalty</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">-0.32</div>
+                    <div class="stat-label">Expository Text Penalty</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">-0.04</div>
+                    <div class="stat-label">Narrative Text (Near Zero)</div>
+                </div>
+            </div>
+
+            <p><strong>Expository reading is the language of civics, science, history, and technical subjects.</strong> If students are doing precisely the kind of reading that requires sustained attention, conceptual integration, and rereading, the evidence suggests print remains the safer default medium.</p>
+
+            <div class="callout warning">
+                <p>This does not mean screens should disappear from literacy instruction. It does mean Virginia should stop assuming that digital reading is a neutral substitute for paper.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Handwriting, Note-Taking, and Memory</h2>
+            <p>A meta-analysis found that "using electronic notetaking methods reduced measured outcomes," with an average effect reported as <span class="effect-badge effect-weak">r = -0.142</span>.</p>
+
+            <p>That effect is not enormous, but it is large enough to matter at scale. Handwritten note-taking forces selection, summarization, and encoding, while typing can invite verbatim capture without equivalent processing.</p>
+
+            <p><strong>The policy implication:</strong> Virginia should be wary of defaulting to typed note-taking in classrooms where note-taking is meant to deepen listening and retention.</p>
+        </section>
+
+        <section>
+            <h2>Attention Is Not a Side Issue</h2>
+            <p>The strongest policy argument against indiscriminate classroom technology use is not nostalgia. <strong>It is attention.</strong></p>
+
+            <ul>
+                <li>Nearly <strong>one in three students</strong> said classmates are distracted by devices in most or every math lesson</li>
+                <li><strong>59%</strong> said their attention was diverted by others using devices in at least some lessons</li>
+                <li>Students distracted by peers' devices scored approximately <strong>15 points lower</strong> in mathematics</li>
+            </ul>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number positive">+20</div>
+                    <div class="stat-label">1-5 hrs/day learning-focused use</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">-9</div>
+                    <div class="stat-label">>1 hr/day leisure use at school</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">-66</div>
+                    <div class="stat-label">6+ hrs daily (vs non-users)</div>
+                </div>
+            </div>
+
+            <p>A widely cited classroom study found that students who multitasked on laptops performed worse, and <strong>nearby students were also harmed simply by being seated within view of those screens.</strong></p>
+
+            <div class="core-claim">
+                <p>The issue is not whether a device can display educational content. Of course it can. The issue is whether an always-open device environment fragments attention so thoroughly that the instructional gains never fully materialize.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>What Pro-EdTech Research Gets Right</h2>
+
+            <div class="pro-edtech">
+                <h3>Technology can help when it:</h3>
+                <ul style="margin-bottom: 0;">
+                    <li>Delivers immediate feedback</li>
+                    <li>Supports guided practice</li>
+                    <li>Provides adaptive tutoring</li>
+                    <li>Expands accessibility for students with disabilities</li>
+                    <li>Gives students access to materials they otherwise would not have</li>
+                </ul>
+            </div>
+
+            <p>That is why Hattie's larger effects cluster around computer-assisted instruction and intelligent tutoring systems, not generic laptop access.</p>
+
+            <p>There is also a legitimate equity argument, though it is often overstated. A meta-analysis focused on less-advantaged students found that the strongest benefits came from computer-assisted learning and behavioral interventions rather than simple access to devices.</p>
+
+            <p><strong>The strong pro-edtech argument is real, but narrow:</strong> technology can be worthwhile when it is targeted, constrained, and tied to a clear mechanism of learning.</p>
+
+            <p><strong>The weak pro-edtech argument</strong> is the one schools too often default to: "students need devices because the future is digital." That claim is too vague to justify expensive, cognitively intrusive daily practice in classrooms.</p>
+        </section>
+
+        <section>
+            <h2>Virginia's Policy Contradiction</h2>
+            <p>In July 2024, Governor Youngkin issued Executive Order 33, directing "cell phone-free education" and requiring school divisions to adopt policies by January 1, 2025.</p>
+
+            <p><strong>That matters because Virginia has already accepted a core premise of the attention argument:</strong> schools cannot treat distraction as a trivial side issue.</p>
+
+            <div class="contradiction">
+                <h3>Virginia Has Created a Policy Contradiction</h3>
+                <p>On one hand, the state recognizes that unmanaged devices can impair focus. On the other, it still largely funds and governs school technology as if access itself were presumptively beneficial.</p>
+            </div>
+
+            <p>That contradiction is especially hard to defend given student performance:</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">31%</div>
+                    <div class="stat-label">Grade 4 Reading (NAEP)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">29%</div>
+                    <div class="stat-label">Grade 8 Reading (NAEP)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">29%</div>
+                    <div class="stat-label">Grade 8 Math (NAEP)</div>
+                </div>
+            </div>
+
+            <p>Virginia's 2024 grade 4 reading proficiency was <strong>73% on the state system versus 31% on NAEP</strong>. Virginia's recent effort to raise cut scores is explicitly framed as a move toward more honest alignment.</p>
+
+            <div class="core-claim">
+                <p><strong>If Virginia is serious about higher standards,</strong> then it should be especially cautious about instructional routines that may undermine reading comprehension, sustained attention, and core academic performance.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>International Precedents</h2>
+
+            <div class="precedent-grid">
+                <div class="precedent-card">
+                    <div class="precedent-flag">🇸🇪</div>
+                    <div class="precedent-content">
+                        <h4>Sweden</h4>
+                        <p>Government has moved toward more printed materials and less screen exposure, including public investment in textbooks and teacher guides.</p>
+                    </div>
+                </div>
+                <div class="precedent-card">
+                    <div class="precedent-flag">🇳🇱</div>
+                    <div class="precedent-content">
+                        <h4>Netherlands</h4>
+                        <p>75% of high schools saw better concentration after phone restrictions. ~2/3 saw improved social climate. (Self-reports, not causal estimates.)</p>
+                    </div>
+                </div>
+                <div class="precedent-card">
+                    <div class="precedent-flag">🇬🇧</div>
+                    <div class="precedent-content">
+                        <h4>England</h4>
+                        <p>Phone bans improved test performance for lower-achieving students, with estimated gains around 14% of a standard deviation.</p>
+                    </div>
+                </div>
+                <div class="precedent-card">
+                    <div class="precedent-flag">🌍</div>
+                    <div class="precedent-content">
+                        <h4>Global (UNESCO)</h4>
+                        <p>114 education systems (58%) now have phone bans. Position: technology only "when it clearly supports learning outcomes."</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>These examples do not prove that every low-tech policy works. They do show that governments are increasingly treating classroom technology as a question of instructional quality and cognitive conditions, not just convenience.</p>
+        </section>
+
+        <section>
+            <h2>What Virginia Should Prioritize Instead</h2>
+            <p>Compared with generic device provision (d = 0.16), several interventions have stronger evidence:</p>
+
+            <table>
+                <tr>
+                    <th>Intervention</th>
+                    <th>Effect Size</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Direct instruction</td>
+                    <td><span class="effect-badge effect-strong">d = 0.60</span></td>
+                    <td>Well-defined instructional model</td>
+                </tr>
+                <tr>
+                    <td>Teacher-student relationships</td>
+                    <td><span class="effect-badge effect-strong">d = 0.53-0.72</span></td>
+                    <td>Correlational, may overstate causal</td>
+                </tr>
+                <tr>
+                    <td>Intelligent tutoring systems</td>
+                    <td><span class="effect-badge effect-moderate">d = 0.48</span></td>
+                    <td>Structured, adaptive software</td>
+                </tr>
+                <tr>
+                    <td>Computer-assisted instruction</td>
+                    <td><span class="effect-badge effect-moderate">d = 0.47</span></td>
+                    <td>Guided practice with feedback</td>
+                </tr>
+                <tr>
+                    <td>High-dosage tutoring</td>
+                    <td><span class="effect-badge effect-moderate">d = 0.37</span></td>
+                    <td>Randomized trials, high validity</td>
+                </tr>
+                <tr>
+                    <td>1:1 laptops</td>
+                    <td><span class="effect-badge effect-weak">d = 0.16</span></td>
+                    <td>General device provision</td>
+                </tr>
+            </table>
+
+            <p>Effect sizes from different meta-analyses are not perfectly comparable. The numbers are useful as rough orientation, not as a precise ranking.</p>
+
+            <p><strong>The point is not that Virginia should blindly chase the biggest effect size.</strong> It is that if the Commonwealth is deciding where to place scarce dollars and scarce instructional time, it should privilege interventions with stronger evidence before defaulting to broad device-heavy models.</p>
+        </section>
+
+        <div class="framework">
+            <h2>The Purpose-First Framework</h2>
+            <p style="margin-bottom: 1.5rem;">Every major technology adoption should answer five questions:</p>
+
+            <div class="framework-question">
+                <div class="framework-number">1</div>
+                <span class="framework-title">Learning Goal</span>
+                <span class="framework-desc">What exact learning problem is this tool solving?</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">2</div>
+                <span class="framework-title">Evidence Base</span>
+                <span class="framework-desc">What evidence shows this type of tool works in settings similar to ours?</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">3</div>
+                <span class="framework-title">Displacement Cost</span>
+                <span class="framework-desc">What high-value classroom activities will it replace, and what are the tradeoffs?</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">4</div>
+                <span class="framework-title">Attention Safeguards</span>
+                <span class="framework-desc">What safeguards will protect student attention and prevent leakage into leisure use?</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">5</div>
+                <span class="framework-title">Measurement and Exit Ramps</span>
+                <span class="framework-desc">What outcomes will we measure, and what happens if those outcomes do not improve?</span>
+            </div>
+
+            <div class="framework-standard">
+                That is not a ban. It is simply the policy equivalent of asking technology to show its work.
+            </div>
+        </div>
+
+        <section>
+            <h2>Policy Recommendations</h2>
+
+            <div class="stakeholder-grid">
+                <div class="stakeholder-card">
+                    <h4>For Legislators</h4>
+                    <ul>
+                        <li>Require VDOE to report edtech spending alongside student outcome data</li>
+                        <li>Condition technology grants on evidence-based implementation plans</li>
+                        <li>Fund an independent evaluation of Virginia's edtech ROI</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For School Boards</h4>
+                    <ul>
+                        <li>Adopt purpose-first technology policies at the division level</li>
+                        <li>Request data on device usage patterns and achievement correlation</li>
+                        <li>Question default assumptions about technology in learning</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Administrators</h4>
+                    <ul>
+                        <li>Audit current edtech contracts and utilization</li>
+                        <li>Protect instructional time from technology-related distraction</li>
+                        <li>Prioritize PD on high-impact instruction over device training</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Teachers</h4>
+                    <ul>
+                        <li>Advocate for paper-based options when research supports them</li>
+                        <li>Document instructional time lost to device management</li>
+                        <li>Share what is working (and what is not) with leadership</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Parents</h4>
+                    <ul>
+                        <li>Ask how technology is being used in your child's classroom</li>
+                        <li>Request information on your school's edtech spending</li>
+                        <li>Support phone-free and device-limited learning environments</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="conclusion">
+            <h2>Conclusion</h2>
+            <p>Virginia should stop treating educational technology as presumptively beneficial.</p>
+            <p>The evidence does not support a blanket rejection of digital tools. But it does support a strong presumption against indiscriminate device use, especially when screens displace deep reading, handwriting, sustained discussion, and teacher-guided instruction.</p>
+            <p>A school system serious about literacy, attention, and honest standards should not ask whether a device is available. It should ask whether the device has earned its place.</p>
+            <div class="tagline">That is the purpose-first standard. And Virginia is ready for it.</div>
+        </div>
+
+        <div class="sources">
+            <h2>Sources</h2>
+            <p>Delgado, P., et al. (2018). Don't throw away your printed books: A meta-analysis on the effects of reading media on reading comprehension. <em>Educational Research Review</em>, 25, 23-38.</p>
+            <p>Hattie, J. (2023). Visible Learning MetaX. Corwin.</p>
+            <p>Nickow, A., Oreopoulos, P., & Quan, V. (2020). The Impressive Effects of Tutoring on PreK-12 Learning. NBER Working Paper 27476.</p>
+            <p>OECD. (2023). PISA 2022 Results (Volume I): The State of Learning and Equity in Education.</p>
+            <p>OECD. (2024). Managing screen time: How schools and parents can help learners stay focused.</p>
+            <p>Sana, F., Weston, T., & Cepeda, N.J. (2013). Laptop multitasking hinders classroom learning for both users and nearby peers. <em>Computers & Education</em>, 62, 24-31.</p>
+            <p>Stockard, J., et al. (2018). The effectiveness of direct instruction curricula: A meta-analysis. <em>Review of Educational Research</em>, 88(4), 479-507.</p>
+            <p>UNESCO. (2023). Global Education Monitoring Report: Technology in Education.</p>
+            <p>Virginia Department of Education. (2024). Draft Guidance for Cell Phone-Free Education.</p>
+            <p>Zheng, B., et al. (2016). Learning in one-to-one laptop environments: A meta-analysis. <em>Review of Educational Research</em>, 86(4), 1052-1084.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Third Period Labs</strong><br>
+        Teacher-led. Evidence-first. Virginia-focused.</p>
+        <p class="version">Document Version 4.0 | March 2026</p>
+    </footer>
+</body>
+</html>
