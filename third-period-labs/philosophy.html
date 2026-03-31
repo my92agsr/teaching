@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Philosophy | Third Period Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --forest-light: #e8f0eb;
+            --cream: #faf8f5;
+            --warm-gray: #6b6b6b;
+            --text: #1a1a1a;
+            --border: #e0ddd8;
+            --red: #c53030;
+            --red-light: #fff5f5;
+            --yellow: #b7791f;
+            --yellow-light: #fffff0;
+            --green: #276749;
+            --green-light: #f0fff4;
+            --blue: #2b6cb0;
+            --blue-light: #ebf8ff;
+            --purple: #6b46c1;
+            --purple-light: #faf5ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            background: var(--forest);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header .org {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        section { margin-bottom: 3rem; }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest-light);
+        }
+
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        strong { font-weight: 600; }
+
+        .premise {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--forest);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .premise p {
+            font-size: 1.15rem;
+            margin-bottom: 1rem;
+        }
+
+        .premise p:last-child { margin-bottom: 0; }
+
+        .crisis-intro {
+            background: var(--forest);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .crisis-intro h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+            font-size: 1.75rem;
+        }
+
+        .crisis-intro p {
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .crisis-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-top: 4px solid var(--forest);
+        }
+
+        .crisis-card.literacy { border-top-color: var(--blue); }
+        .crisis-card.executive { border-top-color: var(--purple); }
+        .crisis-card.epistemic { border-top-color: var(--yellow); }
+
+        .crisis-card h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .crisis-card.literacy h3 { color: var(--blue); }
+        .crisis-card.executive h3 { color: var(--purple); }
+        .crisis-card.epistemic h3 { color: var(--yellow); }
+
+        .crisis-card p {
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .crisis-card p:last-child { margin-bottom: 0; }
+
+        .crisis-symptoms {
+            background: var(--cream);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .crisis-symptoms strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--warm-gray);
+        }
+
+        .crisis-symptoms ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .crisis-symptoms li {
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+        }
+
+        .connection-box {
+            background: var(--forest-light);
+            border: 1px solid var(--forest);
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+        }
+
+        .connection-box h3 {
+            color: var(--forest);
+            margin-top: 0;
+        }
+
+        .belief-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .belief-card h3 {
+            margin-top: 0;
+            color: var(--forest);
+            font-size: 1.15rem;
+        }
+
+        .belief-card p {
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .belief-card p:last-child { margin-bottom: 0; }
+
+        .belief-number {
+            display: inline-block;
+            background: var(--forest);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+
+        .approach-box {
+            background: var(--forest);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .approach-box h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+            margin-bottom: 1.25rem;
+        }
+
+        .approach-box p {
+            opacity: 0.95;
+        }
+
+        .approach-box strong {
+            color: white;
+        }
+
+        .brief-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .brief-preview { grid-template-columns: 1fr; }
+        }
+
+        .brief-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .brief-card.literacy { border-top: 3px solid var(--blue); }
+        .brief-card.executive { border-top: 3px solid var(--purple); }
+        .brief-card.epistemic { border-top: 3px solid var(--yellow); }
+
+        .brief-card .crisis-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .brief-card.literacy .crisis-label { color: var(--blue); }
+        .brief-card.executive .crisis-label { color: var(--purple); }
+        .brief-card.epistemic .crisis-label { color: var(--yellow); }
+
+        .brief-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .brief-card p {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin: 0;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .values-grid { grid-template-columns: 1fr; }
+        }
+
+        .values-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .values-section.for {
+            border-top: 4px solid var(--green);
+        }
+
+        .values-section.against {
+            border-top: 4px solid var(--red);
+        }
+
+        .values-section h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .values-section.for h3 { color: var(--green); }
+        .values-section.against h3 { color: var(--red); }
+
+        .values-section ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .values-section li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .name-section {
+            background: var(--forest-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .name-section h2 {
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .name-section p {
+            max-width: 550px;
+            margin: 0 auto 1rem;
+        }
+
+        .name-section p:last-child { margin-bottom: 0; }
+
+        .name-section .tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .callout {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--forest);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout p { margin-bottom: 0; }
+
+        .critique-section {
+            background: var(--yellow-light);
+            border: 1px solid #d69e2e;
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+        }
+
+        .critique-section h3 {
+            color: var(--yellow);
+            margin-top: 0;
+        }
+
+        .critique-section ul {
+            margin: 1rem 0 0 1.5rem;
+        }
+
+        .critique-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--forest);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body { font-size: 11pt; background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header { padding: 1.5rem; }
+            .approach-box, .crisis-intro { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="philosophy.html">Philosophy</a>
+        <a href="briefs/001-digital-delusion.html">Briefs</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <header>
+        <div class="org">Third Period Labs</div>
+        <div class="tagline">Teacher-led Education Policy</div>
+        <h1>The Triple Crisis</h1>
+        <p class="subtitle">Three interconnected emergencies. One coherent response.</p>
+    </header>
+
+    <div class="container">
+        <div class="premise">
+            <p><strong>Public schools are the most democratic institution America has.</strong></p>
+            <p>They take everyone. They don't turn kids away. They feed hungry children, support families in crisis, and hold communities together. When schools struggle, it's not because educators have failed. It's because we've systematically underfunded them, tied their resources to property taxes that guarantee inequity, and then blamed teachers for outcomes shaped by poverty.</p>
+            <p>The problem isn't public education. The problem is that we've never fully committed to it.</p>
+            <p><strong>And now we face three interconnected crises that schools alone cannot solve, but that democracy cannot survive without schools addressing.</strong></p>
+        </div>
+
+        <div class="crisis-intro">
+            <h2>The Triple Crisis</h2>
+            <p>We face three interconnected challenges showing up in classrooms every day. They didn't originate in schools, but schools are uniquely positioned to address them together. Public education remains our most powerful tool for meeting this moment.</p>
+        </div>
+
+        <section>
+            <div class="crisis-card literacy">
+                <h3>Crisis I: Literacy</h3>
+                <p>Literacy is collapsing. Not "reading below grade level." Collapsing. The science of reading has been clear for decades, but implementation has been sabotaged by ideology, underfunding, and the inertia of whole-language orthodoxy.</p>
+                <p>73% of Virginia fourth-graders score "proficient" on the state test. 31% score proficient on NAEP. That's not a measurement discrepancy. That's an honesty gap. We're lying to families about what their children can do.</p>
+                <div class="crisis-symptoms">
+                    <strong>What teachers see:</strong>
+                    <ul>
+                        <li>High schoolers struggling to decode unfamiliar words</li>
+                        <li>Content-area classes derailed by reading inability</li>
+                        <li>Students who've learned to hide their illiteracy</li>
+                        <li>Intervention programs that intervene too late</li>
+                    </ul>
+                </div>
+                <p>Without literacy, nothing else works. Critical thinking requires readable texts. Source evaluation requires comprehension. The other two crises are downstream of this one.</p>
+            </div>
+
+            <div class="crisis-card executive">
+                <h3>Crisis II: Executive Function</h3>
+                <p>Focus is fracturing. Starting, sustaining, finishing: all under siege. This isn't laziness or moral failure. It's the predictable result of developing brains marinated in attention-fragmenting technology and chronic stress.</p>
+                <p>Working memory under siege. Task initiation collapsed. The ability to hold a thought while developing another one... atrophied.</p>
+                <div class="crisis-symptoms">
+                    <strong>What teachers see:</strong>
+                    <ul>
+                        <li>Understanding the material but unable to produce evidence of it</li>
+                        <li>Assignments started and abandoned, repeatedly</li>
+                        <li>Inability to work without constant external scaffolding</li>
+                        <li>The thousand-yard stare of overstimulated nervous systems</li>
+                    </ul>
+                </div>
+                <p>Phones are part of it. But so is poverty-induced executive function depletion. So is the anxiety of growing up in an uncertain world. So is the learned helplessness from years of being told what to do every six minutes by a bell.</p>
+            </div>
+
+            <div class="crisis-card epistemic">
+                <h3>Crisis III: Epistemic Capacity</h3>
+                <p>Truth has become harder to find. The tools to evaluate competing claims are atrophying. The disposition to try is eroding.</p>
+                <p>This isn't about "media literacy" as a unit in English class. It's about the fundamental infrastructure of democratic citizenship: the ability to encounter uncertainty, sit with it, investigate it, and reach warranted conclusions.</p>
+                <div class="crisis-symptoms">
+                    <strong>What teachers see:</strong>
+                    <ul>
+                        <li>Students who believe the first Google result without question</li>
+                        <li>Inability to distinguish evidence from assertion</li>
+                        <li>Intolerance of uncertainty that demands immediate, simple answers</li>
+                        <li>Resistance to updating beliefs when confronted with contradicting evidence</li>
+                        <li>Learned cynicism: "everything is biased, so nothing is knowable"</li>
+                    </ul>
+                </div>
+                <p><strong>Intolerance of uncertainty</strong> is the deeper problem. Students (and adults) increasingly demand immediate resolution to complex questions. They reach for the first answer that reduces discomfort rather than the best answer available. They mistake confidence for competence and volume for validity.</p>
+                <p>Historical thinking, scientific reasoning, source evaluation... these all require the capacity to hold open questions, tolerate ambiguity, and reason through complexity. That capacity is atrophying.</p>
+            </div>
+        </section>
+
+        <div class="connection-box">
+            <h3>The Crises Are Connected</h3>
+            <p>Source evaluation requires literacy. Reasoning through complexity requires intact working memory. Tolerating uncertainty requires a regulated nervous system.</p>
+            <p>Conspiracy thinking thrives when debunking articles go unread. Unfinished assignments reflect fractured attention, not character flaws. Demands for simple answers come from learning that complexity punishes and certainty rewards.</p>
+            <p><strong>Any policy that addresses only one will fail on all three.</strong></p>
+        </div>
+
+        <section>
+            <h2>What We Believe</h2>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">1</span>Teaching is intellectual work.</h3>
+                <p>Not delivery. Not facilitation. Not "implementing with fidelity."</p>
+                <p>Teaching requires constant judgment: reading a room, adjusting on the fly, knowing when to push and when to hold back. This judgment comes from relationship and experience, not from scripts or software.</p>
+            </div>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">2</span>Funding is the foundation.</h3>
+                <p>Most "achievement gaps" are funding gaps. Most "failing schools" are starved schools. Virginia's reliance on local property taxes guarantees that wealthy districts outspend poor ones, then we act surprised when outcomes differ.</p>
+                <p>No amount of reform solves resource scarcity. Address the funding before debating the pedagogy.</p>
+            </div>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">3</span>Technology must earn its place.</h3>
+                <p>Screens aren't neutral tools. They reshape attention, interrupt presence, and substitute stimulation for depth. The burden of proof should be on technology to demonstrate it serves human flourishing, not on teachers to justify its absence.</p>
+                <p>A 1:1 Chromebook program with d = 0.16 effect size isn't innovation. It's expensive distraction with a press release.</p>
+            </div>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">4</span>Uncertainty is a skill, not a problem.</h3>
+                <p>The ability to say "I don't know yet" and keep investigating is fundamental to democratic citizenship. Schools that reward quick certainty over careful reasoning are training the wrong reflex.</p>
+                <p>Epistemic humility isn't weakness. It's the only honest starting point.</p>
+            </div>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">5</span>Systems shape behavior.</h3>
+                <p>We don't blame burned-out teachers, disengaged students, or frustrated parents. We ask: what system produced this outcome? What incentives are at play? What would have to change for different results to emerge naturally?</p>
+                <p>Individual heroism isn't a policy. Sustainable systems are.</p>
+            </div>
+
+            <div class="belief-card">
+                <h3><span class="belief-number">6</span>Progressive education is rigorous.</h3>
+                <p>Student voice, project-based learning, formative assessment, restorative practices... these aren't soft alternatives to "real" education. They're demanding in ways that matter.</p>
+                <p><strong>Rigor isn't suffering. Rigor is depth.</strong></p>
+            </div>
+        </section>
+
+        <div class="approach-box">
+            <h2>Our Approach</h2>
+            <p><strong>We name the crises clearly. We trace their roots honestly. We build policy that addresses causes, not symptoms.</strong></p>
+            <p>We don't pretend that schools can solve problems created by inequality, algorithmic attention capture, and political polarization. But we insist that schools are where the response must begin, because schools are where we still have access to everyone.</p>
+            <p>We lead with values, arm with evidence. We use effect sizes strategically, not devotionally. When the evidence supports progressive practice, we say so. When it contradicts edu-fads, we say that too. When it's contested, we're honest about uncertainty.</p>
+            <p style="margin-bottom: 0;"><strong>We're Virginia-rooted. We're teacher-led. We're not going anywhere.</strong></p>
+        </div>
+
+        <section>
+            <h2>The Briefs</h2>
+            <p>Each policy brief addresses one face of the triple crisis with specific, actionable recommendations for Virginia policymakers.</p>
+            <div class="brief-preview">
+                <div class="brief-card executive">
+                    <div class="crisis-label">Executive Function</div>
+                    <h4>Brief #001</h4>
+                    <p>Screens Should Earn Their Place</p>
+                </div>
+                <div class="brief-card literacy">
+                    <div class="crisis-label">Literacy</div>
+                    <h4>Brief #002</h4>
+                    <p>The Honesty Gap</p>
+                </div>
+                <div class="brief-card epistemic">
+                    <div class="crisis-label">Epistemic Capacity</div>
+                    <h4>Brief #003</h4>
+                    <p>Teaching Uncertainty</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="critique-section">
+            <h3>A Note on Evidence</h3>
+            <p>You'll see us cite meta-analyses and effect sizes. We do this strategically, not devotionally. The problems with this approach are real:</p>
+            <ul>
+                <li><strong>Aggregation fallacy:</strong> Averaging across wildly different contexts flattens everything meaningful.</li>
+                <li><strong>Measurement bias:</strong> Almost everything measured is standardized test performance. Creativity, collaboration, epistemic humility don't show up.</li>
+                <li><strong>Status quo bias:</strong> High effect sizes often go to interventions that help kids succeed at the current game. But what if the game is broken?</li>
+            </ul>
+            <p style="margin-bottom: 0;">We use the numbers because they're the language policymakers speak. But we never forget what they can't capture.</p>
+        </div>
+
+        <section>
+            <h2>Where We Stand</h2>
+            <div class="values-grid">
+                <div class="values-section for">
+                    <h3>What We're For</h3>
+                    <ul>
+                        <li>Public schools as democratic infrastructure</li>
+                        <li>Equitable funding before reform mandates</li>
+                        <li>Science of reading with adequate resources</li>
+                        <li>Attention-protective learning environments</li>
+                        <li>Epistemic humility as a teachable skill</li>
+                        <li>Teacher professional judgment</li>
+                        <li>Slower, deeper learning over coverage</li>
+                        <li>Joy as a legitimate educational outcome</li>
+                    </ul>
+                </div>
+                <div class="values-section against">
+                    <h3>What We're Against</h3>
+                    <ul>
+                        <li>Ed-tech solutionism</li>
+                        <li>Policy made by people who don't teach</li>
+                        <li>Surveillance software as "engagement"</li>
+                        <li>Teaching certainty where uncertainty is warranted</li>
+                        <li>Proficiency theater that lies to families</li>
+                        <li>Blaming teachers for challenges beyond their control</li>
+                        <li>Reform churn that burns out educators</li>
+                        <li>Treating schools like factories</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="name-section">
+            <h2>The Name</h2>
+            <p>Third period. The middle of the day. The kids are awake but not yet checked out. You've hit your stride. The lesson is humming.</p>
+            <p>This is what teaching can feel like when the system gets out of the way.</p>
+            <p class="tagline">That's what we're fighting for.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>Third Period Labs is teacher-led.</strong> Not teacher-"informed." Not teacher-"consulted." The people writing the briefs have spent years in classrooms. The perspective comes from lived experience, not site visits.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Third Period Labs</strong><br>
+        Teacher-led. Values-grounded. Virginia-focused.</p>
+    </footer>
+</body>
+</html>

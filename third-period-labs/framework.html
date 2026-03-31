@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Three-Capacity Crisis | Third Period Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --forest-light: #e8f0eb;
+            --cream: #faf8f5;
+            --warm-gray: #6b6b6b;
+            --text: #1a1a1a;
+            --border: #e0ddd8;
+            --red: #c53030;
+            --red-light: #fff5f5;
+            --yellow: #b7791f;
+            --yellow-light: #fffff0;
+            --green: #276749;
+            --green-light: #f0fff4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .nav-bar {
+            background: var(--forest-dark);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+
+        .nav-bar a:hover { color: white; }
+
+        .nav-bar .nav-home {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            background: linear-gradient(160deg, var(--forest) 0%, var(--forest-dark) 100%);
+            color: white;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+        }
+
+        header .org {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        header .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            font-weight: 400;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            opacity: 0.75;
+            flex-wrap: wrap;
+        }
+
+        .meta span {
+            position: relative;
+        }
+
+        .meta span:not(:last-child)::after {
+            content: '·';
+            position: absolute;
+            right: -0.9rem;
+            opacity: 0.6;
+        }
+
+        section { margin-bottom: 2.5rem; }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest-light);
+        }
+
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        strong { font-weight: 600; }
+
+        .section-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--forest);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .executive-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--forest);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .executive-summary h2 {
+            border: none;
+            padding-bottom: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        blockquote {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            border-left: 3px solid var(--forest);
+            padding-left: 1.5rem;
+            margin: 0 0 2.5rem 0;
+            color: var(--forest-dark);
+        }
+
+        .core-claim {
+            background: var(--forest-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .core-claim p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .capacity-header {
+            background: var(--forest);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px 6px 0 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .capacity-body {
+            background: white;
+            border: 1px solid var(--border);
+            border-top: none;
+            padding: 1.5rem;
+            border-radius: 0 0 6px 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        .stat-number.negative { color: var(--red); }
+        .stat-number.positive { color: var(--green); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-top: 0.25rem;
+        }
+
+        ul { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .callout {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left: 4px solid var(--yellow);
+            background: var(--yellow-light);
+        }
+
+        .callout.insight {
+            border-left: 4px solid var(--forest);
+        }
+
+        .interaction-block {
+            background: var(--yellow-light);
+            border: 1px solid #d69e2e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .interaction-block h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--yellow);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .interaction-block p {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .interaction-block p:last-child { margin-bottom: 0; }
+
+        /* Measurement Spine */
+        .measurement-spine {
+            margin: 2rem 0;
+        }
+
+        .measurement-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .measurement-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .measurement-card-header {
+            padding: 1rem 1.25rem;
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .measurement-card-header .card-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .mc-literacy .measurement-card-header {
+            background: var(--forest);
+            color: white;
+        }
+
+        .mc-executive .measurement-card-header {
+            background: var(--yellow);
+            color: white;
+        }
+
+        .mc-epistemic .measurement-card-header {
+            background: #4a6fa5;
+            color: white;
+        }
+
+        .measurement-card-body {
+            padding: 1.25rem;
+        }
+
+        .measurement-layer {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .measurement-layer:last-child { margin-bottom: 0; }
+
+        .layer-badge {
+            background: var(--forest-light);
+            color: var(--forest);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        .mc-executive .layer-badge {
+            background: var(--yellow-light);
+            color: var(--yellow);
+        }
+
+        .mc-epistemic .layer-badge {
+            background: #e8eef5;
+            color: #4a6fa5;
+        }
+
+        .layer-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .layer-text strong {
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .measurement-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .measurement-indicator:last-child { border-bottom: none; }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .mc-executive .indicator-dot { background: var(--yellow); }
+        .mc-epistemic .indicator-dot { background: #4a6fa5; }
+
+        /* Commitment cards */
+        .commitment-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .commitment-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .commitment-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .commitment-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            color: var(--warm-gray);
+        }
+
+        .framework-dark {
+            background: var(--forest);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .framework-dark h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 620px;
+            margin: 0 auto 1rem;
+        }
+
+        .conclusion p:last-child { margin-bottom: 0; }
+
+        .conclusion .closing-tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            opacity: 1;
+        }
+
+        .toc {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--warm-gray);
+            margin-bottom: 1rem;
+        }
+
+        .toc ol {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .toc li {
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .toc a {
+            color: var(--forest);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .toc a:hover {
+            border-bottom-color: var(--forest);
+        }
+
+        .separator {
+            border: none;
+            border-top: 2px solid var(--forest-light);
+            margin: 2.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--forest);
+            text-decoration: none;
+        }
+
+        footer .version {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { font-size: 11pt; background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header { padding: 1.5rem; }
+            .nav-bar { display: none; }
+            .framework-dark, .conclusion { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            header { padding: 3rem 1.5rem 2.5rem; }
+            .meta { flex-direction: column; gap: 0.5rem; }
+            .meta span:not(:last-child)::after { display: none; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .container { padding: 2rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-home">&#8592; Third Period Labs</a>
+        <a href="index.html#briefs">Policy Briefs</a>
+    </nav>
+
+    <header>
+        <div class="org">Third Period Labs</div>
+        <div class="tagline">Teacher-led Education Policy</div>
+        <h1>The Three-Capacity Crisis</h1>
+        <p class="subtitle">A Teacher-Led Framework for Educational Recovery and Democratic Readiness</p>
+        <div class="meta">
+            <span>Founding White Paper</span>
+            <span>March 2026</span>
+            <span>Matt Walker</span>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Contents</h3>
+            <ol>
+                <li><a href="#introduction">Introduction: What Teachers Already Know</a></li>
+                <li><a href="#three-capacities">The Three Capacities</a></li>
+                <li><a href="#interaction">The Interaction Effect: Why Single-Issue Reform Fails</a></li>
+                <li><a href="#amplifiers">Structural Amplifiers</a></li>
+                <li><a href="#standards-gap">The Standards-and-Signals Gap</a></li>
+                <li><a href="#measurement">The Measurement Spine</a></li>
+                <li><a href="#mission">What Third Period Labs Will Do</a></li>
+                <li><a href="#closing">A Closing Argument</a></li>
+            </ol>
+        </div>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <span class="section-number">Introduction</span>
+            <h2>What Teachers Already Know</h2>
+
+            <p>Every teacher in America can describe the student who reads the words but cannot tell you what the paragraph means. The student who opens the Chromebook with apparent purpose and, fourteen seconds later, has lost the thread entirely. The student who encounters two contradictory claims and simply picks the one that arrived first, or the one with the better graphics, or the one a friend already shared.</p>
+
+            <p>These are not three separate problems. They are three expressions of the same underlying challenge — and the fact that we have treated them separately helps explain why so many well-intentioned reforms have underperformed.</p>
+
+            <div class="core-claim">
+                <p>This paper introduces the <strong>Three-Capacity Framework</strong>: a way of seeing the intersecting crises of literacy, executive function, and epistemic capacity not as isolated deficits but as a linked system.</p>
+            </div>
+
+            <p>It argues that American schooling is not merely struggling with achievement scores. It is struggling to reliably build the capacities that make achievement, judgment, and democratic life possible.</p>
+
+            <p>Third Period Labs exists to name that problem clearly, connect it to what the evidence actually shows, and build teacher-led policy responses that work at the level of real classrooms. We are not pundits. We are practitioners. And what we see from behind the lectern demands a more honest framework than the one we have been given.</p>
+        </section>
+
+        <hr class="separator">
+
+        <!-- The Three Capacities -->
+        <section id="three-capacities">
+            <span class="section-number">Part I</span>
+            <h2>The Three Capacities</h2>
+
+            <!-- Literacy -->
+            <div class="capacity-header">Literacy: The Foundation That Isn't Holding</div>
+            <div class="capacity-body">
+                <p>When we say literacy in policy circles, we often mean decoding — the mechanical act of turning symbols into sounds, sounds into words. That matters enormously in K-2 instruction, and the science of reading movement has been right to insist on systematic phonics. But decoding is the floor, not the ceiling.</p>
+
+                <p>The literacy that matters for civic life is <strong>deep reading comprehension joined to knowledge building</strong>: the ability to read a complex text, hold its argument in mind, connect it to what you already know, and evaluate its claims. This is reading as thinking, not reading as performance.</p>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number negative">31%</div>
+                        <div class="stat-label">4th graders at or above NAEP Proficient in reading (2024)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number negative">Stalled</div>
+                        <div class="stat-label">Reading recovery since 2019, unlike math</div>
+                    </div>
+                </div>
+
+                <p>It is worth pausing on that asymmetry. Math scores fell and have begun, in some states and some demographics, to climb back. Reading scores fell and have largely stayed down. The explanations are debated — disrupted early literacy instruction during school closures, reduced volume of independent reading, increased screen time displacing sustained text engagement — but the pattern is consistent enough to demand attention.</p>
+
+                <div class="callout insight">
+                    <p style="margin-bottom: 0;"><strong>From the classroom:</strong> I can hand a student a primary source — say, an excerpt from Frederick Douglass or a government report from the Progressive Era — and watch them decode every word on the page. They can read it aloud fluently. But when I ask what Douglass is arguing, or what the report assumes about its audience, the comprehension collapses. The words were processed. The meaning was not built.</p>
+                </div>
+
+                <p>This is not a student failure. It is a capacity gap — and it is the gap that most of our accountability systems are not designed to detect.</p>
+            </div>
+
+            <!-- Executive Function -->
+            <div class="capacity-header">Executive Function: The Capacity Nobody Measures</div>
+            <div class="capacity-body">
+                <p>In the research literature, executive function refers to a set of cognitive processes housed primarily in the prefrontal cortex: <strong>inhibitory control</strong> (the ability to suppress impulses and distractions), <strong>working memory</strong> (the ability to hold and manipulate information in mind), and <strong>cognitive flexibility</strong> (the ability to shift between tasks or perspectives).</p>
+
+                <p>In the classroom, teachers use different words. They say: <em>He can't get started. She starts but can't sustain. He finishes but can't go back and check.</em> They describe students who lose the assignment prompt between reading it and opening the document. Students who are derailed by a single notification. Students who, when faced with a multi-step task, shut down — not from defiance but from genuine overwhelm.</p>
+
+                <p>The neuroscience is clear on at least one point: chronic stress impairs prefrontal cortex function. The same brain regions that manage executive function are exquisitely sensitive to cortisol, to unpredictability, to the kind of sustained low-grade threat that poverty, housing instability, family disruption, and yes, the post-pandemic social landscape impose on millions of students.</p>
+
+                <p>There is emerging evidence that even modest environmental interventions can help. Schools that have implemented meaningful phone restrictions — not performative policies but actual device-free instructional time — report measurable gains in student focus and task completion.</p>
+
+                <div class="callout warning">
+                    <p style="margin-bottom: 0;"><strong>The unmeasured foundation:</strong> Despite growing recognition that executive function underlies virtually every academic outcome we care about, no national metric for it exists. We test reading. We test math. We test science. We do not test — or even systematically observe — the cognitive infrastructure that makes learning in all those domains possible.</p>
+                </div>
+            </div>
+
+            <!-- Epistemic Capacity -->
+            <div class="capacity-header">Epistemic Capacity: The Question Democracy Requires</div>
+            <div class="capacity-body">
+                <p><strong>Can students tell what is true?</strong></p>
+
+                <p>Not what they believe. Not what they prefer. Can they, when confronted with a claim, a source, a piece of evidence, deploy a reliable process for evaluating it?</p>
+
+                <p>The research suggests the answer is: mostly, no.</p>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number negative">52%</div>
+                        <div class="stat-label">of students judged a misleading video as strong evidence of ballot fraud (Stanford)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number negative">22%</div>
+                        <div class="stat-label">of 8th graders at or above Proficient in NAEP Civics (2022)</div>
+                    </div>
+                </div>
+
+                <p>But here is where the diagnosis must be paired with instructional hope, because the evidence on intervention is genuinely encouraging.</p>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">3 → 67</div>
+                        <div class="stat-label">out of 87 students using lateral reading after explicit instruction (Stanford)</div>
+                    </div>
+                </div>
+
+                <p>Epistemic capacity is not a fixed trait. It is a teachable skill set. But it is a skill set almost no state standards require, almost no assessments measure, and almost no teacher preparation programs systematically develop.</p>
+            </div>
+        </section>
+
+        <hr class="separator">
+
+        <!-- Interaction Effect -->
+        <section id="interaction">
+            <span class="section-number">Part II</span>
+            <h2>The Interaction Effect: Why Single-Issue Reform Fails</h2>
+
+            <p>The three capacities are not parallel tracks. They are load-bearing walls in the same structure, and the failure of one compromises the others.</p>
+
+            <div class="interaction-block">
+                <h4>Literacy → Epistemic Capacity</h4>
+                <p><strong>You cannot evaluate sources you cannot read.</strong> If a student lacks the deep comprehension to parse a complex argument — to identify its claims, distinguish its evidence from its assumptions, notice what it omits — then no amount of media literacy instruction will land. A student who cannot read a news article at the level of its intended audience cannot fact-check it, because they cannot understand what it is claiming in the first place.</p>
+            </div>
+
+            <div class="interaction-block">
+                <h4>Executive Function → Epistemic Capacity</h4>
+                <p><strong>You cannot reason when working memory is fragmented.</strong> Source evaluation is a multi-step cognitive task. You have to hold the original claim in mind, generate a search query, open a new tab, read a new source, compare it to the original, and synthesize a judgment. Every one of those steps taxes working memory. For a student whose executive function is already depleted — by stress, by distraction, by a device buzzing in their pocket — the cognitive chain breaks before the reasoning can complete.</p>
+            </div>
+
+            <div class="interaction-block">
+                <h4>Executive Function → Epistemic Maturity</h4>
+                <p><strong>You cannot tolerate uncertainty when you are dysregulated.</strong> One of the hardest things about real epistemic work is sitting with ambiguity. Sometimes the evidence is mixed. Sometimes the best answer is "I don't know yet." That tolerance for uncertainty requires emotional and cognitive regulation — which is to say, it requires executive function. A student in a state of stress-driven rigidity will reach for the first available certainty, not because they are intellectually lazy but because their nervous system is demanding resolution.</p>
+            </div>
+
+            <div class="core-claim">
+                <p>This interaction effect is the reason that single-issue reforms — phonics-only reading programs, standalone media literacy units, phone bans without instructional redesign — consistently underperform their promise. Each addresses one vertex of a triangle while leaving the other two unsupported. The framework holds only when all three capacities are built together.</p>
+            </div>
+
+            <div class="callout insight">
+                <p style="margin-bottom: 0;"><strong>From the classroom:</strong> I teach a unit on evaluating historical claims — propaganda analysis, source corroboration, the whole toolkit. The students who thrive are not necessarily the ones with the highest test scores. They are the ones who can read the source carefully (literacy), hold the question in mind long enough to investigate it (executive function), and tolerate the discomfort of not yet having an answer (epistemic maturity). When one of those is missing, the lesson still happens. The learning does not.</p>
+            </div>
+        </section>
+
+        <hr class="separator">
+
+        <!-- Structural Amplifiers -->
+        <section id="amplifiers">
+            <span class="section-number">Part III</span>
+            <h2>Structural Amplifiers</h2>
+
+            <p>The Three-Capacity Framework describes what is weakening inside students' cognitive and epistemic development. But it does not operate in a vacuum. Three structural conditions amplify the crisis — not as separate emergencies but as accelerants on an existing fire.</p>
+
+            <h3>Chronic Absenteeism</h3>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">31%</div>
+                    <div class="stat-label">Students chronically absent, 2021-22</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">~28%</div>
+                    <div class="stat-label">Students chronically absent, 2022-23</div>
+                </div>
+            </div>
+
+            <p>Chronic absenteeism is not simply a logistics problem. It is a capacity problem. A student who misses 20 or more days of instruction in a year where foundational reading skills are being built does not merely fall behind on content. They miss the accumulated practice that builds fluency, the repeated exposure that builds vocabulary, the sustained engagement that builds the executive function habit of showing up and doing hard cognitive work.</p>
+
+            <p>The students who are absent most are disproportionately the students who can least afford the lost instructional time. This is an equity issue that masquerades as a behavioral one.</p>
+
+            <h3>Teacher Capacity</h3>
+
+            <p>Teachers are the delivery system for every educational intervention that exists. When the teaching force is destabilized — through turnover, chronic staffing shortages, and the relentless churn of new initiatives implemented without adequate support — the quality of instruction degrades regardless of how good the curriculum or policy looks on paper.</p>
+
+            <div class="callout warning">
+                <p style="margin-bottom: 0;"><strong>Implementation quality is the variable that policy most often ignores.</strong> A state can adopt an excellent science-of-reading curriculum. But if the teachers delivering it are in their first year, or are teaching outside their certification area, or received a single afternoon of professional development before being expected to execute it, the curriculum's evidence base becomes irrelevant.</p>
+            </div>
+
+            <p>Third Period Labs is founded on the conviction that teachers must be central to policy design, not merely its recipients. We know what breaks in implementation because we are the ones holding the pieces.</p>
+
+            <h3>The Attention Economy</h3>
+
+            <p>The device environment in which students live is not a neutral backdrop. It is an engineered system designed to capture and monetize attention — the very cognitive resource that executive function exists to manage.</p>
+
+            <p>The average American teenager's relationship with their phone is not analogous to previous generations' relationships with television or video games. The algorithmic feed is adaptive. It learns what captures attention and delivers more of it, in an endless scroll optimized for engagement, not comprehension. The notification layer interrupts sustained thought on a schedule measured in minutes.</p>
+
+            <p>Schools that have implemented genuine phone-free policies — where devices are physically collected or stored, not merely silenced — report improvements in student focus, peer interaction, and task completion. These are not transformative on their own, but they represent the removal of an active impediment. You cannot build sustained attention in an environment engineered to destroy it.</p>
+        </section>
+
+        <hr class="separator">
+
+        <!-- Standards-and-Signals Gap -->
+        <section id="standards-gap">
+            <span class="section-number">Part IV</span>
+            <h2>The Standards-and-Signals Gap</h2>
+
+            <p>One of the most persistent sources of confusion in education policy is the gap between what state accountability systems report and what national assessments reveal.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number positive">~73%</div>
+                    <div class="stat-label">Virginia students meeting state reading benchmarks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">31%</div>
+                    <div class="stat-label">NAEP Proficient or above in the same population</div>
+                </div>
+            </div>
+
+            <p>The gap between 73% and 31% is large enough to generate justified public confusion and, too often, cynicism: someone must be lying. But the explanation is more important than the accusation.</p>
+
+            <p>NAEP Proficient is not the same as "grade level." NAEP's own governing board has stated this explicitly. NAEP Proficient represents "solid academic performance" and "competency over challenging subject matter" — a level that, by design, many students performing adequately for their grade may not reach. State standards, by contrast, are typically designed to identify students meeting grade-level expectations as defined by that state's curriculum. The two systems are measuring different things, at different levels of rigor, against different benchmarks.</p>
+
+            <div class="core-claim">
+                <p><strong>State accountability systems are not capacity measures.</strong> A state test can tell you whether a student met a particular standard on a particular day. It cannot tell you whether that student has built the deep reading comprehension, the cognitive endurance, or the epistemic skill set that will serve them in contexts the test was not designed to simulate.</p>
+            </div>
+
+            <p>The danger of the standards-and-signals gap is that it allows policymakers and the public to believe the situation is either much better than it is (if they look only at state numbers) or much worse than it is (if they interpret NAEP Proficient as a basic competency line and panic accordingly). Neither reading is accurate. What we need are measures designed to assess the actual capacities we care about — and we do not yet have them.</p>
+        </section>
+
+        <hr class="separator">
+
+        <!-- Measurement Spine -->
+        <section id="measurement">
+            <span class="section-number">Part V</span>
+            <h2>The Measurement Spine</h2>
+
+            <p>If the Three-Capacity Framework defines what matters, the Measurement Spine defines how we track it. Each capacity requires its own measurement logic — layered signals for literacy, proxy indicators for executive function, and task-based assessments for epistemic reasoning.</p>
+
+            <div class="measurement-grid">
+                <!-- Literacy -->
+                <div class="measurement-card mc-literacy">
+                    <div class="measurement-card-header">
+                        <span class="card-icon">📖</span>
+                        Literacy Measurement
+                    </div>
+                    <div class="measurement-card-body">
+                        <div class="measurement-layer">
+                            <span class="layer-badge">Layer 1</span>
+                            <div class="layer-text">
+                                <strong>Independent national signal</strong>
+                                NAEP trend + distribution + below-basic shares. The only fully independent, longitudinal measure of reading capacity at scale.
+                            </div>
+                        </div>
+                        <div class="measurement-layer">
+                            <span class="layer-badge">Layer 2</span>
+                            <div class="layer-text">
+                                <strong>Timely recovery signal</strong>
+                                NWEA/MAP interim trends for tracking whether stalled reading recovery is beginning to move. Provides the between-NAEP visibility that policymakers need.
+                            </div>
+                        </div>
+                        <div class="measurement-layer">
+                            <span class="layer-badge">Layer 3</span>
+                            <div class="layer-text">
+                                <strong>State reporting signal</strong>
+                                Track state assessment results but never equate them with independent mastery. Useful for within-state trends; misleading as cross-state or capacity-level benchmarks.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Executive Function -->
+                <div class="measurement-card mc-executive">
+                    <div class="measurement-card-header">
+                        <span class="card-icon">🧠</span>
+                        Executive Function Measurement (Proxy Dashboard)
+                    </div>
+                    <div class="measurement-card-body">
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Chronic absenteeism rates</strong> — attendance as a proxy for the capacity to sustain engagement</span>
+                        </div>
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Classroom disruption indicators</strong> — behavioral data as a signal of self-regulation capacity</span>
+                        </div>
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Device policy implementation strength</strong> — measuring whether environments support or undermine attention</span>
+                        </div>
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Student well-being indicators (CDC YRBS)</strong> — the stress and mental health context that constrains prefrontal function</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Epistemic Capacity -->
+                <div class="measurement-card mc-epistemic">
+                    <div class="measurement-card-header">
+                        <span class="card-icon">🔍</span>
+                        Epistemic Capacity Measurement (Task-Based)
+                    </div>
+                    <div class="measurement-card-body">
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Civic online reasoning tasks</strong> — source checking and lateral reading performance on realistic evaluation scenarios</span>
+                        </div>
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Conflict-of-interest detection tasks</strong> — can students identify when a source has a financial or institutional stake in its claims?</span>
+                        </div>
+                        <div class="measurement-indicator">
+                            <span class="indicator-dot"></span>
+                            <span><strong>Civics knowledge baselines (NAEP Civics Grade 8)</strong> — the foundational knowledge layer that epistemic reasoning draws upon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="separator">
+
+        <!-- What Third Period Labs Will Do -->
+        <section id="mission">
+            <span class="section-number">Part VI</span>
+            <h2>What Third Period Labs Will Do</h2>
+
+            <p>Third Period Labs is a teacher-led policy initiative. We are not a lobbying organization, and we are not an academic research center, though we draw from both traditions. We are a space where practicing educators develop evidence-grounded policy frameworks and make them available to the people who make decisions.</p>
+
+            <div class="commitment-grid">
+                <div class="commitment-card">
+                    <h4>Name the problem accurately</h4>
+                    <p>The three-capacity framework is our central diagnostic. We will continue to develop it, refine it against new evidence, and offer it as an alternative to the fragmented crisis narratives that dominate current discourse. Reading crisis. Mental health crisis. Misinformation crisis. These are real. They are also facets of a single structural challenge better addressed as a system.</p>
+                </div>
+                <div class="commitment-card">
+                    <h4>Pair every diagnosis with instructional possibility</h4>
+                    <p>Systematic phonics instruction works for early readers. Explicit lateral reading instruction works for epistemic capacity. Phone-free environments work for executive function. Knowledge-building curricula work for deep comprehension. These are not speculative. They are demonstrated. The challenge is implementation at scale — a policy problem, not an evidence problem.</p>
+                </div>
+                <div class="commitment-card">
+                    <h4>Center the teacher perspective in policy design</h4>
+                    <p>Third Period Labs operates from within the profession. Our founder teaches five sections a day. Our contributors are practitioners. When we say an intervention works, we mean it works under the actual conditions of American public schools — with thirty students, a seventy-five-minute block, and a borrowed laptop cart with four dead batteries.</p>
+                </div>
+                <div class="commitment-card">
+                    <h4>Insist on honest measurement</h4>
+                    <p>We will advocate for assessment systems that measure what matters, not merely what is easy to test. This includes pushing for validated, scalable tools for assessing executive function and epistemic reasoning — capacities that currently go unmeasured at the national level.</p>
+                </div>
+                <div class="commitment-card">
+                    <h4>Focus on Virginia, learn for the nation</h4>
+                    <p>Third Period Labs is rooted in Virginia — its schools, its policy landscape, its students. But the three-capacity crisis is national, and the structural amplifiers operate everywhere. What we learn here, we will share openly. What others learn elsewhere, we will integrate honestly.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="separator">
+
+        <!-- Closing Argument -->
+        <section id="closing">
+            <div class="conclusion">
+                <h2>A Closing Argument</h2>
+
+                <p>There is a version of education reform that treats every problem as a content delivery failure. Students can't read? Better curriculum. Students can't focus? Better classroom management. Students can't tell what's true? A media literacy elective.</p>
+
+                <p>These are not wrong, exactly. But they are insufficient, because they treat symptoms without addressing the underlying capacity structure that makes learning — all learning — possible.</p>
+
+                <p>A student who reads deeply, who can sustain and direct their own attention, and who has reliable strategies for evaluating truth claims is a student prepared not only for academic success but for citizenship. They can read a ballot measure and understand it. They can encounter a persuasive argument and interrogate it. They can sit with complexity and not reach for the first simple answer that relieves the discomfort.</p>
+
+                <p>That student is what democratic education is supposed to produce. And right now, we are not reliably producing them.</p>
+
+                <p>This is not an indictment of teachers. It is not an indictment of students. And it is not an argument for despair.</p>
+
+                <p>It is an argument for clarity. For naming the problem as it actually is — a three-capacity crisis that demands integrated solutions. For building those solutions from the classroom up, not the statehouse down. For measuring what matters and telling the truth about what we find.</p>
+
+                <p class="closing-tagline">We start from the classroom. We build from the evidence. And we speak as teachers, because that is what we are.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Third Period Labs · Teacher-led Education Policy</p>
+        <p style="margin-top: 0.5rem;"><a href="index.html">Home</a></p>
+        <p class="version">Founding White Paper · March 2026 · Matt Walker</p>
+        <p style="font-size: 0.8rem; margin-top: 0.25rem;">Matt Walker is a secondary History and ESOL teacher in Virginia and the founder of Third Period Labs.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third Period Labs | Teacher-led Education Policy</title>
+    <meta name="description" content="Third Period Labs is a Virginia-focused education policy organization. Teacher-led research on the three-capacity crisis: literacy, executive function, and epistemic capacity.">
+    <meta property="og:title" content="Third Period Labs | Teacher-led Education Policy">
+    <meta property="og:description" content="Policy from the classroom, not the conference room. Research-backed briefs on literacy, attention, and what students need to thrive.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1a2e44;
+            --navy-deep: #0f1d2e;
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --teal: #2a7f8e;
+            --teal-light: #3a9fae;
+            --gold: #c9943e;
+            --gold-warm: #d4a843;
+            --cream: #faf8f5;
+            --cream-warm: #f5efe4;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --text-muted: #7a7a7a;
+            --border: #e0ddd8;
+            --blue: #2b6cb0;
+            --purple: #6b46c1;
+            --amber: #b7791f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== Ambient Glow ===== */
+        .ambient-glow {
+            position: fixed;
+            top: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1200px;
+            height: 800px;
+            background: radial-gradient(ellipse, rgba(45,90,61,0.04) 0%, rgba(42,127,142,0.02) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== Nav ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled { padding: 14px 40px; }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--forest), var(--teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo-icon span {
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .nav-logo-text {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--navy);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--forest); }
+
+        .nav-cta {
+            padding: 10px 22px;
+            border-radius: 50px;
+            background: var(--forest);
+            color: white !important;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(45,90,61,0.25);
+        }
+
+        /* Mobile nav */
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 28px;
+            height: 20px;
+            position: relative;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 1px;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-hamburger span:nth-child(1) { top: 0; }
+        .nav-hamburger span:nth-child(2) { top: 9px; }
+        .nav-hamburger span:nth-child(3) { top: 18px; }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            background: var(--navy-deep);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(45,90,61,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(42,127,142,0.08) 0%, transparent 50%);
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, -1%) rotate(1deg); }
+            66% { transform: translate(-1%, 2%) rotate(-0.5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
+            color: var(--gold-warm);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            color: white;
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+
+        .hero h1 em {
+            color: var(--gold-warm);
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.9s forwards;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--forest), var(--teal));
+            margin: 0 auto 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--forest), var(--teal));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(45,90,61,0.3);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.25);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeUp 1s ease 1.5s forwards, pulse 3s ease-in-out 2.5s infinite;
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 100px 24px;
+            position: relative;
+        }
+
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--forest);
+            margin-bottom: 12px;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 400;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-heading em {
+            font-style: italic;
+            color: var(--forest);
+        }
+
+        .section-sub {
+            font-size: 17px;
+            color: var(--text-light);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+        }
+
+        /* ===== Crisis Cards ===== */
+        .crisis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .crisis-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crisis-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .crisis-card.literacy::before { background: var(--blue); }
+        .crisis-card.executive::before { background: var(--purple); }
+        .crisis-card.epistemic::before { background: var(--amber); }
+
+        .crisis-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+        }
+
+        .crisis-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .crisis-card.literacy .crisis-icon { background: rgba(43,108,176,0.1); color: var(--blue); }
+        .crisis-card.executive .crisis-icon { background: rgba(107,70,193,0.1); color: var(--purple); }
+        .crisis-card.epistemic .crisis-icon { background: rgba(183,121,31,0.1); color: var(--amber); }
+
+        .crisis-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .crisis-card.literacy .crisis-label { color: var(--blue); }
+        .crisis-card.executive .crisis-label { color: var(--purple); }
+        .crisis-card.epistemic .crisis-label { color: var(--amber); }
+
+        .crisis-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .crisis-text {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.65;
+        }
+
+        /* ===== Structural Amplifiers ===== */
+        .amplifiers-section {
+            background: var(--cream-warm);
+            padding: 80px 24px;
+        }
+
+        .amplifiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .amplifier-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: all 0.3s;
+        }
+
+        .amplifier-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+        }
+
+        .amplifier-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 19px;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .amplifier-text {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.65;
+        }
+
+        /* ===== Quote Block ===== */
+        .quote-section {
+            background: var(--navy-deep);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .quote-section blockquote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-style: italic;
+            color: white;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .quote-section .attribution {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== Brief Preview ===== */
+        .brief-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px;
+            margin-top: 40px;
+            transition: all 0.3s;
+        }
+
+        .brief-card:hover {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+
+        .brief-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 72px;
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--forest), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .brief-content {
+            flex: 1;
+        }
+
+        .brief-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 16px;
+        }
+
+        .brief-badge.badge-purple {
+            background: rgba(107,70,193,0.1);
+            color: var(--purple);
+        }
+
+        .brief-badge.badge-blue {
+            background: rgba(43,108,176,0.1);
+            color: var(--blue);
+        }
+
+        .brief-badge.badge-amber {
+            background: rgba(183,121,31,0.1);
+            color: var(--amber);
+        }
+
+        .brief-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .brief-meta {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .brief-desc {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .brief-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--forest);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: 1.5px solid var(--forest);
+            transition: all 0.25s;
+        }
+
+        .brief-link:hover {
+            background: var(--forest);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Framework Section ===== */
+        .framework-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px;
+            margin-top: 48px;
+            text-align: center;
+        }
+
+        .framework-section h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .framework-section p {
+            font-size: 17px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        .framework-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--forest);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: 1.5px solid var(--forest);
+            transition: all 0.25s;
+        }
+
+        .framework-link:hover {
+            background: var(--forest);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Values Grid ===== */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .value-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+        }
+
+        .value-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--forest), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .value-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .value-text {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ===== About Section ===== */
+        .about-section {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
+            border-radius: 24px;
+            padding: 64px;
+            text-align: center;
+            color: white;
+            margin-top: 48px;
+        }
+
+        .about-section h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .about-section p {
+            font-size: 17px;
+            opacity: 0.9;
+            max-width: 550px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        .about-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            transition: all 0.25s;
+        }
+
+        .about-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--navy-deep);
+            padding: 64px 24px 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--forest), var(--teal));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon span {
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .footer-logo-text {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .footer-tagline {
+            color: rgba(255,255,255,0.6);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 auto 24px;
+        }
+
+        .footer-copy {
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .crisis-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+            .amplifiers-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+            .values-grid { grid-template-columns: 1fr; }
+            .brief-card { flex-direction: column; gap: 24px; padding: 32px; }
+            .brief-number { font-size: 48px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-hamburger { display: block; }
+            nav { padding: 16px 20px; }
+            .hero { padding: 120px 20px 60px; }
+            .about-section { padding: 40px 24px; border-radius: 16px; }
+            section { padding: 64px 20px; }
+            .amplifiers-section { padding: 64px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .section-heading { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ambient-glow" aria-hidden="true"></div>
+
+<!-- Nav -->
+<nav id="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><span>3</span></div>
+        <span class="nav-logo-text">Third Period Labs</span>
+    </a>
+    <button class="nav-hamburger" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+        <a href="framework.html">Framework</a>
+        <a href="philosophy.html">Philosophy</a>
+        <a href="#briefs">Briefs</a>
+        <a href="about.html">About</a>
+        <a href="framework.html" class="nav-cta">Read the Framework</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Teacher-led Education Policy</div>
+        <h1>Three national crises unfolding<br>in every classroom.<br><em>Teachers see them. Policy doesn't.</em></h1>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">A teacher-led capacity and implementation institute.</p>
+        <a href="framework.html" class="hero-cta">
+            Read Our Framework
+            <span aria-hidden="true">&rarr;</span>
+        </a>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- The Three-Capacity Crisis -->
+<section id="crisis">
+    <div class="section-inner">
+        <div class="section-label">The Three-Capacity Crisis</div>
+        <h2 class="section-heading">What we're <em>facing</em></h2>
+        <p class="section-sub">Three interconnected challenges showing up in classrooms every day. Public schools are our best chance to address them together.</p>
+
+        <div class="crisis-grid">
+            <div class="crisis-card literacy">
+                <div class="crisis-icon">&#x1F4D6;</div>
+                <div class="crisis-label">Crisis I</div>
+                <div class="crisis-title">Literacy</div>
+                <p class="crisis-text">Students cannot read. Not "reading below grade level." Cannot read. 73% score "proficient" on state tests. 31% on NAEP. That's not a measurement gap. That's an honesty gap.</p>
+            </div>
+            <div class="crisis-card executive">
+                <div class="crisis-icon">&#x1F9E0;</div>
+                <div class="crisis-label">Crisis II</div>
+                <div class="crisis-title">Executive Function</div>
+                <p class="crisis-text">Starting, sustaining, finishing: all under siege. Working memory overwhelmed. Environments have become more hostile to attention, and schools can redesign for protection.</p>
+            </div>
+            <div class="crisis-card epistemic">
+                <div class="crisis-icon">&#x2753;</div>
+                <div class="crisis-label">Crisis III</div>
+                <div class="crisis-title">Epistemic Capacity</div>
+                <p class="crisis-text">Students can't tell what's true. And they've stopped trying to find out. But epistemic skills can be taught — and the evidence says they should be.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Structural Amplifiers -->
+<section class="amplifiers-section">
+    <div class="section-inner">
+        <div class="section-label">Structural Amplifiers</div>
+        <h2 class="section-heading">What makes it <em>worse</em></h2>
+        <p class="section-sub">These forces don't cause the three-capacity crisis, but they accelerate it — and any serious response must account for them.</p>
+
+        <div class="amplifiers-grid">
+            <div class="amplifier-card">
+                <div class="amplifier-title">Chronic Absenteeism</div>
+                <p class="amplifier-text">31% of students chronically absent nationally (2021-22). Less time in school directly reduces the practice that builds every capacity.</p>
+            </div>
+            <div class="amplifier-card">
+                <div class="amplifier-title">Teacher Capacity</div>
+                <p class="amplifier-text">Teachers are the delivery system for every intervention. Turnover, staffing shortages, and initiative churn degrade implementation regardless of policy quality.</p>
+            </div>
+            <div class="amplifier-card">
+                <div class="amplifier-title">Attention Economy</div>
+                <p class="amplifier-text">The device environment is engineered to capture attention — the very resource executive function exists to manage. Schools can remove active interference.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quote -->
+<section class="quote-section">
+    <blockquote>"The problem isn't public education. The problem is that we've never fully committed to it."</blockquote>
+    <div class="attribution">Third Period Labs Philosophy</div>
+</section>
+
+<!-- Briefs -->
+<section id="briefs">
+    <div class="section-inner">
+        <div class="section-label">Policy Briefs</div>
+        <h2 class="section-heading">Research-backed. <em>Teacher-led.</em></h2>
+        <p class="section-sub">Each brief addresses one face of the three-capacity crisis with specific, actionable recommendations for Virginia policymakers.</p>
+
+        <div class="brief-card">
+            <div class="brief-number">01</div>
+            <div class="brief-content">
+                <div class="brief-badge badge-blue">Literacy</div>
+                <div class="brief-title">The Reading Honesty Problem</div>
+                <div class="brief-meta">2026 | Literacy Policy Analysis</div>
+                <p class="brief-desc">What Virginia's proficiency numbers actually mean — and what they hide.</p>
+                <a href="briefs/002-reading-honesty.html" class="brief-link">
+                    Read the brief
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="brief-card">
+            <div class="brief-number">02</div>
+            <div class="brief-content">
+                <div class="brief-badge badge-purple">Executive Function</div>
+                <div class="brief-title">Attention Under Siege</div>
+                <div class="brief-meta">March 2026 | EdTech Policy Analysis</div>
+                <p class="brief-desc">Virginia has created a policy contradiction. EO-33 accepts that attention matters, but funding still treats screen access as presumptively beneficial.</p>
+                <a href="briefs/001-digital-delusion.html" class="brief-link">
+                    Read the brief
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="brief-card">
+            <div class="brief-number">03</div>
+            <div class="brief-content">
+                <div class="brief-badge badge-amber">Epistemic Capacity</div>
+                <div class="brief-title">Can Students Tell What's True?</div>
+                <div class="brief-meta">2026 | Epistemic Capacity Analysis</div>
+                <p class="brief-desc">Building democratic reasoning in Virginia classrooms — because epistemic capacity is teachable.</p>
+                <a href="briefs/003-epistemic-capacity.html" class="brief-link">
+                    Read the brief
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Framework Section -->
+        <div class="framework-section">
+            <h3>Our Framework</h3>
+            <p>The Three-Capacity Crisis framework explains why single-issue reforms consistently underperform. Read our founding white paper.</p>
+            <a href="framework.html" class="framework-link">
+                Read the framework
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Values -->
+<section id="values">
+    <div class="section-inner">
+        <div class="section-label">What We Believe</div>
+        <h2 class="section-heading">Four principles, <em>no exceptions</em></h2>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <div class="value-title">Teachers are experts</div>
+                <p class="value-text">Teaching is intellectual work that requires constant judgment, not script-following. Policy should come from practice, not conference rooms.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <div class="value-title">Funding is the foundation</div>
+                <p class="value-text">Most "achievement gaps" are funding gaps. No amount of reform solves resource scarcity. Address the inputs before debating the pedagogy.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <div class="value-title">Technology must earn its place</div>
+                <p class="value-text">Screens aren't neutral. The burden of proof should be on ed-tech to demonstrate benefit, not on teachers to justify its absence.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">04</div>
+                <div class="value-title">Uncertainty is a skill</div>
+                <p class="value-text">The ability to say "I don't know yet" and keep investigating is fundamental to democratic citizenship. Schools should teach it.</p>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h3>About Third Period Labs</h3>
+            <p>Teacher-led means the people writing these briefs teach. Present tense. The perspective comes from lived experience, not site visits.</p>
+            <a href="philosophy.html" class="about-link">
+                Read our full philosophy
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">
+        <div class="footer-logo-icon"><span>3</span></div>
+        <span class="footer-logo-text">Third Period Labs</span>
+    </div>
+    <p class="footer-tagline">A teacher-led capacity and implementation institute.</p>
+    <div class="footer-links">
+        <a href="framework.html">Framework</a>
+        <a href="philosophy.html">Philosophy</a>
+        <a href="#briefs">Briefs</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">&copy; 2026 Third Period Labs</p>
+</footer>
+
+<script>
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+        document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+    });
+</script>
+
+</body>
+</html>

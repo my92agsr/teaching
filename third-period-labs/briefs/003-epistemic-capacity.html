@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can Students Tell What's True? | Third Period Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --forest-light: #e8f0eb;
+            --cream: #faf8f5;
+            --warm-gray: #6b6b6b;
+            --text: #1a1a1a;
+            --border: #e0ddd8;
+            --red: #c53030;
+            --red-light: #fff5f5;
+            --yellow: #b7791f;
+            --yellow-light: #fffff0;
+            --green: #276749;
+            --green-light: #f0fff4;
+            --amber: #c05621;
+            --amber-light: #fffaf0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            background: var(--forest);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header .org {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        section { margin-bottom: 2.5rem; }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest-light);
+        }
+
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        strong { font-weight: 600; }
+
+        .executive-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--amber);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .executive-summary h2 {
+            border: none;
+            padding-bottom: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .three-claims { margin-top: 1.25rem; }
+
+        .claim {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .claim-number {
+            background: var(--amber);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .claim-text { flex: 1; }
+
+        .core-claim {
+            background: var(--amber-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .core-claim p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .effect-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.25rem;
+        }
+
+        .effect-weak { background: var(--red-light); color: var(--red); }
+        .effect-moderate { background: var(--yellow-light); color: var(--yellow); }
+        .effect-strong { background: var(--green-light); color: var(--green); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--forest);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) { background: white; }
+        tr:last-child td { border-bottom: none; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        .stat-number.negative { color: var(--red); }
+        .stat-number.positive { color: var(--green); }
+        .stat-number.amber { color: var(--amber); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-top: 0.25rem;
+        }
+
+        ul { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .callout {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left: 4px solid var(--yellow);
+            background: var(--yellow-light);
+        }
+
+        .callout.insight {
+            border-left: 4px solid var(--forest);
+        }
+
+        .callout.amber-insight {
+            border-left: 4px solid var(--amber);
+            background: var(--amber-light);
+        }
+
+        .contradiction {
+            background: var(--yellow-light);
+            border: 1px solid #d69e2e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .contradiction h3 {
+            color: var(--yellow);
+            margin-top: 0;
+        }
+
+        .pro-edtech {
+            background: var(--green-light);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pro-edtech h3 {
+            color: var(--green);
+            margin-top: 0;
+        }
+
+        .what-helps {
+            background: var(--green-light);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .what-helps h3 {
+            color: var(--green);
+            margin-top: 0;
+        }
+
+        .what-complicates {
+            background: var(--amber-light);
+            border: 1px solid var(--amber);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .what-complicates h3 {
+            color: var(--amber);
+            margin-top: 0;
+        }
+
+        .framework {
+            background: var(--forest);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .framework h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .framework-question {
+            margin-bottom: 1.25rem;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .framework-question:last-child { margin-bottom: 0; }
+
+        .framework-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: white;
+            color: var(--forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .framework-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .framework-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .framework-standard {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        .stakeholder-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stakeholder-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .stakeholder-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .stakeholder-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .stakeholder-card li {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .subject-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .subject-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .subject-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .subject-content h4 {
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .subject-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .conclusion p:last-child { margin-bottom: 0; }
+
+        .conclusion .tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            opacity: 1;
+        }
+
+        .sources {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .sources h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .sources p {
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            color: var(--warm-gray);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer .version {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { font-size: 11pt; background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header { padding: 1.5rem; }
+            .framework, .conclusion { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .meta { flex-direction: column; gap: 0.5rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .subject-card { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="org">Third Period Labs</div>
+        <div class="tagline">Teacher-led Education Policy</div>
+        <h1>Can Students Tell What's True?</h1>
+        <p class="subtitle">Building Epistemic Capacity in Virginia Schools</p>
+        <div class="meta">
+            <span>Policy Brief #003</span>
+            <span>March 2026</span>
+            <span>Epistemic Capacity</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <blockquote style="font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; font-style: italic; border-left: 3px solid var(--amber); padding-left: 1.5rem; margin: 0 0 2.5rem 0; color: var(--forest-dark);">
+            "The cost of inaction is not measured in test scores. It is measured in a generation's capacity to navigate a world that will not stop demanding judgment just because schools never taught it."
+        </blockquote>
+
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+
+            <div class="three-claims">
+                <div class="claim">
+                    <div class="claim-number">1</div>
+                    <div class="claim-text"><strong>American students lack the tools to evaluate competing claims and, increasingly, the disposition to try.</strong> Only 22% of eighth graders scored at or above proficient on the 2022 NAEP civics assessment. Stanford researchers found that 52% of students judged a misleading video as strong evidence.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">2</div>
+                    <div class="claim-text"><strong>The misinformation problem is not primarily a technology problem. It is a reasoning problem.</strong> Analytic thinking improves the ability to distinguish true from false claims, but myside bias, familiarity effects, and motivated reasoning compromise even cognitively sophisticated individuals.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">3</div>
+                    <div class="claim-text"><strong>This is teachable.</strong> In one study, students who could evaluate source credibility improved from 3 out of 87 to 67 out of 87 after targeted instruction. Lateral reading can be taught in weeks and transfers across contexts.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">4</div>
+                    <div class="claim-text"><strong>Virginia should embed epistemic capacity across its curriculum.</strong> This is not partisan media policing. It is process, verification, and reasoning instruction that belongs in every subject.</div>
+                </div>
+            </div>
+
+            <div class="core-claim">
+                <p><strong>The policy direction:</strong> Every student, in every subject, should be regularly asked to evaluate how we know what we claim to know — and taught the tools to do it well.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Core Claim</h2>
+            <p>There is a capacity that underlies everything schools say they care about — critical thinking, informed citizenship, scientific literacy, media literacy — but that few schools teach directly and fewer assess. We call it <strong>epistemic capacity</strong>: the ability to evaluate how we know what we claim to know, to distinguish stronger evidence from weaker evidence, and to reason honestly when the answer is uncertain or uncomfortable.</p>
+
+            <p>Students do not have enough of it. And the gap is not primarily about intelligence, effort, or access to information. It is about tools and dispositions that can be taught but mostly aren't.</p>
+
+            <div class="callout amber-insight">
+                <p><strong>Why this matters for Virginia:</strong> Every priority in the state's educational vision — from the Profile of a Virginia Graduate to STEM readiness to civic preparation — depends on students who can reason about evidence. A student who cannot evaluate a health claim online will not become a scientifically literate adult. A student who cannot assess the credibility of a political argument will not become a capable citizen.</p>
+            </div>
+
+            <p>The good news: the evidence base for teaching these capacities is stronger than most educators realize, and the interventions are practical, not utopian. The challenge is that almost none of this is embedded in standards, assessed in any meaningful way, or treated as a shared responsibility across subjects.</p>
+        </section>
+
+        <section>
+            <h2>What the Data Show</h2>
+
+            <h3>Students Cannot Do What We Assume They Can</h3>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">22%</div>
+                    <div class="stat-label">Grade 8 NAEP Civics Proficiency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">52%</div>
+                    <div class="stat-label">Judged Misleading Video as Strong Evidence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number amber">3 of 87</div>
+                    <div class="stat-label">Could Evaluate Sources (Before Instruction)</div>
+                </div>
+            </div>
+
+            <p>The Stanford History Education Group's research on civic online reasoning provides the most granular picture of the problem. In a study of 3,446 students across middle school, high school, and college, researchers presented tasks that real-world information evaluation routinely demands.</p>
+
+            <p>The results were consistent and alarming:</p>
+
+            <ul>
+                <li><strong>Students struggled across every task.</strong> The challenge was not confined to younger or lower-performing students. High school and college students performed poorly as well.</li>
+                <li><strong>52% of students judged a misleading video as strong evidence</strong> for the claim it appeared to support, without questioning its source, context, or potential manipulation.</li>
+                <li><strong>Students overwhelmingly evaluated websites by their surface features</strong> — design quality, presence of links, professional appearance — rather than by investigating who was behind the site.</li>
+                <li><strong>Students rarely left a site to check its claims.</strong> Lateral reading was almost entirely absent.</li>
+            </ul>
+
+            <div class="callout insight">
+                <p style="margin-bottom: 0;"><strong>These findings are not evidence that students are foolish.</strong> They are evidence that students have never been systematically taught a set of practices that expert information evaluators use routinely. Professional fact-checkers, given the same tasks, performed dramatically better — not because they knew more, but because they used a different <em>process</em>.</p>
+            </div>
+
+            <h3>What Teachers See</h3>
+            <p>Teachers across Virginia describe patterns consistent with the research:</p>
+
+            <ul>
+                <li>Students who accept the first Google result as definitive and rarely scroll past it.</li>
+                <li>History students who cannot distinguish a primary source from a secondary interpretation without explicit prompting.</li>
+                <li>Science students who treat a single study reported in a news article as settled consensus.</li>
+                <li>Students who, when presented with two conflicting claims, ask "Which one is the right answer?" rather than "What would I need to know to evaluate these?"</li>
+                <li>A growing tendency to treat all contested claims as matters of opinion — collapsing the distinction between informed judgment and uninformed assertion.</li>
+                <li>Students who can identify "bias" as a concept but cannot explain how to account for it.</li>
+                <li>Increasing reliance on AI-generated summaries without any instinct to verify the output against original sources.</li>
+            </ul>
+
+            <div class="core-claim">
+                <p><strong>These are not failures of intelligence or effort. They are failures of instruction.</strong> Students default to surface evaluation, authority deference, and opinion relativism because they have not been taught better strategies.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Misinformation Research: Why This Is Harder Than It Looks</h2>
+
+            <p>Understanding why misinformation is sticky — even for educated adults — is essential for designing instruction that actually works.</p>
+
+            <div class="what-helps">
+                <h3>What Helps</h3>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Analytic thinking.</strong> People who engage in more deliberate, reflective reasoning are generally better at distinguishing true claims from false ones.</li>
+                    <li><strong>Accumulated knowledge and experience.</strong> Adults discriminate between true and false news better than younger people — meaning students are at the most vulnerable point in the developmental trajectory.</li>
+                </ul>
+            </div>
+
+            <div class="what-complicates">
+                <h3>What Complicates</h3>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Myside bias.</strong> People evaluate evidence more critically when it challenges their existing beliefs and more leniently when it confirms them. This operates across the political spectrum.</li>
+                    <li><strong>Familiarity effects.</strong> Repeated exposure to a claim increases its perceived truth, regardless of actual accuracy — the "illusory truth effect."</li>
+                    <li><strong>Motivated reasoning.</strong> More cognitively sophisticated individuals can be better at constructing justifications for what they already believe. Analytic thinking can serve confirmation rather than correction.</li>
+                    <li><strong>Intolerance of uncertainty.</strong> The demand for immediate, simple answers overrides careful evaluation. Misinformation reliably supplies confident answers; truth often comes with caveats.</li>
+                </ul>
+            </div>
+
+            <div class="callout warning">
+                <p style="margin-bottom: 0;"><strong>The pedagogical implication:</strong> Teaching students to identify false claims is necessary but insufficient. Students also need the disposition to tolerate not knowing, to hold competing possibilities in mind, and to resist the pull of premature certainty. This is a psychological capacity, not just a cognitive skill.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Hopeful Finding: This Is Teachable</h2>
+
+            <h3>Lateral Reading Works</h3>
+            <p>The Stanford History Education Group developed and tested a civic online reasoning curriculum centered on three core practices:</p>
+
+            <table>
+                <tr>
+                    <th>Practice</th>
+                    <th>Core Question</th>
+                </tr>
+                <tr>
+                    <td><strong>Source Investigation</strong></td>
+                    <td>Who is behind the information?</td>
+                </tr>
+                <tr>
+                    <td><strong>Evidence Evaluation</strong></td>
+                    <td>What evidence is offered, and is it quality evidence?</td>
+                </tr>
+                <tr>
+                    <td><strong>Lateral Verification</strong></td>
+                    <td>What do other, independent sources say?</td>
+                </tr>
+            </table>
+
+            <p>The signature skill — lateral reading — involves leaving a website to verify its credibility and claims rather than evaluating the site on its own terms. This is what professional fact-checkers do. It is fast, learnable, and effective.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">3/87</div>
+                    <div class="stat-label">Before Instruction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number positive">67/87</div>
+                    <div class="stat-label">After Instruction</div>
+                </div>
+            </div>
+
+            <p>This is not a marginal gain. It is a transformation in capability achieved through focused, practical instruction.</p>
+
+            <h3>Gains Across Grade Levels</h3>
+            <p>Civic online reasoning interventions have shown gains across middle school, high school, and college-level implementations. The skills are not developmentally restricted — younger students can learn simplified versions of the same verification practices.</p>
+
+            <h3>Cross-Domain Transfer</h3>
+            <p>Students who learn to evaluate sources in one context show evidence of transfer to other contexts, though transfer is strengthened when the same reasoning framework is reinforced across multiple subjects. This argues for a whole-school approach.</p>
+        </section>
+
+        <section>
+            <h2>What This Is Not</h2>
+            <p>Clarity about what we are <em>not</em> proposing is essential, because epistemic capacity instruction is frequently mischaracterized.</p>
+
+            <div class="subject-grid">
+                <div class="subject-card">
+                    <div class="subject-icon">⚖️</div>
+                    <div class="subject-content">
+                        <h4>Not Partisan Gatekeeping</h4>
+                        <p>We are not proposing that schools tell students which sources to trust or which positions are correct. The framework is procedural, not ideological.</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🎯</div>
+                    <div class="subject-content">
+                        <h4>Not a Vague Aspiration</h4>
+                        <p>Epistemic capacity replaces "students will think critically" with concrete routines: source investigation, evidence evaluation, lateral verification, uncertainty acknowledgment.</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🔍</div>
+                    <div class="subject-content">
+                        <h4>Not About Distrust</h4>
+                        <p>Teaching students to verify claims is teaching them to calibrate trust — to distinguish contexts where trust is warranted from contexts where verification is needed.</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">📚</div>
+                    <div class="subject-content">
+                        <h4>Not an Additional Subject</h4>
+                        <p>It requires embedding reasoning routines in existing subjects — routines that enhance, rather than compete with, content instruction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>What the Strongest Counterarguments Get Right</h2>
+
+            <h3>"Students need knowledge before they can evaluate claims."</h3>
+            <p>This is substantially correct. You cannot evaluate a claim about the American Revolution if you know nothing about the American Revolution. Background knowledge is the raw material for critical reasoning. But content knowledge alone is insufficient — highly educated adults fall for misinformation regularly, particularly when it aligns with their existing beliefs. <strong>Knowledge and process are both necessary.</strong></p>
+
+            <h3>"Teachers already teach critical thinking."</h3>
+            <p>Many do, and they deserve recognition. What they generally do not have is a shared vocabulary, a common set of practices, assessment tools that measure reasoning quality, or institutional support for making this work systematic. The proposal is to build on what effective teachers already do — not to replace it, but to scale it.</p>
+
+            <h3>"This could become politicized."</h3>
+            <p>This is a real risk. The defense against politicization is procedural rigor: the same evaluation framework applied to all sources regardless of political valence, with instruction focused on <em>how</em> to evaluate rather than <em>what</em> to conclude. Schools that have implemented civic online reasoning curricula report that the procedural focus actually reduces political tension.</p>
+
+            <h3>"You can't assess this meaningfully."</h3>
+            <p>Current standardized tests cannot, but task-based assessments — in which students are given authentic evaluation tasks and scored on their process and reasoning — exist and have been validated. Virginia could pilot these without immediately attaching high stakes.</p>
+        </section>
+
+        <div class="framework">
+            <h2>What Virginia Should Do</h2>
+            <p style="margin-bottom: 1.5rem;">Five priorities for building epistemic capacity across the curriculum:</p>
+
+            <div class="framework-question">
+                <div class="framework-number">1</div>
+                <span class="framework-title">Embed Civic Online Reasoning in Standards</span>
+                <span class="framework-desc">Include explicit, concrete, developmental expectations for source evaluation, evidence reasoning, and lateral verification at every grade band — across social studies, science, ELA, and health.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">2</div>
+                <span class="framework-title">Require Task-Based Assessment</span>
+                <span class="framework-desc">Develop assessments presenting authentic evaluation scenarios — a website to investigate, competing claims to adjudicate, a data set to interpret — scoring reasoning process, not just conclusions.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">3</div>
+                <span class="framework-title">Create Cross-Subject Reasoning Routines</span>
+                <span class="framework-desc">History: sourcing. Science: evidence evaluation. ELA: argument credibility. Health: claim verification. One underlying framework — Who says? Based on what? How do I check? — reinforced everywhere.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">4</div>
+                <span class="framework-title">Teach Uncertainty Tolerance Explicitly</span>
+                <span class="framework-desc">"Not knowing is a normal and productive state." Build classroom cultures that reward intellectual honesty over speed, where teachers model humility and uncertainty is a sign of sophistication.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">5</div>
+                <span class="framework-title">Invest in Teacher Preparation and Support</span>
+                <span class="framework-desc">Include civic online reasoning in pre-service education. Fund sustained, practice-based PD. Create and curate open-source instructional materials aligned to Virginia standards.</span>
+            </div>
+
+            <div class="framework-standard">
+                Virginia does not need a new program. It needs a new expectation: that every student, in every subject, is regularly asked to evaluate how we know what we claim to know.
+            </div>
+        </div>
+
+        <section>
+            <h2>Cross-Subject Reasoning Routines</h2>
+
+            <div class="subject-grid">
+                <div class="subject-card">
+                    <div class="subject-icon">📜</div>
+                    <div class="subject-content">
+                        <h4>History: Sourcing</h4>
+                        <p>Before reading a document, identify its author, date, purpose, and context. Ask: why was this created, and how does that shape what it says?</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🔬</div>
+                    <div class="subject-content">
+                        <h4>Science: Evidence Evaluation</h4>
+                        <p>Distinguish observation from inference. Evaluate sample sizes, control conditions, and replication. Ask: what would change my mind about this claim?</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">📖</div>
+                    <div class="subject-content">
+                        <h4>ELA: Argument Credibility</h4>
+                        <p>Evaluate the logic, evidence, and rhetorical strategies of arguments. Distinguish claims supported by evidence from claims supported only by assertion or emotional appeal.</p>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <div class="subject-icon">🏥</div>
+                    <div class="subject-content">
+                        <h4>Health: Claim Verification</h4>
+                        <p>Evaluate health claims encountered online. Identify the difference between anecdote and evidence. Investigate credentials and motives of health information sources.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core-claim">
+                <p><strong>The common thread:</strong> <em>Who says? Based on what? How do I check?</em> — the same underlying framework, reinforced in multiple contexts so that students encounter it as a habit of mind, not a one-time lesson.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Policy Recommendations</h2>
+
+            <div class="stakeholder-grid">
+                <div class="stakeholder-card">
+                    <h4>For Legislators</h4>
+                    <ul>
+                        <li>Include epistemic capacity expectations in Virginia's Standards of Learning revision</li>
+                        <li>Fund pilot programs for task-based reasoning assessments</li>
+                        <li>Invest in teacher preparation for civic online reasoning instruction</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For School Boards</h4>
+                    <ul>
+                        <li>Adopt curricula that embed source evaluation and evidence reasoning across subjects</li>
+                        <li>Support professional development on epistemic capacity instruction</li>
+                        <li>Resist the temptation to confine "media literacy" to a single course</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Administrators</h4>
+                    <ul>
+                        <li>Create shared vocabulary and common practices for reasoning instruction across departments</li>
+                        <li>Pilot task-based assessments for diagnostic purposes</li>
+                        <li>Build classroom cultures that reward uncertainty tolerance and intellectual honesty</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Teachers</h4>
+                    <ul>
+                        <li>Use the Stanford civic online reasoning materials — they are free and effective</li>
+                        <li>Model intellectual humility: "I'm not sure — let's find out"</li>
+                        <li>Embed source evaluation in existing content instruction, not as a separate unit</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Parents</h4>
+                    <ul>
+                        <li>Ask your children how they know something is true — make "how do you know?" a household question</li>
+                        <li>Model verification: check claims together before sharing them</li>
+                        <li>Support schools that teach students to evaluate evidence, not just absorb it</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="conclusion">
+            <h2>Conclusion</h2>
+            <p>The ability to evaluate evidence, verify claims, and reason under uncertainty is not a luxury competency. It is foundational to everything Virginia says it wants for its graduates: scientific literacy, civic readiness, career preparation, and the capacity for independent thought.</p>
+            <p>The research is clear that students do not currently have these capacities at adequate levels. It is equally clear that these capacities can be taught — practically, effectively, and at scale.</p>
+            <div class="tagline">The cost of inaction is measured in a generation's capacity to navigate a world that will not stop demanding judgment just because schools never taught it.</div>
+        </div>
+
+        <div class="sources">
+            <h2>Sources</h2>
+            <p>National Assessment of Educational Progress (NAEP). (2023). The Nation's Report Card: Civics 2022.</p>
+            <p>Breakstone, J., McGrew, S., Smith, M., Ortega, T., & Wineburg, S. (2018). Why we need a new approach to teaching digital literacy. <em>Phi Delta Kappan</em>, 99(6), 27–32.</p>
+            <p>McGrew, S., Breakstone, J., Ortega, T., Smith, M., & Wineburg, S. (2018). Can students evaluate online sources? Learning from assessments of civic online reasoning. <em>Theory & Research in Social Education</em>, 46(2), 165–193.</p>
+            <p>Wineburg, S., & McGrew, S. (2019). Lateral reading and the nature of expertise: Reading less and learning more when evaluating digital information. <em>Teachers College Record</em>, 121(11).</p>
+            <p>Pennycook, G., & Rand, D. G. (2021). The psychology of fake news. <em>Trends in Cognitive Sciences</em>, 25(5), 388–402.</p>
+            <p>Roozenbeek, J., & van der Linden, S. (2019). Fake news game confers psychological resistance against online misinformation. <em>Palgrave Communications</em>, 5, 65.</p>
+            <p>Barzilai, S., & Chinn, C. A. (2018). On the goals of epistemic education: Promoting apt epistemic performance. <em>Journal of the Learning Sciences</em>, 27(3), 353–389.</p>
+            <p>Stanford History Education Group. (2016). Evaluating information: The cornerstone of civic online reasoning.</p>
+            <p>Virginia Department of Education. Profile of a Virginia Graduate framework.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Third Period Labs</strong><br>
+        Teacher-led. Evidence-first. Virginia-focused.</p>
+        <p class="version">Document Version 1.0 | March 2026</p>
+    </footer>
+</body>
+</html>

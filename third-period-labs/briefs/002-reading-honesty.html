@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Reading Honesty Problem | Third Period Labs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-dark: #1e3d29;
+            --forest-light: #e8f0eb;
+            --cream: #faf8f5;
+            --warm-gray: #6b6b6b;
+            --text: #1a1a1a;
+            --border: #e0ddd8;
+            --red: #c53030;
+            --red-light: #fff5f5;
+            --yellow: #b7791f;
+            --yellow-light: #fffff0;
+            --green: #276749;
+            --green-light: #f0fff4;
+            --blue: #2b6cb0;
+            --blue-light: #ebf8ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            background: var(--forest);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header .org {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header .tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        section { margin-bottom: 2.5rem; }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest-light);
+        }
+
+        h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--forest-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        strong { font-weight: 600; }
+
+        .executive-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--blue);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .executive-summary h2 {
+            border: none;
+            padding-bottom: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .three-claims { margin-top: 1.25rem; }
+
+        .claim {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .claim-number {
+            background: var(--blue);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .claim-text { flex: 1; }
+
+        .core-claim {
+            background: var(--blue-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .core-claim p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .effect-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.25rem;
+        }
+
+        .effect-weak { background: var(--red-light); color: var(--red); }
+        .effect-moderate { background: var(--yellow-light); color: var(--yellow); }
+        .effect-strong { background: var(--green-light); color: var(--green); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--forest);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) { background: white; }
+        tr:last-child td { border-bottom: none; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        .stat-number.negative { color: var(--red); }
+        .stat-number.positive { color: var(--green); }
+        .stat-number.blue { color: var(--blue); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-top: 0.25rem;
+        }
+
+        ul { margin: 1rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .callout {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left: 4px solid var(--yellow);
+            background: var(--yellow-light);
+        }
+
+        .callout.insight {
+            border-left: 4px solid var(--forest);
+        }
+
+        .callout.blue-insight {
+            border-left: 4px solid var(--blue);
+            background: var(--blue-light);
+        }
+
+        .contradiction {
+            background: var(--yellow-light);
+            border: 1px solid #d69e2e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .contradiction h3 {
+            color: var(--yellow);
+            margin-top: 0;
+        }
+
+        .pro-edtech {
+            background: var(--green-light);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pro-edtech h3 {
+            color: var(--green);
+            margin-top: 0;
+        }
+
+        .framework {
+            background: var(--forest);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .framework h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .framework-question {
+            margin-bottom: 1.25rem;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .framework-question:last-child { margin-bottom: 0; }
+
+        .framework-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: white;
+            color: var(--forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .framework-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .framework-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .framework-standard {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        .stakeholder-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stakeholder-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .stakeholder-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .stakeholder-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .stakeholder-card li {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .conclusion p:last-child { margin-bottom: 0; }
+
+        .conclusion .tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            opacity: 1;
+        }
+
+        .sources {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .sources h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .sources p {
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            color: var(--warm-gray);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer .version {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { font-size: 11pt; background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header { padding: 1.5rem; }
+            .framework, .conclusion { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .meta { flex-direction: column; gap: 0.5rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="org">Third Period Labs</div>
+        <div class="tagline">Teacher-led Education Policy</div>
+        <h1>The Reading Honesty Problem</h1>
+        <p class="subtitle">What Virginia's Proficiency Numbers Actually Mean</p>
+        <div class="meta">
+            <span>Policy Brief #002</span>
+            <span>March 2026</span>
+            <span>Literacy Analysis</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <blockquote style="font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; font-style: italic; border-left: 3px solid var(--blue); padding-left: 1.5rem; margin: 0 0 2.5rem 0; color: var(--forest-dark);">
+            "When we tell the public that three-quarters of our students are proficient and the national assessment says fewer than one-third meet its standard, we are not lying — but we are not communicating clearly, either."
+        </blockquote>
+
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+
+            <div class="three-claims">
+                <div class="claim">
+                    <div class="claim-number">1</div>
+                    <div class="claim-text"><strong>Virginia reports that 73% of fourth graders are proficient in reading on the SOL assessment. NAEP puts that number at 31%.</strong> Both numbers are technically defensible. Neither number, standing alone, tells the public what it thinks it's hearing.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">2</div>
+                    <div class="claim-text"><strong>Post-pandemic reading recovery has stalled.</strong> Virginia's 2024 NAEP fourth-grade reading scores remain approximately 5 points below 2019 levels. Nationally, only one state — Louisiana — has surpassed its pre-pandemic fourth-grade reading benchmark. Grade 12 reading scores are 10 points lower than they were in 1992.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">3</div>
+                    <div class="claim-text"><strong>The science of reading movement has delivered real gains in early decoding instruction, but decoding is not reading.</strong> Comprehension depends on background knowledge, vocabulary depth, and sustained engagement with complex text — areas where policy attention and instructional infrastructure remain thin.</div>
+                </div>
+                <div class="claim">
+                    <div class="claim-number">4</div>
+                    <div class="claim-text"><strong>Virginia needs a literacy strategy that goes beyond mandates.</strong> Proficiency transparency, implementation support for teachers, early warning systems, adolescent literacy investment, and a decisive shift from worksheet-driven literacy to knowledge-building instruction would represent a serious start.</div>
+                </div>
+            </div>
+
+            <div class="core-claim">
+                <p><strong>The policy direction:</strong> Virginia should build a literacy system that is as honest about where students are as it is ambitious about where they're going.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Core Claim</h2>
+            <p>Virginia has a reading honesty problem. It is not a problem of fraud or deliberate deception. It is a problem of two measurement systems using the same word — <em>proficient</em> — to mean fundamentally different things, and a public that reasonably hears that word as a common-language claim about whether children can read at grade level.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number blue">73%</div>
+                    <div class="stat-label">SOL "Proficient" (Grade 4 Reading)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">31%</div>
+                    <div class="stat-label">NAEP Proficient (Grade 4 Reading)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">42 pts</div>
+                    <div class="stat-label">The Proficiency Gap</div>
+                </div>
+            </div>
+
+            <p>The explanation is not that one test is right and the other wrong. Virginia's SOL assessments measure mastery of Virginia's specific content standards. NAEP measures performance against a national framework with achievement levels set by a separate governing board. NAEP's own governing body has repeatedly noted that "NAEP Proficient" does not mean "grade level" — it represents a demanding standard that many education researchers consider aspirational rather than normative.</p>
+
+            <div class="callout blue-insight">
+                <p><strong>The policy problem:</strong> When a parent hears that 73% of Virginia fourth graders are proficient in reading, they hear a claim about competence. When the federal assessment says roughly three in ten meet its standard, the dissonance doesn't prompt nuance — it prompts confusion, distrust, or disengagement.</p>
+            </div>
+
+            <p>The result is policy miscalibration. If we believe three-quarters of our students are reading proficiently, we build policy for the margins. If the real picture is that perhaps half of our students read with genuine fluency and comprehension — a reasonable midpoint estimate — we need a fundamentally different level of investment and urgency.</p>
+        </section>
+
+        <section>
+            <h2>What the Data Show</h2>
+
+            <h3>The Proficiency Gap Is Not New, But the Post-Pandemic Context Makes It Urgent</h3>
+            <p>The gap between state proficiency rates and NAEP proficiency rates has existed for decades and is not unique to Virginia. What has changed is the post-pandemic trajectory. Virginia's 2024 NAEP fourth-grade reading score dropped approximately 5 points from 2019. Reading has been stubbornly resistant to recovery.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number negative">-5 pts</div>
+                    <div class="stat-label">VA Grade 4 Reading (2019→2024)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number negative">-10 pts</div>
+                    <div class="stat-label">Grade 12 NAEP Since 1992</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number positive">1</div>
+                    <div class="stat-label">State Exceeding Pre-Pandemic (Louisiana)</div>
+                </div>
+            </div>
+
+            <ul>
+                <li><strong>Only one state — Louisiana — surpassed its pre-pandemic fourth-grade reading score on the 2024 NAEP.</strong> Louisiana's gains are attributed to years of coherent, standards-aligned curriculum reform that predated the pandemic.</li>
+                <li><strong>Grade 12 NAEP reading scores are 10 points lower than they were in 1992.</strong> This is not a pandemic story. This is a generational decline in adolescent and young-adult reading capacity.</li>
+                <li><strong>NWEA/MAP growth data suggest that reading recovery has been slower than math recovery nationally.</strong> Reading comprehension deficits compound over time and resist quick fixes because they are tied to cumulative knowledge and vocabulary exposure.</li>
+            </ul>
+
+            <h3>What Teachers See</h3>
+            <p>Teachers across Virginia describe a reading landscape that the aggregate numbers obscure:</p>
+
+            <ul>
+                <li>Students who can decode grade-level text fluently but cannot summarize what they read or make inferences across paragraphs.</li>
+                <li>Fourth and fifth graders who pass the SOL reading assessment but struggle with content-area textbooks in science and social studies.</li>
+                <li>A widening gap between students who read outside school and students whose only text exposure is classroom-assigned passages.</li>
+                <li>Middle school students who can answer literal comprehension questions but freeze when asked to synthesize information from two sources.</li>
+                <li>High school students who avoid assigned reading entirely, relying on summaries, AI tools, or class discussion to approximate understanding.</li>
+            </ul>
+
+            <div class="callout warning">
+                <p style="margin-bottom: 0;"><strong>These observations are diagnostic signals.</strong> They suggest that Virginia's reading challenge is not primarily a decoding problem — it is a comprehension, knowledge, and engagement problem, and it intensifies as students move through the grades.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Science of Reading: What It Gets Right and Where the Conversation Thins</h2>
+
+            <p>The science of reading movement has been one of the most consequential education policy developments of the past decade. Its core contributions are real and important:</p>
+
+            <div class="pro-edtech">
+                <h3>What the Science of Reading Gets Right</h3>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Systematic phonics instruction works.</strong> Explicit, systematic instruction in letter-sound relationships is essential for beginning readers.</li>
+                    <li><strong>The three-cueing system was wrong.</strong> Encouraging beginning readers to guess words from context rather than decoding them was a major instructional failure.</li>
+                    <li><strong>Early screening matters.</strong> Universal screening tools can identify students at risk for reading difficulty as early as kindergarten.</li>
+                </ul>
+            </div>
+
+            <p>Virginia has taken meaningful steps with the Virginia Literacy Act (2022), requiring evidence-based literacy instruction, early screening, and intervention.</p>
+
+            <p>But the policy conversation has thinned at exactly the point where the instructional challenge thickens. <strong>Decoding is the foundation of reading, but it is not reading.</strong> The Simple View of Reading holds that reading comprehension is the product of decoding <em>and</em> language comprehension. Both are necessary. Neither is sufficient.</p>
+
+            <p>Language comprehension depends on:</p>
+
+            <ul>
+                <li><strong>Vocabulary breadth and depth.</strong> Students need to know many words and know them well — not just definitions but connotations, usage patterns, and relationships.</li>
+                <li><strong>Background knowledge.</strong> What a reader already knows about a topic is one of the strongest predictors of how well they will understand a text about it.</li>
+                <li><strong>Text structure awareness.</strong> Understanding how arguments are organized and how informational texts signal importance requires explicit instruction.</li>
+                <li><strong>Inferential reasoning.</strong> Most meaning in text is implicit. Skilled readers continuously generate inferences connecting what the text says to what they know.</li>
+            </ul>
+
+            <div class="contradiction">
+                <h3>The Risk in the Current Policy Moment</h3>
+                <p>States — including Virginia — will invest heavily in early decoding (correctly), declare the science of reading implemented, and neglect the knowledge-building and comprehension infrastructure that determines whether students who can decode will become students who can read.</p>
+            </div>
+
+            <div class="core-claim">
+                <p><strong>The lesson from Mississippi is not just "teach phonics."</strong> It is: build a system — coaching, professional development, aligned materials, and sustained political commitment over more than a decade.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>What the Strongest Counterarguments Get Right</h2>
+
+            <h3>"NAEP Proficient is too high a bar."</h3>
+            <p>This is correct. NAEP's Proficient level is genuinely demanding, and the National Academies have formally recommended that NAEP reconsider its achievement-level labels. We use the comparison here not to claim that 69% of Virginia fourth graders can't read, but to demonstrate that the word "proficient" is doing different work in different contexts, and that the public has no easy way to know this.</p>
+
+            <h3>"Virginia's SOL scores reflect genuine learning."</h3>
+            <p>Also correct. SOL proficiency means something real. The question is whether those expectations, and the way we communicate about them, give parents and policymakers an accurate picture of student reading capacity — particularly the capacity to comprehend complex text across subjects.</p>
+
+            <h3>"The science of reading has already addressed these issues."</h3>
+            <p>Partly correct. The movement has correctly reoriented early reading instruction. But its policy influence has been concentrated on decoding and early grades. The comprehension side — vocabulary, knowledge, complex text, adolescent literacy — has received less policy attention, less funding, and less implementation support.</p>
+        </section>
+
+        <div class="framework">
+            <h2>What Virginia Should Do</h2>
+            <p style="margin-bottom: 1.5rem;">Five priorities for a literacy system that matches the scale of the challenge:</p>
+
+            <div class="framework-question">
+                <div class="framework-number">1</div>
+                <span class="framework-title">Proficiency Transparency</span>
+                <span class="framework-desc">Adopt a public reporting framework that contextualizes SOL proficiency rates alongside NAEP results, NWEA/MAP growth data, and other external benchmarks. Report cards should include clear language explaining what "proficient" means.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">2</div>
+                <span class="framework-title">Implementation Infrastructure</span>
+                <span class="framework-desc">Invest in literacy coaching at scale, curriculum coherence with knowledge-building ELA curricula, and protected planning time. Mandates without infrastructure produce compliance without change.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">3</div>
+                <span class="framework-title">Early Warning Systems That Trigger Action</span>
+                <span class="framework-desc">Link screening data to specific intervention protocols. Fund reading specialists and structured intervention programs. Ensure intensive support before the gap compounds.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">4</div>
+                <span class="framework-title">Adolescent Literacy Revival</span>
+                <span class="framework-desc">Fund disciplinary literacy PD for middle and high school teachers. Invest in school libraries. Create incentives for knowledge-rich curricula in social studies and science.</span>
+            </div>
+
+            <div class="framework-question">
+                <div class="framework-number">5</div>
+                <span class="framework-title">Knowledge-Building Over Worksheet Literacy</span>
+                <span class="framework-desc">Shift from skills-based literacy to knowledge-building: content-rich curriculum, restored social studies and science instruction, vocabulary as a knowledge problem, and reading volume that builds comprehension.</span>
+            </div>
+
+            <div class="framework-standard">
+                A literacy system that is as honest about where students are as it is ambitious about where they're going.
+            </div>
+        </div>
+
+        <section>
+            <h2>Policy Recommendations</h2>
+
+            <div class="stakeholder-grid">
+                <div class="stakeholder-card">
+                    <h4>For Legislators</h4>
+                    <ul>
+                        <li>Require public reporting that contextualizes SOL proficiency alongside national benchmarks</li>
+                        <li>Fund the Virginia Literacy Act with implementation infrastructure, not just mandates</li>
+                        <li>Invest in adolescent literacy programs for grades 4–12</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For School Boards</h4>
+                    <ul>
+                        <li>Adopt knowledge-building ELA curricula aligned with evidence-based literacy instruction</li>
+                        <li>Request data on reading outcomes beyond SOL pass rates</li>
+                        <li>Protect elementary social studies and science instructional time</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Administrators</h4>
+                    <ul>
+                        <li>Invest in sustained literacy coaching, not one-time trainings</li>
+                        <li>Ensure screening data triggers intervention, not just reporting</li>
+                        <li>Fund reading specialists and structured intervention capacity</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Teachers</h4>
+                    <ul>
+                        <li>Advocate for content-rich, sequenced curriculum over test-prep passage sets</li>
+                        <li>Build vocabulary through sustained engagement with rich text, not weekly lists</li>
+                        <li>Share what you see: the gap between decoding and comprehension is real</li>
+                    </ul>
+                </div>
+
+                <div class="stakeholder-card">
+                    <h4>For Parents</h4>
+                    <ul>
+                        <li>Ask what "proficient" means on your child's reading assessment</li>
+                        <li>Support reading volume at home — students who read more comprehend more</li>
+                        <li>Advocate for school libraries and knowledge-rich instruction</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="conclusion">
+            <h2>Conclusion</h2>
+            <p>Virginia's reading challenge is not a mystery, and it is not hopeless. The evidence base for effective literacy instruction is stronger than it has ever been. Several states have demonstrated that coherent, sustained reform can produce meaningful gains.</p>
+            <p>But gains require honesty about the starting point. When communication fails, so does the political will for the level of investment that real reading improvement demands.</p>
+            <div class="tagline">Virginia's students deserve a literacy system that tells the truth about what "proficient" means — and builds the instructional infrastructure to make the word mean what parents think it means.</div>
+        </div>
+
+        <div class="sources">
+            <h2>Sources</h2>
+            <p>National Assessment of Educational Progress (NAEP). (2024). The Nation's Report Card: Reading 2024.</p>
+            <p>National Academies of Sciences, Engineering, and Medicine. (2020). <em>Reaping the Benefits of the NAEP Achievement Levels.</em></p>
+            <p>Virginia Department of Education. (2024). Standards of Learning Assessment Results.</p>
+            <p>Virginia Literacy Act. (2022). Code of Virginia § 22.1-253.13:1.</p>
+            <p>NWEA. (2024). MAP Growth normative data and pandemic recovery analysis.</p>
+            <p>Mississippi Department of Education. Literacy-Based Promotion Act (2013) and subsequent implementation reports.</p>
+            <p>Louisiana Department of Education. Curriculum transparency initiative and NAEP performance data.</p>
+            <p>Castles, A., Rastle, K., & Nation, K. (2018). Ending the reading wars: Reading acquisition from novice to expert. <em>Psychological Science in the Public Interest</em>, 19(1), 5–51.</p>
+            <p>Cervetti, G. N., & Wright, T. S. (2020). The role of knowledge in understanding and learning from text. In E. B. Moje et al. (Eds.), <em>Handbook of Reading Research</em> (Vol. V).</p>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Third Period Labs</strong><br>
+        Teacher-led. Evidence-first. Virginia-focused.</p>
+        <p class="version">Document Version 1.0 | March 2026</p>
+    </footer>
+</body>
+</html>
