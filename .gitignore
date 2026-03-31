@@ -1,0 +1,11 @@
+# Manana workspace - private, not deployed to website
+_manana/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
