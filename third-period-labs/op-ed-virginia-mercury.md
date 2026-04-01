@@ -17,7 +17,7 @@ It gets worse. When students read on screens instead of paper, comprehension dro
 
 Meanwhile, the 2022 PISA assessment found that students who use computers six or more hours daily score 66 points lower than non-users. That's equivalent to dropping from the 50th percentile to the 24th. The OECD's conclusion was blunt: "Technology used for leisure rather than instruction often seems to be associated with poorer results."
 
-Virginia's students are struggling. The 2024 NAEP revealed that only 31% of our fourth graders read at grade level. Only 29% of eighth graders are proficient in reading or math. We rank among the worst in the nation for the gap between our state test scores and national benchmarks - what researchers call the "honesty gap." We tell parents their kids are proficient when national assessments say they're below basic.
+Virginia's students are struggling. The 2024 NAEP found that only 31% of our fourth graders met its "Proficient" benchmark — a demanding standard that NAEP's own governing board says does not equate to grade-level reading. Only 29% of eighth graders are proficient in reading or math. We rank among the worst in the nation for the gap between our state test scores and national benchmarks — what researchers call the "standards-and-signals gap." We tell parents their kids are proficient when national assessments paint a very different picture.
 
 We have spent billions on devices. We have not spent billions on results.
 
