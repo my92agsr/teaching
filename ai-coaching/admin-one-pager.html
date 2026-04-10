@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matt Walker | AI Instructional Coach</title>
+    <meta name="description" content="Matt Walker — ESOL educator, AI builder, and candidate for AI Instructional Coach. TESOL + AI fluency in one practitioner.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:         #2a2520;
+            --navy-deep:    #1e1b18;
+            --forest:       #c45d3e;
+            --teal:         #6b8f71;
+            --gold-warm:    #e0b05a;
+            --cream:        #f7f3ee;
+            --cream-warm:   #f0ebe3;
+            --white:        #ffffff;
+            --text:         #302b26;
+            --text-light:   #5c554d;
+            --text-muted:   #8a8279;
+            --border:       #ddd8d0;
+            --border-light: #eae6df;
+            --literacy:     #4a6fa5;
+            --executive:    #8b5e83;
+            --epistemic:    #c08b30;
+            --font-heading: 'Newsreader', Georgia, serif;
+            --font-body:    'Work Sans', -apple-system, sans-serif;
+            --radius-md:    12px;
+            --radius-lg:    16px;
+            --radius-pill:  50px;
+            --shadow-md:    0 4px 16px rgba(0,0,0,0.05);
+            --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 1.0625rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media print {
+            body { background: white; font-size: 10pt; }
+            .page { box-shadow: none; border: none; max-width: 100%; }
+            .no-print { display: none !important; }
+            @page { margin: 0.5in; }
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        h1 em, h2 em { font-style: italic; color: var(--forest); }
+
+        a { color: var(--forest); }
+
+        /* ─── Page Container (printable one-pager) ─── */
+        .page {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        /* ─── Header Banner ─── */
+        .banner {
+            background: linear-gradient(165deg, var(--navy-deep) 0%, var(--navy) 100%);
+            color: white;
+            padding: 40px 48px 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(196, 93, 62, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 85% 30%, rgba(107, 143, 113, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .banner__inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner__eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
+            color: var(--gold-warm);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .banner__name {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .banner__role {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+        }
+
+        .banner__creds {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .cred {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.85);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        /* ─── Body ─── */
+        .body {
+            padding: 36px 48px 40px;
+        }
+
+        /* ─── Thesis ─── */
+        .thesis {
+            background: var(--cream-warm);
+            border-left: 4px solid var(--forest);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+        }
+
+        .thesis p {
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 68ch;
+        }
+
+        /* ─── Sections ─── */
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--forest);
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* ─── Qualification Grid ─── */
+        .qual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .qual {
+            padding: 16px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            background: var(--cream);
+        }
+
+        .qual__label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .qual__value {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            color: var(--navy);
+        }
+
+        .qual__detail {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        /* ─── Differentiator Columns ─── */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .diff {
+            text-align: center;
+            padding: 20px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diff::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .diff:nth-child(1)::before { background: var(--literacy); }
+        .diff:nth-child(2)::before { background: var(--epistemic); }
+        .diff:nth-child(3)::before { background: var(--teal); }
+
+        .diff__icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .diff__title {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .diff__text {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.55;
+        }
+
+        /* ─── Evidence List ─── */
+        .evidence {
+            list-style: none;
+            padding: 0;
+        }
+
+        .evidence li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.95rem;
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+        }
+
+        .evidence li:last-child { border-bottom: none; }
+
+        .evidence__marker {
+            color: var(--forest);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .evidence__text {
+            color: var(--text-light);
+        }
+
+        .evidence__text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ─── Closing Statement ─── */
+        .closing {
+            background: var(--navy-deep);
+            color: white;
+            padding: 24px 28px;
+            border-radius: var(--radius-md);
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .closing p {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.85);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .closing__links {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .closing__links a {
+            color: var(--gold-warm);
+            text-decoration: none;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 700px) {
+            .banner { padding: 32px 24px 28px; }
+            .body { padding: 28px 24px 32px; }
+            .qual-grid { grid-template-columns: 1fr; }
+            .diff-grid { grid-template-columns: 1fr; }
+            .banner__creds { flex-direction: column; }
+        }
+
+        /* ─── Screen-only nav ─── */
+        .screen-nav {
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .screen-nav a {
+            font-size: 0.875rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 150ms;
+        }
+
+        .screen-nav a:hover { color: var(--forest); }
+
+        .print-btn {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--forest);
+            background: none;
+            border: 1.5px solid var(--forest);
+            border-radius: var(--radius-pill);
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 150ms;
+        }
+
+        .print-btn:hover {
+            background: var(--forest);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Screen-only navigation -->
+<div class="screen-nav no-print">
+    <a href="index.html">&larr; AI Coaching Philosophy</a>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<!-- One-Pager -->
+<div class="page">
+
+    <!-- Banner -->
+    <header class="banner">
+        <div class="banner__inner">
+            <div class="banner__eyebrow">AI Instructional Coach Candidate</div>
+            <h1 class="banner__name">Matt Walker</h1>
+            <p class="banner__role">Social Studies & ESOL Teacher &middot; Prince William County Public Schools</p>
+            <div class="banner__creds">
+                <span class="cred">M.Cert. TESOL &mdash; George Mason University</span>
+                <span class="cred">Google Certified Educator L1 & L2</span>
+                <span class="cred">8+ Years K-12</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <div class="body">
+
+        <!-- Thesis -->
+        <div class="thesis">
+            <p><strong>The rare combination PWCS needs:</strong> deep ESOL expertise, hands-on AI building experience, and the classroom credibility to coach teachers who are tired of being told what to do by people who don't teach. I build AI tools. I teach five sections a day. I know what works because I test it where it matters &mdash; with real kids, in real classrooms.</p>
+        </div>
+
+        <!-- Qualifications -->
+        <div class="section-title">Qualifications</div>
+
+        <div class="qual-grid">
+            <div class="qual">
+                <div class="qual__label">Language & Equity</div>
+                <div class="qual__value">Master's Certificate in TESOL</div>
+                <div class="qual__detail">George Mason University &mdash; Zwiers-informed academic language development, sheltered instruction, multilingual pedagogy</div>
+            </div>
+            <div class="qual">
+                <div class="qual__label">Technology Integration</div>
+                <div class="qual__value">Google Certified Educator L1 & L2</div>
+                <div class="qual__detail">Advanced integration of Google Workspace for Education, assessment design, and collaborative tools at scale</div>
+            </div>
+            <div class="qual">
+                <div class="qual__label">Classroom Experience</div>
+                <div class="qual__value">8+ Years K-12</div>
+                <div class="qual__detail">Secondary Social Studies & ESOL, Prince William County Public Schools &mdash; high-diversity, Title I-adjacent populations</div>
+            </div>
+            <div class="qual">
+                <div class="qual__label">Adult Coaching</div>
+                <div class="qual__value">GMU TESOL Cohort Coaching</div>
+                <div class="qual__detail">Mentored graduate students through TESOL certification &mdash; structured feedback, observation cycles, practice-embedded PD</div>
+            </div>
+        </div>
+
+        <!-- Differentiators -->
+        <div class="section-title">What Sets This Candidacy Apart</div>
+
+        <div class="diff-grid">
+            <div class="diff">
+                <div class="diff__icon">&#9997;</div>
+                <div class="diff__title">TESOL + AI Fluency</div>
+                <div class="diff__text">Most AI coaches know tools. Most ESOL specialists know language. This candidacy offers both &mdash; equity-centered AI that actually serves multilingual learners.</div>
+            </div>
+            <div class="diff">
+                <div class="diff__icon">&#9881;</div>
+                <div class="diff__title">Builder, Not Consumer</div>
+                <div class="diff__text">I don't just use AI tools &mdash; I build them. Custom systems, automation workflows, and instructional tools designed from the classroom up, not the vendor down.</div>
+            </div>
+            <div class="diff">
+                <div class="diff__icon">&#9879;</div>
+                <div class="diff__title">Practitioner Credibility</div>
+                <div class="diff__text">Currently in the classroom. Five sections a day. Every recommendation I make to teachers is something I've tested with 30 students and a borrowed laptop cart.</div>
+            </div>
+        </div>
+
+        <!-- Evidence of Impact -->
+        <div class="section-title">Evidence of Impact</div>
+
+        <ul class="evidence">
+            <li>
+                <span class="evidence__marker">&rsaquo;</span>
+                <span class="evidence__text"><strong>AI-scaffolded ESOL instruction</strong> &mdash; designed and implemented L1 bridge scaffolds, vocabulary preview tools, and Zwiers-aligned sentence frames using AI generation, supporting academic language development for multilingual learners</span>
+            </li>
+            <li>
+                <span class="evidence__marker">&rsaquo;</span>
+                <span class="evidence__text"><strong>Third Period Labs</strong> &mdash; founded a teacher-led education policy institute producing research briefs on the three-capacity crisis (literacy, executive function, epistemic capacity) with a built-from-scratch publication platform</span>
+            </li>
+            <li>
+                <span class="evidence__marker">&rsaquo;</span>
+                <span class="evidence__text"><strong>AI tool development</strong> &mdash; built custom AI systems and automation workflows outside of school, demonstrating technical fluency beyond consumer-level tool use</span>
+            </li>
+            <li>
+                <span class="evidence__marker">&rsaquo;</span>
+                <span class="evidence__text"><strong>Adult coaching experience</strong> &mdash; mentored GMU TESOL cohort members through certification, running observation-feedback cycles and practice-embedded professional development</span>
+            </li>
+            <li>
+                <span class="evidence__marker">&rsaquo;</span>
+                <span class="evidence__text"><strong>PD design and facilitation</strong> &mdash; developed and can deliver structured PD sessions grounded in equity-first AI evaluation, scaffold-vs-crutch frameworks, and Zwiers academic language integration</span>
+            </li>
+        </ul>
+
+        <!-- Closing -->
+        <div class="closing">
+            <p>AI coaching done right isn't about the tools. It's about the judgment that decides when to use them, how to evaluate them, and who they're serving. That judgment comes from the classroom. I'm still in it.</p>
+            <div class="closing__links">
+                <a href="index.html">AI Coaching Philosophy</a> &middot;
+                <a href="../third-period-labs/index.html">Third Period Labs</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
