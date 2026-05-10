@@ -345,52 +345,6 @@ body {
 .tag-gold { background: var(--muted-gold); color: white; }
 .tag-teal { background: var(--deep-teal); color: white; }
 
-/* ===== INTERVIEW SECTION ===== */
-.interview-section {
-  background: linear-gradient(135deg, #0f1a14 0%, #1a2a1e 100%);
-  margin: 4rem -2rem;
-  padding: 3rem 2rem;
-  border-radius: 0;
-  position: relative;
-}
-
-@media (min-width: 820px) {
-  .interview-section { margin: 4rem -4rem; padding: 3.5rem 4rem; border-radius: 16px; }
-}
-
-.interview-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem; color: var(--warm-white); margin-bottom: 0.5rem;
-}
-
-.interview-section .chapter-label { color: var(--muted-gold); }
-
-.interview-topic {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 1.5rem; margin: 1.5rem 0;
-  transition: background 0.2s;
-}
-.interview-topic:hover { background: rgba(255,255,255,0.08); }
-
-.interview-topic h4 {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 1.05rem; font-weight: 700;
-  color: var(--muted-gold); margin-bottom: 0.8rem;
-}
-
-.interview-topic p, .interview-topic li {
-  color: #c5cdc7; font-size: 0.92rem; line-height: 1.7;
-}
-
-.interview-topic ul { list-style: none; padding: 0; }
-.interview-topic li { padding: 0.3rem 0 0.3rem 1.2rem; position: relative; }
-.interview-topic li::before {
-  content: '→'; position: absolute; left: 0;
-  color: var(--muted-gold); font-size: 0.85rem;
-}
-
 .use-tag {
   display: inline-block;
   background: rgba(184, 150, 62, 0.2);
@@ -453,7 +407,6 @@ body {
   html { font-size: 15px; }
   .content { padding: 2.5rem 1.2rem 4rem; }
   .vocab-table td:first-child { white-space: normal; width: auto; }
-  .interview-section { padding: 2rem 1.2rem; }
   .element-card { flex-direction: column; gap: 0.4rem; }
 }
 
@@ -462,8 +415,6 @@ body {
   .hero { min-height: auto; padding: 2rem; background: white !important; }
   .hero h1, .hero-subtitle, .hero-label, .hero-author { color: black !important; }
   .sidebar, .sidebar-overlay, .nav-toggle, .progress-bar { display: none !important; }
-  .interview-section { background: #f5f5f5 !important; }
-  .interview-topic h4, .interview-topic p, .interview-topic li { color: #333 !important; }
   .content { max-width: 100%; }
 }
 </style>
@@ -485,14 +436,13 @@ body {
   <a href="#ch4">Ch 4 — The Idea-Building Approach</a>
   <a href="#ch5">Ch 5 — Instruction</a>
   <a href="#ch6">Ch 6 — The System</a>
-  <h3>Interview Prep</h3>
-  <a href="#interview">Interview Questions</a>
+  <h3>Reference</h3>
   <a href="#vocab">Key Terms</a>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-label">Annotated Outline · Interview Reference</div>
+  <div class="hero-label">Annotated Outline</div>
   <h1>Overhauling Learning for <em>Multilingual Students</em></h1>
   <p class="hero-subtitle">An Approach for Achieving Pedagogical Justice</p>
   <div class="hero-author">Jeff Zwiers · 2024 · Corwin</div>
@@ -584,9 +534,6 @@ body {
       <li>Cultural and linguistic mismatch between school and students' lives</li>
     </ol>
 
-    <div class="callout">
-      <p><strong>Interview tip:</strong> Be able to articulate specific ways your teaching either fosters or hinders each dimension of pedagogical justice. Give concrete examples of how you've honored student voice, built in engaging challenges, or used students' cultures as assets.</p>
-    </div>
   </section>
 
   <hr class="divider">
@@ -636,9 +583,6 @@ body {
       <li><strong>Arguing/Deciding</strong> — Constructing well-reasoned arguments and making defensible decisions</li>
     </ul>
 
-    <div class="callout callout-teal">
-      <p><strong>Interview tip:</strong> Connect growth to your classroom. How do you explicitly track or foster perseverance? How do you affirm multilingual identities as strengths? Do you design tasks that develop social skills alongside academic content?</p>
-    </div>
   </section>
 
   <hr class="divider">
@@ -920,82 +864,6 @@ body {
     </div>
   </section>
 
-  <!-- ===== INTERVIEW SECTION ===== -->
-  <div class="interview-section" id="interview">
-    <div class="chapter-label">Interview Preparation</div>
-    <h2>Likely Interview Questions</h2>
-    <p style="color:#a0b0a4;margin-top:0.5rem;margin-bottom:2rem;">How to use this book in your answers — organized by question type.</p>
-
-    <div class="interview-topic">
-      <h4>"How do you support multilingual learners?"</h4>
-      <ul>
-        <li>Draw on Chapters 2–5: asset-based mindset, translanguaging, building blocks from students' lives</li>
-        <li>Allow home language use, idea-building over grammar drills, authentic assessment</li>
-        <li>Clarity over correctness — help students communicate their ideas as clearly as possible</li>
-      </ul>
-      <div class="use-tag">Chapters 2–5</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"How do you differentiate instruction?"</h4>
-      <ul>
-        <li>The Idea-Building Approach inherently differentiates: students bring unique building blocks</li>
-        <li>Students have choice in products/performances</li>
-        <li>Ideas are valued regardless of English proficiency level</li>
-      </ul>
-      <div class="use-tag">Chapter 4</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"How do you assess student learning?"</h4>
-      <ul>
-        <li>Shift from points-and-tests to idea quality</li>
-        <li>Describe an authentic product/performance assessment</li>
-        <li>Formative assessment through observation of dialogue and idea visuals</li>
-      </ul>
-      <div class="use-tag">Chapter 3</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"How do you create an inclusive/equitable classroom?"</h4>
-      <ul>
-        <li>Pedagogical Justice framework — equity is not just access, it's the quality of intellectual and personal development every student receives</li>
-        <li>Valuing multilingual identity, closing the belonging/agency/identity gaps</li>
-        <li>Cultural building blocks are equally valid as school-based building blocks</li>
-      </ul>
-      <div class="use-tag">Chapters 1, 2, 6</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"How do you engage disengaged students?"</h4>
-      <ul>
-        <li>Motivation section: intrigue, narrativity, real-world problems, choice, collaboration</li>
-        <li>Use building blocks from students' own lives</li>
-        <li>When students feel their ideas matter to others, motivation increases</li>
-      </ul>
-      <div class="use-tag">Chapter 4</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"How do you collaborate with colleagues / What role does PD play?"</h4>
-      <ul>
-        <li>PLCs focused on student idea-building and growth, not test scores</li>
-        <li>Instructional coaching with inquiry cycles and co-teaching</li>
-        <li>Evidence-based, classroom-grounded professional development</li>
-      </ul>
-      <div class="use-tag">Chapter 6</div>
-    </div>
-
-    <div class="interview-topic">
-      <h4>"Describe a lesson you're proud of."</h4>
-      <ul>
-        <li>Use the Idea-Building Lesson structure: What was the big idea?</li>
-        <li>What gathering methods did you use? How did students process?</li>
-        <li>What was the product/performance? How did students communicate their ideas?</li>
-      </ul>
-      <div class="use-tag">Chapters 4–5</div>
-    </div>
-  </div>
 
   <hr class="divider">
 
@@ -1062,7 +930,7 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(hero);
 
 // Animate sections on scroll
-const sections = document.querySelectorAll('.chapter, .interview-section');
+const sections = document.querySelectorAll('.chapter');
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
